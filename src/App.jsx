@@ -18,6 +18,22 @@ function App() {
     localStorage.setItem("oddAnswers", JSON.stringify(answers));
   }, [muralInfo, answers]);
 
+  // 1. FONCTION POUR TOUT EFFACER
+  const resetAllData = () => {
+    if (window.confirm("Êtes-vous sûr de vouloir effacer toutes les données et recommencer ?")) {
+      setAnswers({});
+      setMuralInfo({});
+      localStorage.removeItem("oddAnswers");
+      localStorage.removeItem("sdgx_identite");
+      setActiveTab("accueil");
+    }
+  };
+
+  // 2. FONCTION POUR IMPRIMER EN PDF
+  const printToPDF = () => {
+    window.print();
+  };
+
   const isIdentified = muralInfo.nomCommune && muralInfo.emailOfficiel;
 
   const { oddAverages, globalScore } = useMemo(() => {
@@ -61,69 +77,67 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      {/* NAVIGATION */}
-      <nav className="border-b border-white/10 px-8 py-4 sticky top-0 bg-black/90 backdrop-blur-md z-50">
+      {/* NAVIGATION AMÉLIORÉE (Point 3 : Toujours accessible pour revenir en arrière) */}
+      <nav className="border-b border-white/10 px-8 py-4 sticky top-0 bg-black/90 backdrop-blur-md z-50 print:hidden">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <span className="text-2xl font-black tracking-tighter text-blue-500">SDG-X</span>
+          <span className="text-2xl font-black tracking-tighter text-blue-500 cursor-pointer" onClick={() => setActiveTab("accueil")}>SDG-X</span>
           <div className="flex gap-6 text-sm font-medium uppercase tracking-widest">
             <button onClick={() => setActiveTab("accueil")} className={activeTab === "accueil" ? "text-blue-500" : "hover:text-blue-400"}>Accueil</button>
-            <button onClick={() => setActiveTab("a-propos")} className={activeTab === "a-propos" ? "text-blue-500" : "hover:text-blue-400"}>À Propos</button>
             <button onClick={() => setActiveTab("identite")} className={activeTab === "identite" ? "text-blue-500" : "hover:text-blue-400"}>Diagnostic</button>
+            <button 
+                onClick={() => isIdentified ? setActiveTab("resultats") : alert("Veuillez d'abord remplir l'identité")} 
+                className={activeTab === "resultats" ? "text-blue-500" : "hover:text-blue-400 disabled:opacity-30"}
+            >
+                Résultats
+            </button>
             <button onClick={() => setActiveTab("contact")} className={activeTab === "contact" ? "text-blue-500" : "hover:text-blue-400"}>Contact</button>
           </div>
         </div>
       </nav>
 
       <div className="max-w-7xl mx-auto px-8 py-12">
-        {/* 1. PAGE D'ACCUEIL */}
+        {/* PAGE D'ACCUEIL */}
         {activeTab === "accueil" && (
-          <div className="text-center py-24 space-y-8 animate-in fade-in zoom-in duration-700">
-            <h1 className="text-7xl font-black tracking-tighter leading-none">BIENVENUE SUR <span className="text-blue-500">SDG-X</span></h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">L'outil d'accélération des Objectifs de Développement Durable pour les communes de demain.</p>
-            <button onClick={() => setActiveTab("identite")} className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-full font-bold text-lg transition-transform hover:scale-105">COMMENCER LE DIAGNOSTIC</button>
-          </div>
-        )}
-
-        {/* 2. PAGE À PROPOS */}
-        {activeTab === "a-propos" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center py-12">
-            <div className="space-y-6">
-              <h2 className="text-5xl font-black italic underline decoration-blue-500">NOTRE ENGAGEMENT</h2>
-              <p className="text-lg text-slate-300 leading-relaxed">SDG-X est conçu pour accompagner les décideurs locaux dans la transformation durable de leurs territoires. Notre plateforme offre une vision claire et chiffrée des performances communales face aux enjeux mondiaux.</p>
-              <button onClick={() => setActiveTab("identite")} className="text-blue-400 font-bold flex items-center gap-2 hover:underline">DÉCOUVRIR LES ODD →</button>
-            </div>
-            <div className="bg-slate-900 aspect-video rounded-3xl border border-white/10 flex items-center justify-center overflow-hidden">
-               <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800" alt="Bureau moderne" className="opacity-50 hover:opacity-100 transition duration-500" />
+          <div className="text-center py-24 space-y-8 animate-in fade-in duration-700">
+            <h1 className="text-7xl font-black tracking-tighter">SDG-X : LE FUTUR <span className="text-blue-500 text-glow">DURABLE</span></h1>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light">Mesurez, analysez et pilotez les Objectifs de Développement Durable de votre commune.</p>
+            <div className="flex justify-center gap-4">
+                <button onClick={() => setActiveTab("identite")} className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.4)]">LANCER LE TEST</button>
+                <button onClick={resetAllData} className="border border-white/20 hover:bg-white/10 px-8 py-4 rounded-full font-bold text-lg transition-all">REINITIALISER</button>
             </div>
           </div>
         )}
 
-        {/* 3. DIAGNOSTIC (IDENTITÉ + FORMULAIRE + RÉSULTATS + RECS) */}
+        {/* DIAGNOSTIC / IDENTITE */}
         {activeTab === "identite" && (
-          <div className="max-w-3xl mx-auto bg-slate-900/50 p-12 rounded-3xl border border-white/10">
-            <h2 className="text-3xl font-black mb-8 border-b border-white/10 pb-4 uppercase tracking-tighter">Identité de la Commune</h2>
+          <div className="max-w-3xl mx-auto bg-slate-900/50 p-12 rounded-3xl border border-white/10 shadow-2xl">
+            <h2 className="text-3xl font-black mb-8 border-b border-white/10 pb-4 uppercase italic">1. Identité Commune</h2>
             <div className="space-y-4">
-              <input name="nomCommune" placeholder="NOM DE LA COMMUNE" value={muralInfo.nomCommune || ""} onChange={(e) => setMuralInfo({...muralInfo, [e.target.name]: e.target.value})} className="w-full bg-black border border-white/20 p-4 rounded-xl text-white focus:border-blue-500 outline-none" />
-              <input name="emailOfficiel" placeholder="EMAIL OFFICIEL" value={muralInfo.emailOfficiel || ""} onChange={(e) => setMuralInfo({...muralInfo, [e.target.name]: e.target.value})} className="w-full bg-black border border-white/20 p-4 rounded-xl text-white focus:border-blue-500 outline-none" />
-              <button disabled={!isIdentified} onClick={() => setActiveTab("formulaire")} className={`w-full p-4 rounded-xl font-black tracking-widest transition ${isIdentified ? "bg-blue-600 hover:bg-blue-700" : "bg-slate-800 text-slate-500 cursor-not-allowed"}`}>ACCÉDER AU QUESTIONNAIRE</button>
+              <input name="nomCommune" placeholder="NOM OFFICIEL" value={muralInfo.nomCommune || ""} onChange={(e) => setMuralInfo({...muralInfo, [e.target.name]: e.target.value})} className="w-full bg-black border border-white/20 p-4 rounded-xl text-white focus:border-blue-500 outline-none transition-all" />
+              <input name="emailOfficiel" placeholder="EMAIL DE CONTACT" value={muralInfo.emailOfficiel || ""} onChange={(e) => setMuralInfo({...muralInfo, [e.target.name]: e.target.value})} className="w-full bg-black border border-white/20 p-4 rounded-xl text-white focus:border-blue-500 outline-none transition-all" />
+              <button disabled={!isIdentified} onClick={() => setActiveTab("formulaire")} className={`w-full p-4 rounded-xl font-black tracking-widest transition-all ${isIdentified ? "bg-blue-600 hover:bg-blue-700 shadow-lg" : "bg-slate-800 text-slate-500 cursor-not-allowed"}`}>PASSER AU QUESTIONNAIRE →</button>
             </div>
           </div>
         )}
 
+        {/* QUESTIONNAIRE */}
         {activeTab === "formulaire" && (
           <div className="space-y-6">
-            <div className="flex justify-between items-end mb-8">
-              <h2 className="text-4xl font-black tracking-tighter uppercase">Questionnaire</h2>
-              <button onClick={() => setActiveTab("resultats")} className="bg-white text-black px-6 py-2 rounded-full font-bold text-xs uppercase hover:bg-blue-500 hover:text-white transition">Voir Résultats</button>
+            <div className="flex justify-between items-center mb-12 sticky top-24 bg-black/80 p-4 rounded-2xl backdrop-blur-sm border border-white/10 z-40">
+              <h2 className="text-3xl font-black italic">2. ANALYSE TERRAIN</h2>
+              <div className="flex gap-3">
+                <button onClick={resetAllData} className="bg-red-500/10 text-red-500 border border-red-500/20 px-4 py-2 rounded-full text-xs font-bold hover:bg-red-500 hover:text-white transition">REINITIALISER</button>
+                <button onClick={() => setActiveTab("resultats")} className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-xs uppercase hover:bg-white hover:text-black transition">CALCULER MON SCORE</button>
+              </div>
             </div>
             {questions.map((q) => (
-              <div key={q.id} className="bg-slate-900 p-8 rounded-2xl border border-white/5 hover:border-blue-500/30 transition">
-                <p className="text-xl font-bold mb-6 text-slate-200">{q.id}. {q.question}</p>
+              <div key={q.id} className="bg-slate-900/40 p-8 rounded-3xl border border-white/5 hover:border-blue-500/30 transition duration-500 group">
+                <p className="text-xl font-bold mb-6 text-slate-200 group-hover:text-white">{q.id}. {q.question}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {q.options.map((opt) => (
-                    <label key={opt.val} className={`p-4 rounded-xl border cursor-pointer transition flex items-center gap-3 ${answers[q.id] === opt.val ? "bg-blue-600 border-blue-400" : "bg-black border-white/10 hover:border-white/30"}`}>
-                      <input type="radio" checked={answers[q.id] === opt.val} onChange={() => setAnswers({...answers, [q.id]: opt.val})} />
-                      <span className="text-sm font-medium">{opt.text}</span>
+                    <label key={opt.val} className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-4 ${answers[q.id] === opt.val ? "bg-blue-600 border-blue-400 shadow-[0_0_15px_rgba(37,99,235,0.3)]" : "bg-black border-white/10 hover:border-white/40"}`}>
+                      <input type="radio" checked={answers[q.id] === opt.val} onChange={() => setAnswers({...answers, [q.id]: opt.val})} className="w-4 h-4 accent-white" />
+                      <span className="text-sm font-semibold uppercase tracking-wide">{opt.text}</span>
                     </label>
                   ))}
                 </div>
@@ -132,53 +146,54 @@ function App() {
           </div>
         )}
 
+        {/* RESULTATS & RECOMMANDATIONS (Point 3 : Tout sur la même page ou boutons de retour) */}
         {activeTab === "resultats" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-             <div className="lg:col-span-1 space-y-8">
-                <div className="bg-blue-600 p-12 rounded-3xl text-center">
-                  <span className="text-xs font-black uppercase tracking-widest opacity-80">Indice Global</span>
-                  <div className="text-8xl font-black leading-none my-2">{globalScore}</div>
-                  <span className="text-xl font-bold opacity-60">/ 4</span>
+          <div className="space-y-12 animate-in slide-in-from-bottom-10 duration-700">
+             <div className="flex flex-wrap justify-between items-center gap-4 border-b border-white/10 pb-8 print:hidden">
+                <h2 className="text-5xl font-black tracking-tighter uppercase italic">Votre Scorecard</h2>
+                <div className="flex gap-4">
+                    <button onClick={() => setActiveTab("formulaire")} className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-bold transition">← RETOUR AUX QUESTIONS</button>
+                    <button onClick={printToPDF} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition">IMPRIMER PDF (OFFICIEL)</button>
                 </div>
-                <button onClick={() => setActiveTab("recommandations")} className="w-full bg-white text-black p-4 rounded-2xl font-black hover:bg-blue-500 hover:text-white transition">VOIR RECOMMANDATIONS</button>
              </div>
-             <div className="lg:col-span-2 bg-slate-900 rounded-3xl p-8 border border-white/10">
-                <ReactECharts option={chartOption} style={{ height: "600px" }} />
+
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-1 bg-gradient-to-br from-blue-600 to-blue-800 p-12 rounded-[40px] shadow-2xl flex flex-col items-center justify-center border border-white/20">
+                  <span className="text-xs font-black uppercase tracking-[0.3em] opacity-80 mb-4">Maturité SDG-X</span>
+                  <div className="text-9xl font-black leading-none">{globalScore}</div>
+                  <span className="text-2xl font-bold opacity-60 mt-2">SUR 4.0</span>
+                </div>
+                <div className="lg:col-span-2 bg-slate-900/50 rounded-[40px] p-8 border border-white/10 backdrop-blur-md">
+                   <ReactECharts option={chartOption} style={{ height: "550px" }} />
+                </div>
+             </div>
+
+             <div className="bg-white text-black p-12 rounded-[40px] shadow-2xl print:bg-transparent print:text-black">
+                <h3 className="text-4xl font-black tracking-tighter mb-8 italic uppercase underline decoration-blue-600 decoration-8 underline-offset-4">Analyse des priorités</h3>
+                <div className="grid gap-6">
+                  {Object.keys(answers).map(id => (answers[id] === 1 || answers[id] === 2) && (
+                    <div key={id} className="p-6 bg-slate-100 rounded-3xl border-l-[12px] border-blue-600 flex gap-6 items-center">
+                       <div className="text-4xl font-black text-blue-600/30 uppercase shrink-0">Q{id}</div>
+                       <p className="text-lg font-bold leading-tight">Une action stratégique est requise pour cet indicateur afin d'atteindre les objectifs 2030.</p>
+                    </div>
+                  ))}
+                  {Object.keys(answers).every(id => answers[id] > 2) && (
+                    <p className="text-center text-slate-400 italic py-10">Félicitations, aucune alerte critique détectée.</p>
+                  )}
+                </div>
              </div>
           </div>
         )}
 
-        {activeTab === "recommandations" && (
-          <div className="space-y-8">
-            <h2 className="text-5xl font-black tracking-tighter italic">PLAN D'ACTION PRIORITAIRE</h2>
-            <div className="grid gap-4">
-              {Object.keys(answers).map(id => (answers[id] === 1 || answers[id] === 2) && (
-                <div key={id} className="bg-slate-900 p-6 rounded-2xl border-l-4 border-orange-500 flex gap-6 items-center">
-                   <div className="text-3xl font-black text-orange-500 opacity-50 uppercase">Q{id}</div>
-                   <p className="text-slate-300 font-medium">Action recommandée pour cet indicateur stratégique.</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 4. PAGE CONTACT */}
+        {/* PAGE CONTACT */}
         {activeTab === "contact" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 py-12">
-            <div className="space-y-12">
-              <h2 className="text-6xl font-black tracking-tighter">CONTACTEZ-NOUS</h2>
-              <div className="space-y-6 text-slate-400">
-                <p className="flex items-center gap-4 text-xl"><span className="text-blue-500">📍</span> Paris, France</p>
-                <p className="flex items-center gap-4 text-xl"><span className="text-blue-500">📞</span> 01 23 45 67 89</p>
-                <p className="flex items-center gap-4 text-xl"><span className="text-blue-500">✉️</span> info@sdg-x.com</p>
-              </div>
+          <div className="max-w-4xl mx-auto py-12 text-center space-y-12 animate-in fade-in">
+            <h2 className="text-6xl font-black italic">REJOIGNEZ LE MOUVEMENT</h2>
+            <div className="bg-slate-900/50 p-12 rounded-[40px] border border-white/10">
+                <p className="text-2xl font-light text-slate-300 mb-8">Une question ? Un besoin d'accompagnement spécifique pour votre commune ?</p>
+                <a href="mailto:info@sdg-x.com" className="text-4xl font-black text-blue-500 hover:text-white transition duration-500 underline decoration-white/20">info@sdg-x.com</a>
             </div>
-            <div className="bg-slate-900 p-10 rounded-3xl border border-white/10 space-y-4">
-              <input placeholder="NOM" className="w-full bg-black border border-white/20 p-4 rounded-xl outline-none focus:border-blue-500" />
-              <input placeholder="EMAIL" className="w-full bg-black border border-white/20 p-4 rounded-xl outline-none focus:border-blue-500" />
-              <textarea placeholder="MESSAGE" rows="5" className="w-full bg-black border border-white/20 p-4 rounded-xl outline-none focus:border-blue-500"></textarea>
-              <button className="w-full bg-blue-600 p-4 rounded-xl font-black hover:bg-blue-700 transition">ENVOYER</button>
-            </div>
+            <button onClick={() => setActiveTab("accueil")} className="text-slate-500 font-bold hover:text-white uppercase tracking-widest text-sm">← Retour à l'accueil</button>
           </div>
         )}
       </div>
