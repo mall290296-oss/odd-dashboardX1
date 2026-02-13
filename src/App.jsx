@@ -134,7 +134,7 @@ function App() {
               <div className="absolute -inset-1 bg-blue-500 rounded-[40px] blur opacity-10 group-hover:opacity-30 transition"></div>
               <div className="relative bg-slate-900 rounded-[40px] border border-white/10 overflow-hidden shadow-2xl">
                 <img 
-                  src="https://metsims.com/wp-content/uploads/2023/11/17-SDG-1500x1000-EN-min-1.png" 
+                  src="https://educatif.eedf.fr/wp-content/uploads/sites/157/2021/02/ODD.jpg" 
                   alt="SDG Framework" 
                   className="w-full h-full object-cover opacity-80"
                 />
