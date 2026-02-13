@@ -127,14 +127,14 @@ function App() {
               <p className="text-xl text-slate-300 leading-relaxed font-light">SDG-X transforme les données communales en leviers d'action. En alignant votre stratégie sur les Objectifs de Développement Durable, nous créons ensemble des territoires résilients, inclusifs et respectueux des limites planétaires.</p>
               <div className="p-6 bg-slate-900/50 rounded-2xl border border-blue-500/30">
                 <p className="text-blue-400 font-bold tracking-widest uppercase text-xs mb-2">Méthodologie</p>
-                <p className="text-sm italic text-slate-400">Analyse basée sur les 52 indicateurs clés de performance des ODD pour le secteur public local.</p>
+                <p className="text-sm italic text-slate-400">Analyse basée sur les 17 indicateurs de performance des ODD.</p>
               </div>
             </div>
             <div className="relative group">
               <div className="absolute -inset-1 bg-blue-500 rounded-[40px] blur opacity-10 group-hover:opacity-30 transition"></div>
               <div className="relative bg-slate-900 rounded-[40px] border border-white/10 overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800" 
+                  src="https://metsims.com/wp-content/uploads/2023/11/17-SDG-1500x1000-EN-min-1.png" 
                   alt="SDG Framework" 
                   className="w-full h-full object-cover opacity-80"
                 />
@@ -205,7 +205,7 @@ function App() {
                   <div className="text-5xl font-black text-blue-600/30 uppercase shrink-0">{item.odd}</div>
                   <div>
                     <p className="text-xs font-black text-blue-500 uppercase mb-1">Score critique : {item.value} / 4</p>
-                    <p className="text-xl font-bold leading-tight">Cet objectif nécessite une révision immédiate de vos politiques publiques pour garantir la conformité aux standards SDG-X.</p>
+                    <p className="text-xl font-bold leading-tight">Cet objectif nécessite une révision immédiate de vos politiques publiques afin de garantir leur conformité avec les ODD.</p>
                   </div>
                 </div>
               )) : (
