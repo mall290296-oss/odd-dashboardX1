@@ -1,678 +1,652 @@
 [
   {
     "id": 1,
-    "theme": "Environnement",
-    "question": "Intégration des ODD environnementaux dans la planification communale",
+    "question": "Q1 - Intégration des ODD environnementaux dans la planification communale (ODD 11, 13) - PLU/PLUi, PCAET, schémas communaux - . Évalue dans quelle mesure la commune intègre les enjeux environnementaux et climatiques dans ses documents de planification.",
     "odds": [11, 13],
     "options": [
-      {"val": 1, "text": "Aucun document", "color": "rouge"},
-      {"val": 2, "text": "Mention ponctuelle", "color": "orange"},
-      {"val": 3, "text": "Objectifs & plan d’action", "color": "jaune"},
-      {"val": 4, "text": "Intégration complète et suivi", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun document ne prend en compte ces enjeux", "color": "rouge" },
+      { "val": 1, "text": "Mention ponctuelle, sans objectifs mesurables", "color": "orange" },
+      { "val": 2, "text": "Objectifs identifiés mais plan d’action limité", "color": "jaune" },
+      { "val": 3, "text": "Objectifs clairs avec plan d’action et indicateurs", "color": "vert clair" },
+      { "val": 4, "text": "Intégration complète, suivie annuellement et appliquée dans les décisions", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 2,
-    "theme": "Environnement",
-    "question": "Diagnostics énergétiques des bâtiments communaux",
+    "question": "Q2 - Couverture des diagnostics énergétiques des bâtiments communaux (ODD 7, 13) - écoles, mairie, équipements sportifs - . Pourcentage des bâtiments communaux ayant un diagnostic énergétique récent ou une rénovation énergétique.",
     "odds": [7, 13],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 3,
-    "theme": "Environnement",
-    "question": "Réduction de la consommation d’énergie (LED, isolation)",
+    "question": "Q3 - Réduction de la consommation d’énergie dans les bâtiments communaux (ODD 7, 13). Pourcentage des bâtiments communaux où des mesures de réduction de la consommation d’énergie ont été mises en place - éclairage LED, isolation, chauffage optimisé - .",
     "odds": [7, 13],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 4,
-    "theme": "Environnement",
-    "question": "Gestion de l’eau potable et assainissement",
+    "question": "Q4 - Gestion de l’eau potable et de l’assainissement (ODD 6). Pourcentage des réseaux d’eau potable et d’assainissement suivis et conformes aux normes environnementales.",
     "odds": [6],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 5,
-    "theme": "Environnement",
-    "question": "Gestion des risques naturels (prévention et suivi)",
+    "question": "Q5 - Gestion des risques naturels (ODD 11, 13) - inondations, incendies, érosion - . Évalue la mise en place de plans de prévention et de dispositifs de gestion des risques naturels.",
     "odds": [11, 13],
     "options": [
-      {"val": 1, "text": "Aucun dispositif", "color": "rouge"},
-      {"val": 2, "text": "Planification partielle", "color": "orange"},
-      {"val": 3, "text": "Dispositifs opérationnels", "color": "jaune"},
-      {"val": 4, "text": "Stratégie complète", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun dispositif ni diagnostic des risques", "color": "rouge" },
+      { "val": 1, "text": "Connaissance du risque mais actions limitées", "color": "orange" },
+      { "val": 2, "text": "Planification partielle sans exercice régulier", "color": "jaune" },
+      { "val": 3, "text": "Dispositifs opérationnels avec communication aux habitants", "color": "vert clair" },
+      { "val": 4, "text": "Stratégie complète de prévention, suivi et aménagements", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 6,
-    "theme": "Environnement",
-    "question": "Espaces naturels protégés / Biodiversité",
+    "question": "Q6 - Surface communale couverte par des espaces naturels protégés ou favorables à la biodiversité (ODD 15). Pourcentage de la surface communale classée en zone protégée ou gérée durablement pour la biodiversité.",
     "odds": [15],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 7,
-    "theme": "Environnement",
-    "question": "Actions concrètes de protection de la biodiversité",
+    "question": "Q7 - État de la biodiversité et mesures de protection (ODD 15). Évalue l’existence d’inventaires de la biodiversité locale et la mise en œuvre de mesures de protection - trames vertes/bleues, refuges LPO -.",
     "odds": [15],
     "options": [
-      {"val": 1, "text": "Aucune mesure", "color": "rouge"},
-      {"val": 2, "text": "Mesures ponctuelles", "color": "orange"},
-      {"val": 3, "text": "Actions avec suivi", "color": "jaune"},
-      {"val": 4, "text": "Gestion avancée (scientifique)", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucune mesure de protection", "color": "rouge" },
+      { "val": 1, "text": "Mesures ponctuelles sans inventaire ni suivi", "color": "orange" },
+      { "val": 2, "text": "Inventaire partiel et mesures limitées", "color": "jaune" },
+      { "val": 3, "text": "Actions cohérentes avec la trame verte et bleue", "color": "vert clair" },
+      { "val": 4, "text": "Gestion avancée de la biodiversité avec suivi scientifique", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 8,
-    "theme": "Environnement",
-    "question": "Gestion et tri des déchets",
+    "question": "Q8 - Gestion des déchets et taux de tri sélectif (ODD 12). Pourcentage des déchets ménagers collectés faisant l’objet d’une valorisation ou d’un recyclage.",
     "odds": [12],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 9,
-    "theme": "Environnement",
-    "question": "Économie circulaire (compost, réemploi)",
+    "question": "Q9 - Politique d’économie circulaire et réduction des déchets (ODD 12). Évalue les initiatives communales pour réduire la production de déchets à la source - compostage, réemploi - .",
     "odds": [12],
     "options": [
-      {"val": 1, "text": "Aucune initiative", "color": "rouge"},
-      {"val": 2, "text": "Projet limité", "color": "orange"},
-      {"val": 3, "text": "Politique cohérente", "color": "jaune"},
-      {"val": 4, "text": "Politique intégrée et suivie", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucune initiative", "color": "rouge" },
+      { "val": 1, "text": "Initiatives ponctuelles (ex: distribution de composteurs)", "color": "orange" },
+      { "val": 2, "text": "Projet structuré mais limité à une zone", "color": "jaune" },
+      { "val": 3, "text": "Politique communale cohérente de réduction des déchets", "color": "vert clair" },
+      { "val": 4, "text": "Politique intégrée, suivie annuellement avec objectifs atteints", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 10,
-    "theme": "Environnement",
-    "question": "Restauration durable (Bio, local dans les cantines)",
+    "question": "Q10 - Restauration collective durable (ODD 12, 13, 15) - cantines scolaires, EHPAD - . Pourcentage de produits bio, locaux ou issus du commerce équitable dans les repas servis par la commune.",
     "odds": [12, 13, 15],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 11,
-    "theme": "Environnement",
-    "question": "Mobilité douce et transports alternatifs",
+    "question": "Q11 - Mobilité douce et transports alternatifs (ODD 11, 13). Pourcentage de la voirie communale aménagée pour les modes de transport doux (pistes cyclables, zones piétonnes).",
     "odds": [11, 13],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 12,
-    "theme": "Environnement",
-    "question": "Flotte municipale peu polluante",
+    "question": "Q12 - Part des véhicules municipaux électriques ou à faibles émissions (ODD 11, 13, 7). Pourcentage de la flotte de véhicules municipaux utilisant des énergies propres.",
     "odds": [11, 13, 7],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 13,
-    "theme": "Environnement",
-    "question": "Éclairage public efficient",
+    "question": "Q13 - Éclairage public efficient (ODD 7, 13). Pourcentage de l’éclairage public utilisant des technologies économes - LED - ou géré de manière intelligente - extinction nocturne - .",
     "odds": [7, 13],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 14,
-    "theme": "Environnement",
-    "question": "Accès aux espaces verts à moins de 300m",
+    "question": "Q14 - Espaces verts accessibles à la population (ODD 11, 15). Pourcentage de la population résidant à moins de 300 mètres d’un espace vert public.",
     "odds": [11, 15],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 15,
-    "theme": "Environnement",
-    "question": "Programmes de sensibilisation environnementale",
+    "question": "Q15 - Programme de sensibilisation environnementale (ODD 12, 13, 15). Évalue l’existence et la régularité d’actions de sensibilisation au développement durable auprès des habitants.",
     "odds": [12, 13, 15],
     "options": [
-      {"val": 1, "text": "Aucun programme", "color": "rouge"},
-      {"val": 2, "text": "Initiatives ponctuelles", "color": "orange"},
-      {"val": 3, "text": "Programme structuré", "color": "jaune"},
-      {"val": 4, "text": "Programme complet évalué", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun programme", "color": "rouge" },
+      { "val": 1, "text": "Initiatives ponctuelles sans stratégie globale", "color": "orange" },
+      { "val": 2, "text": "Programme régulier mais limité", "color": "jaune" },
+      { "val": 3, "text": "Programme structuré avec suivi de la participation", "color": "vert clair" },
+      { "val": 4, "text": "Programme complet évalué chaque année", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 16,
-    "theme": "Environnement",
-    "question": "Partenariats pour des projets environnementaux",
+    "question": "Q16 - Partenariats avec des associations ou acteurs environnementaux locaux (ODD 17). Pourcentage de projets environnementaux menés en partenariat avec des acteurs du territoire.",
     "odds": [17],
     "options": [
-      {"val": 1, "text": "Aucun", "color": "rouge"},
-      {"val": 2, "text": "1-25% des projets", "color": "orange"},
-      {"val": 3, "text": "26-50% des projets", "color": "jaune"},
-      {"val": 4, "text": ">50% des projets", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun partenariat", "color": "rouge" },
+      { "val": 1, "text": "1 - 10 % des projets", "color": "orange" },
+      { "val": 2, "text": "11 - 30 % des projets", "color": "jaune" },
+      { "val": 3, "text": "31 - 50 % des projets", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 50 % des projets", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 17,
-    "theme": "Environnement",
-    "question": "Budget alloué à la transition écologique",
+    "question": "Q17 - Budgets alloués à la transition écologique (ODD 11, 13, 15). Pourcentage du budget municipal d’investissement dédié spécifiquement à des projets de transition écologique.",
     "odds": [11, 13, 15],
     "options": [
-      {"val": 1, "text": "0-5%", "color": "rouge"},
-      {"val": 2, "text": "6-10%", "color": "orange"},
-      {"val": 3, "text": "11-20%", "color": "jaune"},
-      {"val": 4, "text": ">20%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0 - 1 %", "color": "rouge" },
+      { "val": 1, "text": "2 - 5 %", "color": "orange" },
+      { "val": 2, "text": "6 - 10 %", "color": "jaune" },
+      { "val": 3, "text": "11 - 20 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 20 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 18,
-    "theme": "Social & Gouvernance",
-    "question": "Accessibilité PMR des bâtiments publics",
+    "question": "Q18 - Accessibilité des bâtiments publics aux PMR (ODD 10, 11, 16). Pourcentage des bâtiments communaux recevant du public qui sont totalement accessibles.",
     "odds": [10, 11, 16],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 19,
-    "theme": "Social & Gouvernance",
-    "question": "Services municipaux accessibles en ligne",
+    "question": "Q19 - Accessibilité des services municipaux en ligne (ODD 10, 16). Pourcentage des démarches administratives communales réalisables par voie numérique de manière accessible.",
     "odds": [10, 16],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 20,
-    "theme": "Social & Gouvernance",
-    "question": "Participation citoyenne et co-construction",
+    "question": "Q20 - Participation citoyenne aux décisions municipales (ODD 16, 17). Évalue l’existence de dispositifs de participation citoyenne - conseils de quartier, budgets participatifs - .",
     "odds": [16, 17],
     "options": [
-      {"val": 1, "text": "Aucune consultation", "color": "rouge"},
-      {"val": 2, "text": "Consultations régulières", "color": "orange"},
-      {"val": 3, "text": "Budgets participatifs", "color": "jaune"},
-      {"val": 4, "text": "Co-construction réelle", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucune consultation", "color": "rouge" },
+      { "val": 1, "text": "Consultations ponctuelles sans suivi", "color": "orange" },
+      { "val": 2, "text": "Consultations régulières", "color": "jaune" },
+      { "val": 3, "text": "Dispositifs formalisés", "color": "vert clair" },
+      { "val": 4, "text": "Co-construction réelle avec évaluation", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 21,
-    "theme": "Social & Gouvernance",
-    "question": "Égalité F/H dans les postes de responsabilité",
+    "question": "Q21 - Égalité femmes-hommes dans la politique municipale (ODD 5). Pourcentage de femmes dans les postes de direction et parmi les élus ayant des délégations stratégiques.",
     "odds": [5],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 22,
-    "theme": "Social & Gouvernance",
-    "question": "Offre éducative liée au développement durable",
+    "question": "Q22 - Offre éducative et culturelle liée au développement durable (ODD 4). Pourcentage d’écoles ou de centres culturels proposant des programmes réguliers sur les ODD.",
     "odds": [4],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 23,
-    "theme": "Social & Gouvernance",
-    "question": "Accès aux services de santé et prévention",
+    "question": "Q23 - Santé et bien-être de la population (ODD 3). Pourcentage de la population ayant accès à des services municipaux de prévention, de sport ou de soutien psychologique.",
     "odds": [3],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 24,
-    "theme": "Social & Gouvernance",
-    "question": "Aide sociale et dispositifs d’insertion",
+    "question": "Q24 - Lutte contre la précarité et inclusion sociale (ODD 1, 10). Évalue l’efficacité des dispositifs d’aide sociale municipaux (CCAS) par rapport aux besoins identifiés.",
     "odds": [1, 10],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 25,
-    "theme": "Social & Gouvernance",
-    "question": "Services dédiés aux seniors",
+    "question": "Q25 - Services adaptés aux besoins des personnes âgées (ODD 3, 10). Pourcentage de personnes âgées bénéficiant de services municipaux dédiés - portage de repas, visites - .",
     "odds": [3, 10],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 26,
-    "theme": "Social & Gouvernance",
-    "question": "Accessibilité handicap dans les services communaux",
+    "question": "Q26 - Services adaptés et accessibles aux personnes handicapées (ODD 10, 11). Évalue l’offre de services municipaux spécifiques pour l’inclusion des personnes en situation de handicap.",
     "odds": [10, 11],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 27,
-    "theme": "Social & Gouvernance",
-    "question": "Prévention et sécurité publique",
+    "question": "Q27 - Politiques de prévention et de sécurité publique (ODD 16). Évalue l’existence de dispositifs de prévention de la délinquance et de médiation sociale.",
     "odds": [16],
     "options": [
-      {"val": 1, "text": "Aucun dispositif", "color": "rouge"},
-      {"val": 2, "text": "Organisation minimale", "color": "orange"},
-      {"val": 3, "text": "Dispositifs suivis", "color": "jaune"},
-      {"val": 4, "text": "Stratégie complète annuelle", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun dispositif", "color": "rouge" },
+      { "val": 1, "text": "Actions ponctuelles", "color": "orange" },
+      { "val": 2, "text": "Organisation minimale", "color": "jaune" },
+      { "val": 3, "text": "Dispositifs structurés et suivis", "color": "vert clair" },
+      { "val": 4, "text": "Stratégie complète avec bilan annuel", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 28,
-    "theme": "Social & Gouvernance",
-    "question": "Communication sur les projets municipaux",
+    "question": "Q28 - Communication sur les projets municipaux auprès des habitants (ODD 16). Évalue la transparence et la clarté de la communication municipale sur les grands projets.",
     "odds": [16],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 29,
-    "theme": "Social & Gouvernance",
-    "question": "Accessibilité numérique pour les foyers",
+    "question": "Q29 - Accessibilité numérique et équipement des habitants (ODD 10, 4). Pourcentage d’habitants ayant accès à des points numériques publics ou formés à l’usage du numérique.",
     "odds": [10, 4],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 30,
-    "theme": "Social & Gouvernance",
-    "question": "Partenariats avec le secteur associatif",
+    "question": "Q30 - Partenariats avec des associations ou acteurs sociaux locaux (ODD 17). Pourcentage de projets sociaux municipaux menés en co-construction avec le tissu associatif.",
     "odds": [17],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 31,
-    "theme": "Social & Gouvernance",
-    "question": "Formation des agents municipaux au DD",
+    "question": "Q31 - Formation des agents communaux au développement durable (ODD 4, 12, 13). Pourcentage d’agents ayant suivi une formation spécifique aux enjeux de transition.",
     "odds": [4, 12, 13],
     "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0-10 %", "color": "rouge" },
+      { "val": 1, "text": "11 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 32,
-    "theme": "Social & Gouvernance",
-    "question": "Budget alloué à l'action sociale",
+    "question": "Q32 - Budget social annuel dédié à l’action sociale (ODD 1, 3, 10). Pourcentage du budget de fonctionnement dédié aux actions de solidarité et d’inclusion.",
     "odds": [1, 3, 10],
     "options": [
-      {"val": 1, "text": "0-5%", "color": "rouge"},
-      {"val": 2, "text": "6-10%", "color": "orange"},
-      {"val": 3, "text": "11-20%", "color": "jaune"},
-      {"val": 4, "text": ">20%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0 - 1 %", "color": "rouge" },
+      { "val": 1, "text": "2 - 5 %", "color": "orange" },
+      { "val": 2, "text": "6 - 10 %", "color": "jaune" },
+      { "val": 3, "text": "11 - 20 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 20 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 33,
-    "theme": "Social & Gouvernance",
-    "question": "Suivi et évaluation des politiques sociales",
+    "question": "Q33 - Suivi et évaluation des politiques sociales (ODD 16). Évalue l’utilisation d’indicateurs d’impact pour piloter les politiques sociales communales.",
     "odds": [16],
     "options": [
-      {"val": 1, "text": "Aucun suivi", "color": "rouge"},
-      {"val": 2, "text": "Suivi minimal", "color": "orange"},
-      {"val": 3, "text": "Suivi régulier", "color": "jaune"},
-      {"val": 4, "text": "Suivi complet annuel", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun suivi", "color": "rouge" },
+      { "val": 1, "text": "Suivi ponctuel sans indicateurs d’impact", "color": "orange" },
+      { "val": 2, "text": "Suivi minimal", "color": "jaune" },
+      { "val": 3, "text": "Suivi régulier avec indicateurs", "color": "vert clair" },
+      { "val": 4, "text": "Suivi complet avec bilan annuel", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 34,
-    "theme": "Économie & Aménagement",
-    "question": "Soutien à l'économie locale et de proximité",
+    "question": "Q34 - Soutien à l’économie locale et durable (ODD 8, 12). Pourcentage des entreprises locales bénéficiant de soutiens municipaux - subventions, visibilité, dispositifs - .",
     "odds": [8, 12],
     "options": [
-      {"val": 1, "text": "<6%", "color": "rouge"},
-      {"val": 2, "text": "6-24%", "color": "orange"},
-      {"val": 3, "text": "24-40%", "color": "jaune"},
-      {"val": 4, "text": ">40%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 6 %", "color": "rouge" },
+      { "val": 1, "text": "6 - 15 %", "color": "orange" },
+      { "val": 2, "text": "16 - 24 %", "color": "jaune" },
+      { "val": 3, "text": "25 - 40 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 40 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 35,
-    "theme": "Économie & Aménagement",
-    "question": "Part de la commande publique responsable",
+    "question": "Q35 - Commande publique responsable (ODD 12, 13). Pourcentage des marchés publics incluant des critères environnementaux ou sociaux.",
     "odds": [12, 13],
     "options": [
-      {"val": 1, "text": "0-19%", "color": "rouge"},
-      {"val": 2, "text": "19-55%", "color": "orange"},
-      {"val": 3, "text": "55-68%", "color": "jaune"},
-      {"val": 4, "text": ">68%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0 - 19 %", "color": "rouge" },
+      { "val": 1, "text": "20 - 35 %", "color": "orange" },
+      { "val": 2, "text": "36 - 55 %", "color": "jaune" },
+      { "val": 3, "text": "56 - 68 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 68 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 36,
-    "theme": "Économie & Aménagement",
-    "question": "Projets d'aménagement durable (RE2020/ZAN)",
+    "question": "Q36 - Aménagement durable et sobriété foncière (ODD 11). Évalue l’application des normes de durabilité dans les nouvelles constructions - RE2020 - et la lutte contre l’artificialisation - ZAN 2050 - .",
     "odds": [11],
     "options": [
-      {"val": 1, "text": "1-25%", "color": "rouge"},
-      {"val": 2, "text": "25-50%", "color": "orange"},
-      {"val": 3, "text": "50-75%", "color": "jaune"},
-      {"val": 4, "text": "75-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 1 %", "color": "rouge" },
+      { "val": 1, "text": "1 - 25 %", "color": "orange" },
+      { "val": 2, "text": "26 - 50 %", "color": "jaune" },
+      { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+      { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 37,
-    "theme": "Économie & Aménagement",
-    "question": "Zones urbaines durables / Éco-quartiers",
+    "question": "Q37 - Gestion durable des zones urbaines et projets éco-responsables (ODD 9, 11, 12). Nombre de zones ou de quartiers faisant l’objet d’une gestion certifiée éco-responsable - ÉcoQuartiers, ÉcoCités - .",
     "odds": [9, 11, 12],
     "options": [
-      {"val": 1, "text": "Aucune", "color": "rouge"},
-      {"val": 2, "text": "1 zone", "color": "orange"},
-      {"val": 3, "text": "2-10 zones", "color": "jaune"},
-      {"val": 4, "text": ">10 zones", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucune zone", "color": "rouge" },
+      { "val": 1, "text": "1 zone", "color": "orange" },
+      { "val": 2, "text": "2 - 5 zones", "color": "jaune" },
+      { "val": 3, "text": "6 - 10 zones", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 10 zones", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 38,
-    "theme": "Économie & Aménagement",
-    "question": "Promotion du tourisme durable",
+    "question": "Q38 - Développement du tourisme durable (ODD 8, 12, 15). Évalue les dispositifs municipaux de soutien au tourisme durable et à la préservation des sites naturels.",
     "odds": [8, 12, 15],
     "options": [
-      {"val": 1, "text": "<1%", "color": "rouge"},
-      {"val": 2, "text": "1-5%", "color": "orange"},
-      {"val": 3, "text": "5-11%", "color": "jaune"},
-      {"val": 4, "text": ">11%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 1 %", "color": "rouge" },
+      { "val": 1, "text": "1 - 3 %", "color": "orange" },
+      { "val": 2, "text": "3 - 5 %", "color": "jaune" },
+      { "val": 3, "text": "6 - 11 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 11 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 39,
-    "theme": "Économie & Aménagement",
-    "question": "Mobilité professionnelle durable",
+    "question": "Q39 - Mobilité économique durable (ODD 8, 11, 13). Pourcentage de trajets domicile-travail ou scolaires effectués via des modes de transport durables.",
     "odds": [8, 11, 13],
     "options": [
-      {"val": 1, "text": "<10%", "color": "rouge"},
-      {"val": 2, "text": "10-25%", "color": "orange"},
-      {"val": 3, "text": "25-48%", "color": "jaune"},
-      {"val": 4, "text": ">48%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 10 %", "color": "rouge" },
+      { "val": 1, "text": "10 - 18 %", "color": "orange" },
+      { "val": 2, "text": "19 - 25 %", "color": "jaune" },
+      { "val": 3, "text": "26 - 48 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 48 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 40,
-    "theme": "Économie & Aménagement",
-    "question": "Résilience économique face aux crises",
+    "question": "Q40 - Résilience économique face aux crises climatiques (ODD 8, 11, 13). Évalue la mise en place de stratégies municipales pour soutenir l’économie locale face aux aléas climatiques.",
     "odds": [8, 11, 13],
     "options": [
-      {"val": 1, "text": "Aucun dispositif", "color": "rouge"},
-      {"val": 2, "text": "Actions ponctuelles", "color": "orange"},
-      {"val": 3, "text": "Planification suivie", "color": "jaune"},
-      {"val": 4, "text": "Stratégie complète", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun dispositif", "color": "rouge" },
+      { "val": 1, "text": "Actions ponctuelles", "color": "orange" },
+      { "val": 2, "text": "Planification partielle sans suivi régulier", "color": "jaune" },
+      { "val": 3, "text": "Planification avec stratégie et suivie régulièrement", "color": "vert clair" },
+      { "val": 4, "text": "Stratégie complète, suivie et actualisée d’après les 5 axes majeurs pour s’adapter au changement climatique", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 41,
-    "theme": "Économie & Aménagement",
-    "question": "Taux d'emplois locaux dans la commune",
+    "question": "Q41 - Taux d’emplois locaux au sein de la commune (ODD 8). Pourcentage des postes de travail situés sur la commune occupés par des habitants du territoire.",
     "odds": [8],
     "options": [
-      {"val": 1, "text": "0-15%", "color": "rouge"},
-      {"val": 2, "text": "15-30%", "color": "orange"},
-      {"val": 3, "text": "30-60%", "color": "jaune"},
-      {"val": 4, "text": ">60%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0 - 15 %", "color": "rouge" },
+      { "val": 1, "text": "16 - 25 %", "color": "orange" },
+      { "val": 2, "text": "26 - 30 %", "color": "jaune" },
+      { "val": 3, "text": "31 - 60 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 60 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 42,
-    "theme": "Économie & Aménagement",
-    "question": "Filières locales pour la restauration collective",
+    "question": "Q42 - Filières locales dans la restauration collective (ODD 8, 12, 13) - Loi Egalim - . Pourcentage de l’approvisionnement municipal issu de filières locales de proximité.",
     "odds": [8, 12, 13],
     "options": [
-      {"val": 1, "text": "0-18%", "color": "rouge"},
-      {"val": 2, "text": "18-40%", "color": "orange"},
-      {"val": 3, "text": "40-50%", "color": "jaune"},
-      {"val": 4, "text": ">50%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0 - 18 %", "color": "rouge" },
+      { "val": 1, "text": "19 - 30 %", "color": "orange" },
+      { "val": 2, "text": "31 - 40 %", "color": "jaune" },
+      { "val": 3, "text": "41 - 50 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 50 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 43,
-    "theme": "Économie & Aménagement",
-    "question": "Projets favorisant l'économie circulaire",
+    "question": "Q43 - Économie circulaire et gestion des ressources économiques (ODD 12). Évalue le taux de réemploi et de recyclage des matériaux dans les projets économiques municipaux.",
     "odds": [12],
     "options": [
-      {"val": 1, "text": "<30%", "color": "rouge"},
-      {"val": 2, "text": "30-60%", "color": "orange"},
-      {"val": 3, "text": "60-93%", "color": "jaune"},
-      {"val": 4, "text": "93-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 30 %", "color": "rouge" },
+      { "val": 1, "text": "30 - 45 %", "color": "orange" },
+      { "val": 2, "text": "46 - 60 %", "color": "jaune" },
+      { "val": 3, "text": "61 - 93 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 93 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 44,
-    "theme": "Économie & Aménagement",
-    "question": "Budget dév. économique durable",
+    "question": "Q44 - Budget annuel dédié au développement économique durable (ODD 8, 11, 12). Pourcentage du budget municipal alloué au soutien de projets économiques durables.",
     "odds": [8, 11, 12],
     "options": [
-      {"val": 1, "text": "<1%", "color": "rouge"},
-      {"val": 2, "text": "1-3%", "color": "orange"},
-      {"val": 3, "text": "3-6.8%", "color": "jaune"},
-      {"val": 4, "text": ">6.8%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 1 %", "color": "rouge" },
+      { "val": 1, "text": "1 - 2 %", "color": "orange" },
+      { "val": 2, "text": "2 - 3 %", "color": "jaune" },
+      { "val": 3, "text": "3 - 6.8 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 6.8 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 45,
-    "theme": "Économie & Aménagement",
-    "question": "Accompagnement des entreprises au DD",
+    "question": "Q45 - Accompagnement des entreprises aux pratiques durables (ODD 8, 9). Pourcentage d’entreprises locales accompagnées ou formées à des pratiques durables.",
     "odds": [8, 9],
     "options": [
-      {"val": 1, "text": "0-30%", "color": "rouge"},
-      {"val": 2, "text": "30-61%", "color": "orange"},
-      {"val": 3, "text": "61-78%", "color": "jaune"},
-      {"val": 4, "text": "78-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "0 - 30 %", "color": "rouge" },
+      { "val": 1, "text": "31 - 45 %", "color": "orange" },
+      { "val": 2, "text": "46 - 61 %", "color": "jaune" },
+      { "val": 3, "text": "62 - 78 %", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 78 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 46,
-    "theme": "Économie & Aménagement",
-    "question": "Reporting et suivi des indicateurs DD",
+    "question": "Q46 - Suivi des indicateurs économiques durables (ODD 8, 9, 11, 12). Niveau d’outils de suivi et de reporting des projets économiques durables.",
     "odds": [8, 9, 11, 12],
     "options": [
-      {"val": 1, "text": "Aucun suivi", "color": "rouge"},
-      {"val": 2, "text": "Suivi ponctuel", "color": "orange"},
-      {"val": 3, "text": "Suivi structuré", "color": "jaune"},
-      {"val": 4, "text": "Suivi complet (Agenda 21)", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Aucun suivi", "color": "rouge" },
+      { "val": 1, "text": "Suivi ponctuel", "color": "orange" },
+      { "val": 2, "text": "Suivi régulier mais pas structuré", "color": "jaune" },
+      { "val": 3, "text": "Évaluation structurée mais difficile à suivre", "color": "vert clair" },
+      { "val": 4, "text": "Suivi complet et évalué annuellement (CSRD ou Agenda 21)", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 47,
-    "theme": "Économie & Aménagement",
-    "question": "Lutte contre la précarité énergétique",
+    "question": "Q47 – Accès au chauffage et lutte contre la précarité énergétique (ODD 7, 1, 10). Pourcentage de ménages en situation de vulnérabilité énergétique.",
     "odds": [7, 1, 10],
     "options": [
-      {"val": 1, "text": ">17.8% (Taux élevé)", "color": "rouge"},
-      {"val": 2, "text": "6-17.8%", "color": "orange"},
-      {"val": 3, "text": "1-6%", "color": "jaune"},
-      {"val": 4, "text": "<1% (Performance)", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "> 17.8 %", "color": "rouge" },
+      { "val": 1, "text": "12 - 17.8 %", "color": "orange" },
+      { "val": 2, "text": "6 - 11 %", "color": "jaune" },
+      { "val": 3, "text": "1 - 6 %", "color": "vert clair" },
+      { "val": 4, "text": "< 1 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 48,
-    "theme": "Économie & Aménagement",
-    "question": "Taux de jeunes NEET (15-29 ans)",
+    "question": "Q48 – Inclusion des jeunes et accès à l’éducation/emploi (ODD 4, 8, 10). Pourcentage de jeunes  - 15-29 ans - qui ne sont ni scolarisés, ni en emploi, ni en formation - NEET -.",
     "odds": [4, 8, 10],
     "options": [
-      {"val": 1, "text": ">12.8%", "color": "rouge"},
-      {"val": 2, "text": "6-12.8%", "color": "orange"},
-      {"val": 3, "text": "1-6%", "color": "jaune"},
-      {"val": 4, "text": "<1%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "> 12.8 %", "color": "rouge" },
+      { "val": 1, "text": "10 - 12.8 %", "color": "orange" },
+      { "val": 2, "text": "6 - 9 %", "color": "jaune" },
+      { "val": 3, "text": "1 - 6 %", "color": "vert clair" },
+      { "val": 4, "text": "< 1 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 49,
-    "theme": "Économie & Aménagement",
-    "question": "Taux de chômage communal",
-    "odds": [8, 10],
+    "question": "Q49 – Accès au logement et lutte contre l’exclusion (ODD 1, 11). Évalue le pourcentage de population sans domicile fixe ou en situation de logement très précaire.",
+    "odds": [1, 11],
     "options": [
-      {"val": 1, "text": ">7.7%", "color": "rouge"},
-      {"val": 2, "text": "4-7.7%", "color": "orange"},
-      {"val": 3, "text": "1-4%", "color": "jaune"},
-      {"val": 4, "text": "<1%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "> 0.5 %", "color": "rouge" },
+      { "val": 1, "text": "0.35 - 0.5 %", "color": "orange" },
+      { "val": 2, "text": "0.25 - 0.35 %", "color": "jaune" },
+      { "val": 3, "text": "0.1 - 0.25 %", "color": "vert clair" },
+      { "val": 4, "text": "< 0.1 %", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   },
   {
     "id": 50,
-    "theme": "Économie & Aménagement",
-    "question": "Situation de sans-abrisme",
-    "odds": [1, 11],
-    "options": [
-      {"val": 1, "text": ">0.5%", "color": "rouge"},
-      {"val": 2, "text": "0.25-0.5%", "color": "orange"},
-      {"val": 3, "text": "0.1-0.25%", "color": "jaune"},
-      {"val": 4, "text": "<0.1%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
-    ]
-  },
-  {
-    "id": 51,
-    "theme": "Économie & Aménagement",
-    "question": "Niveau de vie moyen mensuel",
+    "question": "Q50 – Niveau de vie moyen de la population (ODD 1, 10). Évalue le revenu médian mensuel par habitant au regard du seuil de pauvreté national.",
     "odds": [1, 10],
     "options": [
-      {"val": 1, "text": "<1217€", "color": "rouge"},
-      {"val": 2, "text": "1217-1621€", "color": "orange"},
-      {"val": 3, "text": "1621-2028€", "color": "jaune"},
-      {"val": 4, "text": ">2028€", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
-    ]
-  },
-  {
-    "id": 52,
-    "theme": "Économie & Aménagement",
-    "question": "Accès à la connectivité numérique",
-    "odds": [9, 17],
-    "options": [
-      {"val": 1, "text": "0-25%", "color": "rouge"},
-      {"val": 2, "text": "26-50%", "color": "orange"},
-      {"val": 3, "text": "51-75%", "color": "jaune"},
-      {"val": 4, "text": "76-100%", "color": "vert"},
-      {"val": 0, "text": "X Aucune donnée disponible", "color": "blanc"}
+      { "val": 0, "text": "Moins de 1217 € / mois", "color": "rouge" },
+      { "val": 1, "text": "1217 - 1450 € / mois", "color": "orange" },
+      { "val": 2, "text": "1451 - 1621 € / mois", "color": "jaune" },
+      { "val": 3, "text": "1622 - 2028 € / mois", "color": "vert clair" },
+      { "val": 4, "text": "Plus de 2028 € / mois", "color": "vert foncé" },
+      { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
     ]
   }
 ]
