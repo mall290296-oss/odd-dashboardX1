@@ -520,7 +520,7 @@ function App() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
-                { name: "ADEME", full: "Agence de la transition écologique", desc: "Expertise technique et financements pour les projets de transition énergétique.", link: "https://www.ademe.fr" },
+                { name: "ADEME", full: "Agence de la transition écologique", desc: "Expertise technique et financements pour les projets de transition énergétique.", link: "https://www.territoiresentransitions.fr/programme" },
                 { name: "FVD", full: "France Villes et Territoires Durables", desc: "Accélérer le déployement des ODD à l'échelle locale.", link: "https://francevilledurable.fr/" },
                 { name: "Club DD", full: "Le club développement durable", desc: "Réseau d'échange pour les établissements et entreprises publics.", link: "https://www.ecologie.gouv.fr/politiques-publiques/club-developpement-durable-etablissements-entreprises-publics" },
                 { name: "ANCT", full: "Agence Nationale de la Cohésion des Territoires", desc: "Support aux mairies dans leurs projets de revitalisation.", link: "https://agence-cohesion-territoires.gouv.fr" }
