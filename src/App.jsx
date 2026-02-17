@@ -248,7 +248,8 @@ function App() {
             </div>
             <span className="text-2xl font-black tracking-tighter text-blue-600">ODD-X</span>
           </div>
-          <div className="flex gap-6 text-xs font-bold uppercase tracking-widest">
+          
+          <div className="flex gap-4 md:gap-6 ... overflow-x-auto pb-2">
             {["Accueil", "À Propos", "Diagnostic", "Résultats", "Priorités", "Partenaires", "Citoyens", "Contact"].map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)} className={`${activeTab === tab ? "text-blue-600 border-b-2 border-blue-600" : "text-slate-500 hover:text-blue-500"} pb-1 transition-all`}>
                 {tab === "Partenaires" ? "Institutions" : tab}
@@ -258,7 +259,7 @@ function App() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-12">
         {activeTab === "Accueil" && (
           <div className="text-center py-20 space-y-8 animate-in fade-in duration-1000">
             <div className="flex justify-center mb-4">
@@ -266,7 +267,8 @@ function App() {
                 <img src={LOGO_URL} alt="Polytechnique" className="w-full h-full object-contain" />
               </div>
             </div>
-            <h1 className="text-8xl font-black tracking-tighter uppercase leading-none text-slate-900">ODD-X</h1>
+            
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-slate-900">ODD-X</h1>
             <p className="text-2xl text-slate-500 max-w-2xl mx-auto font-light italic">Le diagnostic de durabilité pour les collectivités territoriales.</p>
             
             <div className="flex flex-col items-center justify-center gap-4 pt-6">
@@ -345,7 +347,7 @@ function App() {
               </div>
 
               {!activeDiagnosticSection ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-10">
                   {groupedQuestions.map((group) => {
                     const progress = getGroupProgress(group.questions);
                     const theme = SECTION_COLORS[group.id];
@@ -353,7 +355,7 @@ function App() {
                       <button
                         key={group.id}
                         onClick={() => { setActiveDiagnosticSection(group.id); window.scrollTo(0,0); }}
-                        className={`relative aspect-[3/4] ${theme.bg} rounded-[30px] shadow-2xl p-10 flex flex-col justify-center items-center text-center group hover:scale-[1.03] ${theme.hover} transition-all duration-300 overflow-hidden border-4 border-transparent hover:border-white/20`}
+                        className={`relative aspect-[4/5] md:aspect-[3/4] ${theme.bg} rounded-[30px] shadow-2xl p-10 flex flex-col justify-center items-center text-center group hover:scale-[1.03] ${theme.hover} transition-all duration-300 overflow-hidden border-4 border-transparent hover:border-white/20`}
                       >
                         <div 
                           className={`absolute bottom-0 left-0 w-full ${theme.progress} transition-all duration-1000`} 
@@ -414,7 +416,8 @@ function App() {
                                     return <span className="font-black">{fullText}</span>;
                                 })()}
                             </p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                               {q.options.map((opt, idx) => {
                                 const pts = idx === 5 ? 0 : idx + 1; 
                                 const sel = answers[q.id] === pts;
