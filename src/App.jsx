@@ -540,10 +540,25 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 animate-in fade-in">
              <div className="lg:col-span-1 bg-white p-8 rounded-[40px] border border-slate-200 h-fit shadow-lg sticky top-24">
                 <h3 className="text-xl font-black mb-6 uppercase tracking-widest text-blue-600">Proposer une idée</h3>
+                {selectedOddForm && (
+                  <div className="flex items-center gap-4 mb-6 p-4 bg-slate-50 rounded-2xl animate-in zoom-in-95">
+                    <img src={oddIcons[selectedOddForm]} alt="" className="w-16 h-16 rounded-lg" />
+                    <p className="text-xs font-bold text-slate-600">{oddDescriptions[selectedOddForm]}</p>
+                  </div>
+                )}
                 <form onSubmit={handleAddIdea} className="space-y-4">
-                  <select value={selectedOddForm} onChange={(e) => setSelectedOddForm(e.target.value)} className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-100 transition-all" required>
+                  <select
+                    value={selectedOddForm}
+                    onChange={(e) => setSelectedOddForm(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-100 transition-all"
+                    required
+                  >
                     <option value="">Choisir un ODD...</option>
-                    {Object.keys(oddDescriptions).map(odd => <option key={odd} value={odd}>{odd}</option>)}
+                    {Object.keys(oddDescriptions).map(odd => (
+                      <option key={odd} value={odd}>
+                        {odd} - {oddDescriptions[odd].substring(0, 40)}...
+                      </option>
+                    ))}
                   </select>
                   <textarea name="ideaText" placeholder="Votre proposition..." rows="6" className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-100" required></textarea>
                   <button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-xl font-black uppercase shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all">Publier l'idée</button>
@@ -554,7 +569,13 @@ function App() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {citizenIdeas.map((idea, idx) => (
                     <div key={idx} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between group relative transition-all hover:border-blue-200">
-                      <button onClick={() => handleDeleteIdea(idx)} className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600 z-10">✕</button>
+                      <button 
+                        onClick={() => handleDeleteIdea(idx)}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600 z-10"
+                        title="Supprimer cette idée"
+                      >
+                        ✕
+                      </button>
                       <div className="flex gap-4 mb-4">
                          <img src={oddIcons[idea.odd]} alt="" className="w-10 h-10 rounded-md shrink-0" />
                          <p className="font-bold italic text-slate-700 leading-tight">"{idea.text}"</p>
