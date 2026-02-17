@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
+import { QRCodeCanvas } from "qrcode.react"; // Importation pour le QR Code
 import questions from "./formulaire.json";
 
 const colorMap = {
@@ -248,6 +249,24 @@ function App() {
             </div>
             <h1 className="text-8xl font-black tracking-tighter uppercase leading-none text-slate-900">ODD-X</h1>
             <p className="text-2xl text-slate-500 max-w-2xl mx-auto font-light italic">Le diagnostic de durabilité pour les collectivités territoriales.</p>
+            
+            {/* BLOC QR CODE GÉNÉRÉ DYNAMIQUEMENT */}
+            <div className="flex flex-col items-center justify-center gap-4 pt-6">
+              <div className="bg-white p-6 rounded-[30px] shadow-2xl border border-slate-100 transition-transform hover:scale-105">
+                <QRCodeCanvas
+                  value={window.location.href}
+                  size={160}
+                  bgColor="#ffffff"
+                  fgColor="#0f172a"
+                  level="H"
+                  includeMargin={true}
+                />
+              </div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                Scannez pour accéder au diagnostic
+              </p>
+            </div>
+
             <div className="pt-6">
               <button onClick={() => setActiveTab("Diagnostic")} className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-full font-black text-lg transition-all hover:scale-105 shadow-xl shadow-blue-200">DÉMARRER LE DIAGNOSTIC</button>
             </div>
@@ -333,20 +352,17 @@ function App() {
                           className="absolute bottom-0 left-0 w-full bg-blue-500/20 transition-all duration-1000" 
                           style={{ height: `${progress.percent}%` }}
                         ></div>
-
                         <h3 className="relative z-10 text-white text-2xl font-black uppercase tracking-tighter leading-tight mb-4">
                           {group.title.split(' - ')[0]}<br/>
                           <span className="text-blue-300 text-lg italic">—</span><br/>
                           {group.title.split(' - ')[1]}
                         </h3>
-
                         <div className="relative z-10 mt-6">
                            <div className="text-4xl font-black text-white">{progress.percent}%</div>
                            <div className="text-[10px] font-bold text-blue-200 uppercase tracking-widest mt-1">
                              {progress.count} / {progress.total} RÉPONSES
                            </div>
                         </div>
-
                         <div className="relative z-10 mt-10 bg-white text-[#1a5f7a] px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest group-hover:scale-110 transition-transform">
                           {progress.percent === 100 ? "Modifier" : "Commencer"}
                         </div>
@@ -368,14 +384,11 @@ function App() {
                             {getGroupProgress(group.questions).percent}% Complété
                           </span>
                         </div>
-                        
                         {group.questions.map((q) => (
                           <div key={q.id} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
                             <div className="flex gap-2 mb-4">
                               {q.odds.map(o => <span key={o} className="text-[9px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-black">ODD {o}</span>)}
                             </div>
-                            
-                            {/* LOGIQUE DE MISE EN GRAS DU TITRE AVANT LE POINT */}
                             <p className="text-xl mb-6 text-slate-800">
                                 <span className="font-black">{q.id}. </span>
                                 {(() => {
@@ -394,7 +407,6 @@ function App() {
                                     return <span className="font-black">{fullText}</span>;
                                 })()}
                             </p>
-
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {q.options.map((opt, idx) => {
                                 const pts = idx === 5 ? 0 : idx + 1; 
@@ -413,7 +425,6 @@ function App() {
                         ))}
                       </div>
                     ))}
-
                   <div className="flex flex-col md:flex-row gap-6 pt-10 pb-20">
                     <button 
                       onClick={() => { setActiveDiagnosticSection(null); window.scrollTo(0,0); }}
