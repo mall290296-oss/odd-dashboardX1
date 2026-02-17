@@ -73,8 +73,8 @@ const oddDescriptions = {
 
 const getScoreVisuals = (score) => {
   if (score < 2) return { hex: "#dc2626", twBorder: "border-l-red-600", label: "Score Critique", twText: "text-red-600" };
-  if (score < 3) return { hex: "#ea580c", twBorder: "border-l-orange-600", label: "Insuffisant", twText: "text-orange-600" };
-  if (score < 4) return { hex: "#ca8a04", twBorder: "border-l-yellow-600", label: "En progression", twText: "text-yellow-600" };
+  if (score < 3) return { hex: "#ea580c", twBorder: "border-l-orange-600", label: "Score à améliorer", twText: "text-orange-600" };
+  if (score < 4) return { hex: "#ca8a04", twBorder: "border-l-yellow-600", label: "Score à améliorer", twText: "text-yellow-600" };
   if (score < 4.5) return { hex: "#16a34a", twBorder: "border-l-green-600", label: "Bon score", twText: "text-green-600" };
   return { hex: "#15803d", twBorder: "border-l-green-800", label: "Excellent score", twText: "text-green-800" };
 };
@@ -95,6 +95,16 @@ function App() {
   }, [muralInfo]);
 
   const [answers, setAnswers] = useState(() => JSON.parse(localStorage.getItem(storageKey) || "{}"));
+
+  const identityFields = {
+    "Informations Générales": ["Nom de la commune", "Email officiel", "Code Insee", "Code Postal", "Département", "Région", "Maire actuel", "Nombre d'élus", "Nombre d'agents municipaux"],
+    "Démographie": ["Population totale", "Densité (hab/km²)", "Part des -25 ans (%)", "Part des +65 ans (%)", "Nombre de ménages"],
+    "Géographie & Urbanisme": ["Superficie totale (ha)", "Surface agricole utile (ha)", "Surface forestière (ha)", "Nombre de logements", "Part de logements sociaux (%)"],
+    "Économie & Services": ["Nombre d'entreprises", "Taux de chômage (%)", "Revenu fiscal médian", "Nombre d'écoles", "Équipements sportifs"],
+    "Environnement & Énergie": ["Consommation énergétique (MWh)", "Part ENR (%)", "Déchets (t/an)", "Taux de tri (%)", "Linéaire pistes cyclables (km)", "Espaces verts (m²)"]
+  };
+
+  const allRequiredFields = Object.values(identityFields).flat();
 
   useEffect(() => {
     const savedAnswers = localStorage.getItem(storageKey);
@@ -134,11 +144,36 @@ function App() {
     };
   };
 
+  const cleanQuestionText = (text) => {
+    let cleaned = text.replace(/^Q\d+\s?[-–]\s?/, "");
+    cleaned = cleaned.replace(/\s?\(ODD[^)]*\)/gi, "");
+    return cleaned;
+  };
+
   const handleSwitchProfile = (profileName) => {
     if (!profileName) { setMuralInfo({}); setAnswers({}); return; }
     const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
     if (allIdentities[profileName]) setMuralInfo(allIdentities[profileName]);
   };
+
+  const handleNewProfile = () => { if (window.confirm("Créer un nouveau profil vierge ?")) { setMuralInfo({}); setAnswers({}); } };
+
+  const handleDeleteCurrentProfile = () => {
+    const name = muralInfo["Nom de la commune"];
+    if (!name) return;
+    if (window.confirm(`Supprimer définitivement le profil de "${name}" ?`)) {
+      const newProfiles = profiles.filter(p => p !== name);
+      setProfiles(newProfiles);
+      localStorage.setItem("oddx_profiles_list", JSON.stringify(newProfiles));
+      const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
+      delete allIdentities[name];
+      localStorage.setItem("oddx_all_identities", JSON.stringify(allIdentities));
+      localStorage.removeItem(storageKey);
+      setMuralInfo({}); setAnswers({});
+    }
+  };
+
+  const isFullyIdentified = useMemo(() => allRequiredFields.every(field => muralInfo[field] && muralInfo[field].toString().trim() !== ""), [muralInfo, allRequiredFields]);
 
   const { oddAverages, globalScore, lowPerformingODDs } = useMemo(() => {
     const scores = {}; const counts = {};
@@ -204,19 +239,18 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200 overflow-x-hidden">
-      {/* NAVIGATION RESPONSIVE */}
-      <nav className="border-b border-slate-200 px-4 md:px-8 py-4 sticky top-0 bg-white/90 backdrop-blur-md z-50 shadow-sm print:hidden">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200">
+      <nav className="border-b border-slate-200 px-8 py-4 sticky top-0 bg-white/90 backdrop-blur-md z-50 shadow-sm print:hidden">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setActiveTab("Accueil")}>
-            <div className="w-10 h-8 md:w-12 md:h-10 flex items-center justify-center">
+            <div className="w-12 h-10 flex items-center justify-center">
               <img src={LOGO_URL} alt="Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
             </div>
-            <span className="text-xl md:text-2xl font-black tracking-tighter text-blue-600 uppercase">ODD-X</span>
+            <span className="text-2xl font-black tracking-tighter text-blue-600">ODD-X</span>
           </div>
-          <div className="flex gap-3 md:gap-6 text-[10px] md:text-xs font-bold uppercase tracking-widest overflow-x-auto pb-2 md:pb-0 w-full md:w-auto no-scrollbar justify-center">
+          <div className="flex gap-6 text-xs font-bold uppercase tracking-widest">
             {["Accueil", "À Propos", "Diagnostic", "Résultats", "Priorités", "Partenaires", "Citoyens", "Contact"].map(tab => (
-              <button key={tab} onClick={() => { setActiveTab(tab); window.scrollTo(0,0); }} className={`${activeTab === tab ? "text-blue-600 border-b-2 border-blue-600" : "text-slate-500 hover:text-blue-500"} pb-1 transition-all whitespace-nowrap uppercase tracking-tighter`}>
+              <button key={tab} onClick={() => setActiveTab(tab)} className={`${activeTab === tab ? "text-blue-600 border-b-2 border-blue-600" : "text-slate-500 hover:text-blue-500"} pb-1 transition-all`}>
                 {tab === "Partenaires" ? "Institutions" : tab}
               </button>
             ))}
@@ -224,238 +258,354 @@ function App() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-12">
-        
-        {/* ACCUEIL */}
+      <div className="max-w-7xl mx-auto px-8 py-12">
         {activeTab === "Accueil" && (
-          <div className="text-center py-10 md:py-20 space-y-6 md:space-y-8 animate-in fade-in duration-1000">
+          <div className="text-center py-20 space-y-8 animate-in fade-in duration-1000">
             <div className="flex justify-center mb-4">
-              <div className="w-40 h-24 md:w-64 md:h-40 bg-white rounded-3xl shadow-xl flex items-center justify-center p-4 md:p-6 border border-slate-100">
+              <div className="w-48 h-32 md:w-64 md:h-40 bg-white rounded-3xl shadow-xl flex items-center justify-center p-6 border border-slate-100">
                 <img src={LOGO_URL} alt="Polytechnique" className="w-full h-full object-contain" />
               </div>
             </div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-slate-900 px-2">ODD-X</h1>
-            <p className="text-xl md:text-2xl text-slate-500 max-w-2xl mx-auto font-light italic px-4">Le diagnostic de durabilité pour les collectivités territoriales.</p>
+            <h1 className="text-8xl font-black tracking-tighter uppercase leading-none text-slate-900">ODD-X</h1>
+            <p className="text-2xl text-slate-500 max-w-2xl mx-auto font-light italic">Le diagnostic de durabilité pour les collectivités territoriales.</p>
+            
             <div className="flex flex-col items-center justify-center gap-4 pt-6">
-              <div className="bg-white p-4 md:p-6 rounded-[30px] shadow-2xl border border-slate-100 transition-transform hover:scale-105">
-                <QRCodeCanvas value={window.location.href} size={140} bgColor="#ffffff" fgColor="#0f172a" level="H" includeMargin={true} />
+              <div className="bg-white p-6 rounded-[30px] shadow-2xl border border-slate-100 transition-transform hover:scale-105">
+                <QRCodeCanvas
+                  value={window.location.href}
+                  size={160}
+                  bgColor="#ffffff"
+                  fgColor="#0f172a"
+                  level="H"
+                  includeMargin={true}
+                />
               </div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Scannez pour accéder au diagnostic</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                Scannez pour accéder au diagnostic
+              </p>
             </div>
+
             <div className="pt-6">
-              <button onClick={() => setActiveTab("Diagnostic")} className="bg-blue-600 hover:bg-blue-700 text-white px-8 md:px-12 py-4 md:py-5 rounded-full font-black text-base md:text-lg transition-all hover:scale-105 shadow-xl shadow-blue-200 uppercase tracking-widest">DÉMARRER LE DIAGNOSTIC</button>
+              <button onClick={() => setActiveTab("Diagnostic")} className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-full font-black text-lg transition-all hover:scale-105 shadow-xl shadow-blue-200">DÉMARRER LE DIAGNOSTIC</button>
             </div>
           </div>
         )}
 
-        {/* DIAGNOSTIC (IDENTITÉ) */}
         {activeTab === "Diagnostic" && (
-          <div className="max-w-5xl mx-auto space-y-6 md:space-y-8 animate-in fade-in">
+          <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in">
              <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-              <div className="flex flex-col sm:flex-row items-center md:items-end gap-4 w-full md:w-auto">
-                <div className="w-full md:w-auto">
-                  <h3 className="text-blue-600 font-black uppercase text-[10px] tracking-widest text-center md:text-left">Sélectionner une Mairie</h3>
-                  <select onChange={(e) => handleSwitchProfile(e.target.value)} value={muralInfo["Nom de la commune"] || ""} className="bg-slate-50 border border-slate-200 p-2 mt-2 rounded-lg text-sm font-bold w-full md:w-64 outline-none focus:border-blue-500 text-slate-700">
+              <div className="flex flex-col sm:flex-row items-end gap-4">
+                <div>
+                  <h3 className="text-blue-600 font-black uppercase text-[10px] tracking-widest">Sélectionner une Mairie</h3>
+                  <select onChange={(e) => handleSwitchProfile(e.target.value)} value={muralInfo["Nom de la commune"] || ""} className="bg-slate-50 border border-slate-200 p-2 mt-2 rounded-lg text-sm font-bold w-64 outline-none focus:border-blue-500 text-slate-700">
                     <option value="">-- Sélectionner --</option>
                     {profiles.map(p => <option key={p} value={p}>{p}</option>)}
                   </select>
                 </div>
-                {muralInfo["Nom de la commune"] && (
-                  <button onClick={() => { if(window.confirm("Supprimer ?")) { /* logic here */ } }} className="bg-red-50 text-red-600 border border-red-100 px-4 py-2 rounded-lg text-[10px] font-black uppercase hover:bg-red-600 hover:text-white transition-all w-full md:w-auto">Supprimer</button>
-                )}
+                {muralInfo["Nom de la commune"] && <button onClick={handleDeleteCurrentProfile} className="bg-red-50 text-red-600 border border-red-100 px-4 py-2 rounded-lg text-[10px] font-black uppercase hover:bg-red-600 hover:text-white transition-all">Supprimer</button>}
               </div>
-              <button onClick={() => { setMuralInfo({}); setAnswers({}); }} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 w-full md:w-auto">➕ Nouvelle Mairie</button>
+              <button onClick={handleNewProfile} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">➕ Nouvelle Mairie</button>
             </div>
-            {/* Champs d'identité (simplifié pour le code) */}
-            <div className="bg-white p-6 md:p-8 rounded-[30px] border border-slate-200 shadow-sm">
-                <h3 className="text-blue-600 font-black uppercase tracking-widest mb-6 border-b border-slate-100 pb-2 text-sm italic">Informations de la Commune</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {["Nom de la commune", "Code Insee", "Email officiel", "Région"].map(field => (
-                        <div key={field} className="flex flex-col">
-                            <label className="text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">{field}</label>
-                            <input value={muralInfo[field] || ""} onChange={(e) => setMuralInfo({...muralInfo, [field]: e.target.value})} className="bg-slate-50 border border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm font-bold" />
-                        </div>
-                    ))}
+            {Object.entries(identityFields).map(([category, fields]) => (
+              <div key={category} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+                <h3 className="text-blue-600 font-black uppercase tracking-widest mb-6 border-b border-slate-100 pb-2 text-sm">{category}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {fields.map(field => (
+                    <div key={field} className="flex flex-col">
+                      <label className="text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">{field}</label>
+                      <input value={muralInfo[field] || ""} onChange={(e) => setMuralInfo({...muralInfo, [field]: e.target.value})} className={`bg-slate-50 border p-3 rounded-xl focus:border-blue-500 outline-none text-sm font-bold transition-all ${muralInfo[field] ? "border-green-200 bg-green-50/30 text-slate-800" : "border-slate-200 text-slate-600"}`} />
+                    </div>
+                  ))}
                 </div>
-            </div>
+              </div>
+            ))}
             <div className="text-center pt-8">
-              <button onClick={() => setActiveTab("Questionnaire")} className="w-full md:w-auto px-12 py-5 rounded-2xl font-black uppercase transition-all shadow-2xl bg-blue-600 text-white scale-105 shadow-blue-200">Suivant</button>
+              <button disabled={!isFullyIdentified} onClick={() => setActiveTab("Questionnaire")} className={`px-12 py-5 rounded-2xl font-black uppercase transition-all shadow-2xl ${isFullyIdentified ? "bg-blue-600 text-white scale-105 shadow-blue-200" : "bg-slate-200 text-slate-400 cursor-not-allowed"}`}>{isFullyIdentified ? "Passer au Questionnaire" : "Remplir tous les champs"}</button>
             </div>
           </div>
         )}
 
-        {/* QUESTIONNAIRE COLORÉ */}
         {activeTab === "Questionnaire" && (
-           <div className="space-y-8 md:space-y-12 animate-in fade-in">
-              <div className="bg-white border border-slate-200 p-4 md:p-6 rounded-3xl mb-4 md:mb-8 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg sticky top-20 md:top-24 z-40">
-                <div className="flex items-center gap-4 w-full md:w-auto">
+           <div className="space-y-12 animate-in fade-in">
+              <div className="bg-white border border-slate-200 p-6 rounded-3xl mb-8 flex justify-between items-center shadow-lg sticky top-24 z-40">
+                <div className="flex items-center gap-4">
                   {activeDiagnosticSection && (
-                    <button onClick={() => setActiveDiagnosticSection(null)} className="bg-blue-600 text-white px-3 py-2 rounded-xl text-[10px] font-black uppercase hover:bg-blue-700 transition-all shadow-md shrink-0">← Menu</button>
+                    <button 
+                      onClick={() => setActiveDiagnosticSection(null)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-blue-700 transition-all shadow-md"
+                    >
+                      ← Menu des sections
+                    </button>
                   )}
-                  <p className="text-xs md:text-sm font-black uppercase text-slate-800 italic truncate">Diagnostic : <span className="text-blue-600">{muralInfo["Nom de la commune"] || "En cours..."}</span></p>
+                  <p className="text-sm font-black uppercase text-slate-800 italic">
+                    Diagnostic : <span className="text-blue-600">{muralInfo["Nom de la commune"]}</span>
+                  </p>
                 </div>
+                <button onClick={() => setActiveTab("Diagnostic")} className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600">Modifier Infos</button>
               </div>
 
               {!activeDiagnosticSection ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-4 md:py-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-10">
                   {groupedQuestions.map((group) => {
                     const progress = getGroupProgress(group.questions);
                     const theme = SECTION_COLORS[group.id];
                     return (
-                      <button key={group.id} onClick={() => { setActiveDiagnosticSection(group.id); window.scrollTo(0,0); }} className={`relative min-h-[300px] md:aspect-[3/4] ${theme.bg} rounded-[30px] shadow-2xl p-8 md:p-10 flex flex-col justify-center items-center text-center group hover:scale-[1.03] ${theme.hover} transition-all duration-300 overflow-hidden border-4 border-transparent hover:border-white/20`}>
-                        <div className={`absolute bottom-0 left-0 w-full ${theme.progress} transition-all duration-1000`} style={{ height: `${progress.percent}%` }}></div>
-                        <h3 className="relative z-10 text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-tight mb-4">{group.title.split(' - ')[0]}<br/><span className="text-white/40 text-lg italic">—</span><br/>{group.title.split(' - ')[1]}</h3>
-                        <div className="relative z-10 mt-4 md:mt-6">
-                           <div className="text-3xl md:text-4xl font-black text-white">{progress.percent}%</div>
-                           <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest mt-1">{progress.count} / {progress.total} RÉPONSES</div>
+                      <button
+                        key={group.id}
+                        onClick={() => { setActiveDiagnosticSection(group.id); window.scrollTo(0,0); }}
+                        className={`relative aspect-[3/4] ${theme.bg} rounded-[30px] shadow-2xl p-10 flex flex-col justify-center items-center text-center group hover:scale-[1.03] ${theme.hover} transition-all duration-300 overflow-hidden border-4 border-transparent hover:border-white/20`}
+                      >
+                        <div 
+                          className={`absolute bottom-0 left-0 w-full ${theme.progress} transition-all duration-1000`} 
+                          style={{ height: `${progress.percent}%` }}
+                        ></div>
+                        <h3 className="relative z-10 text-white text-2xl font-black uppercase tracking-tighter leading-tight mb-4">
+                          {group.title.split(' - ')[0]}<br/>
+                          <span className="text-white/40 text-lg italic">—</span><br/>
+                          {group.title.split(' - ')[1]}
+                        </h3>
+                        <div className="relative z-10 mt-6">
+                           <div className="text-4xl font-black text-white">{progress.percent}%</div>
+                           <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest mt-1">
+                             {progress.count} / {progress.total} RÉPONSES
+                           </div>
                         </div>
-                        <div className="relative z-10 mt-8 md:mt-10 bg-white text-slate-900 px-8 py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest group-hover:scale-110 transition-transform shadow-lg">COMMENCER</div>
+                        <div className="relative z-10 mt-10 bg-white text-slate-900 px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest group-hover:scale-110 transition-transform">
+                          {progress.percent === 100 ? "Modifier" : "Commencer"}
+                        </div>
                       </button>
                     );
                   })}
                 </div>
               ) : (
-                <div className="space-y-6 md:space-y-8 animate-in slide-in-from-right-10">
-                  {/* Questions du questionnaire */}
-                  {groupedQuestions.filter(g => g.id === activeDiagnosticSection).map((group) => (
-                    <div key={group.id} className="space-y-6">
-                        <h3 className="text-xl md:text-4xl font-black text-slate-900 italic uppercase leading-tight border-b-4 border-blue-600 pb-4">{group.title}</h3>
+                <div className="space-y-8 animate-in slide-in-from-right-10">
+                  {groupedQuestions
+                    .filter(g => g.id === activeDiagnosticSection)
+                    .map((group) => (
+                      <div key={group.id} className="space-y-8">
+                        <div className="flex justify-between items-end border-b-4 border-blue-600 pb-4">
+                          <h3 className="text-4xl font-black text-slate-900 italic uppercase leading-none">
+                            {group.title}
+                          </h3>
+                          <span className="text-blue-600 font-black tracking-widest uppercase text-sm">
+                            {getGroupProgress(group.questions).percent}% Complété
+                          </span>
+                        </div>
                         {group.questions.map((q) => (
-                          <div key={q.id} className="bg-white p-6 md:p-8 rounded-[30px] border border-slate-200 shadow-sm">
-                            <p className="text-lg md:text-xl font-black mb-6 text-slate-800">Q{q.id}. {q.question.replace(/^Q\d+\s?[-–]\s?/, "")}</p>
+                          <div key={q.id} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+                            <div className="flex gap-2 mb-4">
+                              {q.odds.map(o => <span key={o} className="text-[9px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-black">ODD {o}</span>)}
+                            </div>
+                            <p className="text-xl mb-6 text-slate-800">
+                                <span className="font-black">{q.id}. </span>
+                                {(() => {
+                                    const fullText = cleanQuestionText(q.question);
+                                    const dotIndex = fullText.indexOf('.');
+                                    if (dotIndex !== -1) {
+                                        const title = fullText.substring(0, dotIndex + 1);
+                                        const description = fullText.substring(dotIndex + 1);
+                                        return (
+                                            <>
+                                                <span className="font-black">{title}</span>
+                                                <span className="font-medium text-slate-600"> {description}</span>
+                                            </>
+                                        );
+                                    }
+                                    return <span className="font-black">{fullText}</span>;
+                                })()}
+                            </p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {q.options.map((opt, idx) => {
                                 const pts = idx === 5 ? 0 : idx + 1; 
                                 const sel = answers[q.id] === pts;
                                 return (
-                                  <button key={idx} onClick={() => setAnswers({...answers, [q.id]: pts})} className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[10px] md:text-[11px] flex items-center gap-3 ${sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"} ${colorMap[opt.color] || "bg-slate-50"}`}>
-                                    <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">{sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}</div>
-                                    <span className="leading-tight">{opt.text}</span>
+                                  <button key={idx} onClick={() => setAnswers({...answers, [q.id]: pts})} className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"} ${colorMap[opt.color] || "bg-slate-50"}`}>
+                                    <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
+                                      {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
+                                    </div>
+                                    {opt.text.replace(/^X\s/, "")}
                                   </button>
                                 );
                               })}
                             </div>
                           </div>
                         ))}
-                    </div>
-                  ))}
-                  <div className="flex flex-col md:flex-row gap-4 md:gap-6 pt-10 pb-20">
-                    <button onClick={() => setActiveDiagnosticSection(null)} className="w-full md:flex-1 bg-slate-800 text-white p-5 rounded-2xl font-black uppercase hover:bg-slate-900 transition-all shadow-xl">← Retour</button>
-                    <button onClick={() => setActiveTab("Résultats")} className="w-full md:flex-1 bg-blue-600 text-white p-5 rounded-2xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all">Résultats</button>
+                      </div>
+                    ))}
+                  <div className="flex flex-col md:flex-row gap-6 pt-10 pb-20">
+                    <button onClick={() => { setActiveDiagnosticSection(null); window.scrollTo(0,0); }} className="flex-1 bg-slate-800 text-white p-6 rounded-3xl font-black uppercase hover:bg-slate-900 transition-all shadow-xl">← Menu des sections</button>
+                    <button onClick={() => { window.scrollTo(0,0); setActiveTab("Résultats"); }} className="flex-1 bg-blue-600 text-white p-6 rounded-3xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all">Voir les résultats finaux</button>
                   </div>
                 </div>
               )}
            </div>
         )}
 
-        {/* RÉSULTATS (RESTAURÉ) */}
         {activeTab === "Résultats" && (
-          <div className="space-y-8 md:space-y-12 animate-in slide-in-from-bottom-10">
+          <div className="space-y-12 animate-in slide-in-from-bottom-10">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end border-b-4 border-blue-600 pb-8 gap-6">
-              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center md:text-left">
-                <div className="w-24 h-16 md:w-32 md:h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-2 shrink-0">
+              <div className="flex items-center gap-6">
+                <div className="w-32 h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-2 shrink-0">
                   <img src={LOGO_URL} alt="Polytechnique" className="w-full h-full object-contain" />
                 </div>
                 <div>
-                  <h2 className="text-3xl md:text-5xl font-black italic uppercase leading-tight text-slate-900">Rapport Final</h2>
-                  <p className="text-blue-600 font-black text-lg md:text-xl uppercase tracking-widest">{muralInfo["Nom de la commune"] || "Collectivité"}</p>
+                  <h2 className="text-5xl font-black italic uppercase leading-tight text-slate-900">Rapport de Diagnostic</h2>
+                  <p className="text-blue-600 font-black text-xl uppercase tracking-widest">{muralInfo["Nom de la commune"] || "Collectivité"}</p>
                 </div>
               </div>
-              <button onClick={() => window.print()} className="w-full md:w-auto bg-blue-600 text-white px-8 py-3 rounded-xl font-black uppercase hover:bg-blue-700 transition-all shadow-lg print:hidden">Imprimer / PDF</button>
+              <button onClick={() => window.print()} className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 print:hidden">Imprimer / Export PDF</button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-1 bg-blue-600 p-10 md:p-16 rounded-[40px] md:rounded-[50px] flex flex-col items-center justify-center border border-white/20 shadow-2xl text-center text-white relative overflow-hidden min-h-[300px]">
-                {/* Image filigrane restaurée */}
+              <div className="lg:col-span-1 bg-blue-600 p-16 rounded-[50px] flex flex-col items-center justify-center border border-white/20 shadow-2xl text-center text-white relative overflow-hidden">
                 <img src={LOGO_URL} alt="" className="absolute w-64 h-64 opacity-10 -bottom-10 -right-10 rotate-12 pointer-events-none grayscale invert" />
                 <div className="relative z-10">
-                  <div className="text-7xl md:text-9xl font-black leading-none">{globalScore}</div>
-                  <span className="text-xl md:text-2xl font-bold uppercase mt-4 block">Score Global / 5.0</span>
-                  <div className="mt-4 bg-white/20 px-4 py-1 rounded-full text-[10px] uppercase font-bold">{getScoreVisuals(globalScore).label}</div>
+                  <div className="text-9xl font-black leading-none">{globalScore}</div>
+                  <span className="text-2xl font-bold uppercase mt-4 block">Score Global / 5.0</span>
                 </div>
               </div>
-              <div className="lg:col-span-2 bg-white rounded-[40px] md:rounded-[50px] p-4 md:p-8 border border-slate-200 shadow-sm flex items-center justify-center overflow-x-auto min-h-[500px]">
-                <div className="min-w-[300px] w-full">
-                  <ReactECharts option={chartOption} style={{ height: "500px", width: "100%" }} />
-                </div>
+              <div className="lg:col-span-2 bg-white rounded-[50px] p-8 border border-slate-200 shadow-sm flex items-center justify-center">
+                <ReactECharts option={chartOption} style={{ height: "600px", width: "100%" }} />
               </div>
             </div>
           </div>
         )}
 
-        {/* CITOYENS (FONCTIONS DE SUPPRESSION RESTAURÉES) */}
+        {activeTab === "Priorités" && (
+          <div className="space-y-8 animate-in fade-in">
+            <div className="space-y-4">
+              <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Priorités stratégiques</h2>
+              <p className="text-slate-500 text-lg max-w-4xl leading-relaxed italic border-l-4 border-slate-200 pl-6">
+                "Nous ne vous proposons ici que des recommandations générales. Si vous avez besoin d'une approche spécifique, veuillez contacter un spécialiste ou consulter la liste des institutions publiques figurant sur ce site web."
+              </p>
+            </div>
+            <div className="grid gap-6">
+              {lowPerformingODDs.map(item => {
+                const visuals = getScoreVisuals(item.value);
+                return (
+                  <div key={item.odd} className={`bg-white p-8 rounded-[30px] border-l-[20px] ${visuals.twBorder} flex justify-between items-center shadow-md border border-slate-200`}>
+                    <div className="flex items-center gap-8">
+                      <img src={oddIcons[item.odd]} alt={item.odd} className="w-20 h-20 rounded-xl" />
+                      <div>
+                        <div className={`text-5xl font-black ${visuals.twText} italic uppercase leading-none mb-2`}>{item.odd}</div>
+                        <p className="text-lg font-bold text-slate-700">{oddDescriptions[item.odd]}</p>
+                      </div>
+                    </div>
+                    <div className="text-right"><p className="text-5xl font-black text-slate-900">{item.value} <span className="text-sm text-slate-400">/ 5</span></p></div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ... Autres onglets (À Propos, Partenaires, Citoyens, Contact) identiques à la version précédente ... */}
+        
+        {activeTab === "À Propos" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center py-12 animate-in">
+            <div className="space-y-8">
+              <h2 className="text-6xl font-black italic underline decoration-blue-500 decoration-8 underline-offset-8 uppercase leading-tight text-slate-900">Notre Engagement</h2>
+              <p className="text-xl text-slate-600 leading-relaxed font-light">ODD-X transforme les données communales en leviers d'action. En alignant votre stratégie sur les Objectifs de Développement Durable, nous créons ensemble des territoires résilients.</p>
+            </div>
+            <div className="rounded-[40px] overflow-hidden border border-slate-200 shadow-2xl">
+              <img src="https://educatif.eedf.fr/wp-content/uploads/sites/157/2021/02/ODD.jpg" alt="ODD Logo" className="w-full grayscale hover:grayscale-0 transition-all duration-700" />
+            </div>
+          </div>
+        )}
+
+        {activeTab === "Partenaires" && (
+          <div className="space-y-12 animate-in fade-in">
+            <div className="space-y-4">
+              <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Institutions spécialisées</h2>
+              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ces organismes publics et réseaux d'experts pourraient vous accompagner dans votre transition durable.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                { name: "ADEME", full: "Agence de la transition écologique", desc: "Expertise technique et financements pour les projets de transition énergétique.", link: "https://www.territoiresentransitions.fr/programme" },
+                { name: "FVD", full: "France Villes et Territoires Durables", desc: "Accélérer le déployement des ODD à l'échelle locale.", link: "https://francevilledurable.fr/" },
+                { name: "Club DD", full: "Le club développement durable", desc: "Réseau d'échange pour les établissements et entreprises publics.", link: "https://www.ecologie.gouv.fr/politiques-publiques/club-developpement-durable-etablissements-entreprises-publics" },
+                { name: "ANCT", full: "Agence Nationale de la Cohésion des Territoires", desc: "Support aux mairies dans leurs projets de revitalisation.", link: "https://agence-cohesion-territoires.gouv.fr" }
+              ].map((inst, i) => (
+                <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm hover:shadow-xl transition-all">
+                  <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase mb-4 inline-block">{inst.name}</span>
+                  <h3 className="text-xl font-black text-slate-900 uppercase mb-2">{inst.full}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6">{inst.desc}</p>
+                  <a href={inst.link} target="_blank" rel="noreferrer" className="text-blue-600 font-black text-xs uppercase tracking-widest border-b-2 border-blue-100 hover:border-blue-600 transition-all">Consulter les ressources</a>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {activeTab === "Citoyens" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 animate-in fade-in">
-             <div className="lg:col-span-1 bg-white p-6 md:p-8 rounded-[30px] md:rounded-[40px] border border-slate-200 h-fit shadow-lg sticky top-24">
-                <h3 className="text-lg md:text-xl font-black mb-6 uppercase tracking-widest text-blue-600">Proposer une idée</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 animate-in fade-in">
+             <div className="lg:col-span-1 bg-white p-8 rounded-[40px] border border-slate-200 h-fit shadow-lg sticky top-24">
+                <h3 className="text-xl font-black mb-6 uppercase tracking-widest text-blue-600">Proposer une idée</h3>
+                {selectedOddForm && (
+                  <div className="flex items-center gap-4 mb-6 p-4 bg-slate-50 rounded-2xl animate-in zoom-in-95">
+                    <img src={oddIcons[selectedOddForm]} alt="" className="w-16 h-16 rounded-lg" />
+                    <p className="text-xs font-bold text-slate-600">{oddDescriptions[selectedOddForm]}</p>
+                  </div>
+                )}
                 <form onSubmit={handleAddIdea} className="space-y-4">
-                  <select value={selectedOddForm} onChange={(e) => setSelectedOddForm(e.target.value)} className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-100 transition-all" required>
+                  <select
+                    value={selectedOddForm}
+                    onChange={(e) => setSelectedOddForm(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-100 transition-all"
+                    required
+                  >
                     <option value="">Choisir un ODD...</option>
-                    {Object.keys(oddDescriptions).map(odd => <option key={odd} value={odd}>{odd}</option>)}
+                    {Object.keys(oddDescriptions).map(odd => (
+                      <option key={odd} value={odd}>
+                        {odd} - {oddDescriptions[odd].substring(0, 40)}...
+                      </option>
+                    ))}
                   </select>
-                  <textarea name="ideaText" placeholder="Votre proposition pour la commune..." rows="6" className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 text-sm" required></textarea>
-                  <button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-xl font-black uppercase shadow-lg hover:bg-blue-700 transition-all">Publier l'idée</button>
+                  <textarea name="ideaText" placeholder="Votre proposition..." rows="6" className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-100" required></textarea>
+                  <button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-xl font-black uppercase shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all">Publier l'idée</button>
                 </form>
              </div>
              <div className="lg:col-span-2 space-y-6">
-                <h3 className="text-xl md:text-2xl font-black uppercase italic border-b border-slate-200 pb-4 text-slate-900">Boîte à idées citoyenne</h3>
+                <h3 className="text-2xl font-black uppercase italic border-b border-slate-200 pb-4 text-slate-900">Boîte à idées citoyenne</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {citizenIdeas.map((idea, idx) => (
-                    <div key={idx} className="bg-white p-5 md:p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between group relative transition-all hover:border-blue-200">
-                      {/* BOUTON SUPPRIMER RESTAURÉ */}
-                      <button onClick={() => handleDeleteIdea(idx)} className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-10 hover:bg-red-600">✕</button>
+                    <div key={idx} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between group relative transition-all hover:border-blue-200">
+                      <button 
+                        onClick={() => handleDeleteIdea(idx)}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600 z-10"
+                        title="Supprimer cette idée"
+                      >
+                        ✕
+                      </button>
                       <div className="flex gap-4 mb-4">
-                         <img src={oddIcons[idea.odd]} alt="" className="w-10 h-10 rounded-md shrink-0 shadow-sm" />
-                         <p className="text-sm font-bold italic text-slate-700 leading-tight">"{idea.text}"</p>
+                         <img src={oddIcons[idea.odd]} alt="" className="w-10 h-10 rounded-md shrink-0" />
+                         <p className="font-bold italic text-slate-700 leading-tight">"{idea.text}"</p>
                       </div>
                       <div className="flex justify-between items-center mt-auto border-t border-slate-50 pt-4">
-                        <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[8px] md:text-[9px] font-black uppercase">{idea.odd}</span>
-                        <span className="text-[8px] md:text-[9px] font-black text-slate-400 uppercase tracking-tighter">Le {idea.date}</span>
+                        <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[9px] font-black uppercase">{idea.odd}</span>
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Le {idea.date}</span>
                       </div>
                     </div>
                   ))}
-                  {citizenIdeas.length === 0 && <p className="text-slate-400 italic text-sm p-10 text-center col-span-2">Aucune idée publiée pour le moment.</p>}
                 </div>
              </div>
           </div>
         )}
 
-        {/* ... Autres onglets (À Propos, Priorités, Partenaires, Contact) restent identiques ... */}
-        {activeTab === "Priorités" && (
-            <div className="space-y-8 animate-in fade-in">
-              <h2 className="text-3xl md:text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900 leading-tight">Priorités stratégiques</h2>
-              <div className="grid gap-4">
-                {lowPerformingODDs.map(item => (
-                  <div key={item.odd} className={`bg-white p-6 rounded-3xl border-l-[12px] ${getScoreVisuals(item.value).twBorder} shadow-md flex flex-col md:flex-row items-center justify-between gap-4 border border-slate-100`}>
-                    <div className="flex items-center gap-4">
-                      <img src={oddIcons[item.odd]} alt="" className="w-16 h-16 rounded-xl" />
-                      <div>
-                        <h4 className={`text-2xl font-black ${getScoreVisuals(item.value).twText}`}>{item.odd}</h4>
-                        <p className="text-sm font-bold text-slate-500">{oddDescriptions[item.odd]}</p>
-                      </div>
-                    </div>
-                    <div className="text-3xl font-black text-slate-900">{item.value}/5</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-        )}
-
         {activeTab === "Contact" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 py-12 items-center animate-in fade-in">
-            <div className="space-y-6 text-slate-600 text-lg md:text-xl font-light text-center md:text-left px-4">
-              <h2 className="text-5xl md:text-7xl font-black uppercase italic underline decoration-blue-500 leading-tight text-slate-900">Contact</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 py-12 items-center animate-in fade-in">
+            <div className="space-y-8 text-slate-600 text-xl font-light">
+              <h2 className="text-7xl font-black uppercase italic underline decoration-blue-500 leading-tight text-slate-900">Contact</h2>
               <p>📍 Paris, France</p>
               <p>✉️ <a href="mailto:info@odd-x.com" className="font-bold text-blue-600 hover:underline">info@odd-x.com</a></p>
             </div>
-            <form action="https://formspree.io/f/xwvnldkr" method="POST" className="bg-white p-6 md:p-12 rounded-[40px] border border-slate-200 space-y-4 shadow-xl mx-4">
-              <input type="text" name="name" placeholder="NOM" className="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl font-bold" required />
-              <input type="email" name="email" placeholder="EMAIL" className="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl font-bold" required />
-              <textarea name="message" placeholder="MESSAGE..." rows="5" className="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl font-bold" required></textarea>
-              <button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-700 transition-all">Envoyer</button>
+            <form action="https://formspree.io/f/xwvnldkr" method="POST" className="bg-white p-12 rounded-[50px] border border-slate-200 space-y-4 shadow-xl">
+              <input type="text" name="name" placeholder="NOM" className="w-full bg-slate-50 border border-slate-100 p-6 rounded-2xl font-bold" required />
+              <input type="email" name="email" placeholder="EMAIL" className="w-full bg-slate-50 border border-slate-100 p-6 rounded-2xl font-bold" required />
+              <textarea name="message" placeholder="MESSAGE..." rows="5" className="w-full bg-slate-50 border border-slate-100 p-6 rounded-2xl font-bold" required></textarea>
+              <button type="submit" className="w-full bg-blue-600 text-white p-6 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all">Envoyer</button>
             </form>
           </div>
         )}
-
       </div>
     </div>
   );
