@@ -458,7 +458,7 @@ function App() {
               <button onClick={() => window.print()} className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 print:hidden">Imprimer / Export PDF</button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-1 bg-blue-600 p-8 md:p-16 rounded-[30px] md:rounded-[50px] ...">
+              <div className="lg:col-span-1 bg-blue-600 p-8 md:p-16 rounded-[30px] md:rounded-[50px]">
                 <img src={LOGO_URL} alt="" className="absolute w-64 h-64 opacity-10 -bottom-10 -right-10 rotate-12 pointer-events-none grayscale invert" />
                 <div className="relative z-10">
                   <div className="text-9xl font-black leading-none">{globalScore}</div>
