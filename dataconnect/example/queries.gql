@@ -1,0 +1,46 @@
+query listAllUsers @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  users {
+    id
+    displayName
+    email
+    createdAt
+  }
+}
+
+mutation createUser($displayName: String!, $email: String!, $dateOfBirth: Date, $gender: String, $photoUrl: String) @auth(level: USER) {
+  user_insert(data: {
+    displayName: $displayName,
+    email: $email,
+    createdAt_expr: "request.time",
+    dateOfBirth: $dateOfBirth,
+    gender: $gender,
+    photoUrl: $photoUrl
+  })
+}
+
+query getUserMedicationLogs @auth(level: USER) {
+  user(key: {id_expr: "auth.uid"}) {
+    id
+    displayName
+    medicationLogs_on_user {
+      id
+      medication {
+        name
+        dosage
+      }
+      takenAt
+      notes
+    }
+  }
+}
+
+mutation createSymptomLog($symptomId: UUID!, $duration: String, $notes: String, $severity: Int!) @auth(level: USER) {
+  symptomLog_insert(data: {
+    symptomId: $symptomId,
+    userId_expr: "auth.uid",
+    loggedAt_expr: "request.time",
+    duration: $duration,
+    notes: $notes,
+    severity: $severity
+  })
+}

@@ -1,0 +1,54 @@
+type User @table {
+  displayName: String!
+  email: String!
+  createdAt: Timestamp!
+  dateOfBirth: Date
+  gender: String
+  photoUrl: String
+}
+
+type HealthMetric @table {
+  name: String!
+  unit: String!
+  createdAt: Timestamp!
+  description: String
+}
+
+type MetricReading @table {
+  user: User!
+  healthMetric: HealthMetric!
+  value: Float!
+  recordedAt: Timestamp!
+  notes: String
+}
+
+type Symptom @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+}
+
+type SymptomLog @table {
+  user: User!
+  symptom: Symptom!
+  severity: Int!
+  loggedAt: Timestamp!
+  duration: String
+  notes: String
+}
+
+type Medication @table {
+  name: String!
+  dosage: String!
+  createdAt: Timestamp!
+  instructions: String
+  startDate: Date
+  endDate: Date
+}
+
+type MedicationLog @table {
+  user: User!
+  medication: Medication!
+  takenAt: Timestamp!
+  notes: String
+}

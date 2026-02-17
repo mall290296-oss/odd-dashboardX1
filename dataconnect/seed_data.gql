@@ -1,0 +1,117 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      createdAt: "2023-01-01T10:00:00Z",
+      displayName: "Alice Smith",
+      email: "alice@example.com",
+      dateOfBirth: "1990-05-15",
+      gender: "Female",
+      photoUrl: "https://example.com/alice.jpg"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2023-01-01T10:05:00Z",
+      displayName: "Bob Johnson",
+      email: "bob@example.com",
+      dateOfBirth: "1985-11-20",
+      gender: "Male",
+      photoUrl: "https://example.com/bob.jpg"
+    }
+  ])
+  healthMetric_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440002",
+      createdAt: "2023-01-01T11:00:00Z",
+      name: "Weight",
+      unit: "kg",
+      description: "Body weight measurement"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440003",
+      createdAt: "2023-01-01T11:05:00Z",
+      name: "Blood Pressure",
+      unit: "mmHg",
+      description: "Systolic and Diastolic blood pressure"
+    }
+  ])
+  medication_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440004",
+      createdAt: "2023-01-01T12:00:00Z",
+      name: "Aspirin",
+      dosage: "100mg",
+      startDate: "2023-01-01",
+      instructions: "Take daily with food"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440005",
+      createdAt: "2023-01-01T12:05:00Z",
+      name: "Ibuprofen",
+      dosage: "200mg",
+      startDate: "2023-01-01",
+      instructions: "Take as needed for pain"
+    }
+  ])
+  symptom_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440006",
+      createdAt: "2023-01-01T13:00:00Z",
+      name: "Headache",
+      description: "Dull ache in the temples"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440007",
+      createdAt: "2023-01-01T13:05:00Z",
+      name: "Fatigue",
+      description: "General feeling of tiredness"
+    }
+  ])
+  metricReading_insertMany(data: [
+    {
+      healthMetricId: "550e8400-e29b-41d4-a716-446655440002",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      recordedAt: "2023-01-02T08:00:00Z",
+      value: 70.5,
+      notes: "Morning measurement"
+    },
+    {
+      healthMetricId: "550e8400-e29b-41d4-a716-446655440003",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      recordedAt: "2023-01-02T09:00:00Z",
+      value: 120.80,
+      notes: "Afternoon reading"
+    }
+  ])
+  medicationLog_insertMany(data: [
+    {
+      medicationId: "550e8400-e29b-41d4-a716-446655440004",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      takenAt: "2023-01-02T08:30:00Z",
+      notes: "Taken with breakfast"
+    },
+    {
+      medicationId: "550e8400-e29b-41d4-a716-446655440005",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      takenAt: "2023-01-02T10:30:00Z",
+      notes: "For mild discomfort"
+    }
+  ])
+  symptomLog_insertMany(data: [
+    {
+      symptomId: "550e8400-e29b-41d4-a716-446655440006",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      loggedAt: "2023-01-02T14:00:00Z",
+      severity: 3,
+      duration: "2 hours",
+      notes: "Mild headache"
+    },
+    {
+      symptomId: "550e8400-e29b-41d4-a716-446655440007",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      loggedAt: "2023-01-02T15:00:00Z",
+      severity: 4,
+      notes: "Feeling tired after work"
+    }
+  ])
+}
