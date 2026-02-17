@@ -2,6 +2,8 @@ import React, { useState, useMemo, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
 import { QRCodeCanvas } from "qrcode.react";
 import questions from "./formulaire.json";
+import { db } from "./firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 // Configuration des couleurs style plateforme gouvernementale
 const SECTION_COLORS = {
@@ -88,6 +90,40 @@ function App() {
   const [citizenIdeas, setCitizenIdeas] = useState(() => JSON.parse(localStorage.getItem("oddx_ideas") || "[]"));
   const [selectedOddForm, setSelectedOddForm] = useState("");
   const [activeDiagnosticSection, setActiveDiagnosticSection] = useState(null);
+  const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
+    if (!communeName || communeName.trim() === "") return;
+  
+    const docId = communeName.replace(/\s+/g, '_').toLowerCase();
+    try {
+      await setDoc(doc(db, "diagnostics", docId), {
+        identite: dataIdentity,
+        reponses: dataAnswers,
+        idees: dataIdeas,
+        derniereMiseAJour: new Date().toISOString()
+      }, { merge: true });
+      console.log("Synchronisation Cloud réussie");
+    } catch (e) {
+      console.error("Erreur de synchronisation :", e);
+    }
+  };
+
+  const loadFromCloud = async (communeName) => {
+    if (!communeName) return;
+    const docId = communeName.replace(/\s+/g, '_').toLowerCase();
+    try {
+      const docSnap = await getDoc(doc(db, "diagnostics", docId));
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        // On met à jour les états avec les données du Cloud
+        if (data.reponses) setAnswers(data.reponses);
+        if (data.identite) setMuralInfo(data.identite);
+        if (data.idees) setCitizenIdeas(data.idees);
+        console.log("Données récupérées depuis le Cloud pour :", communeName);
+      }
+    } catch (e) {
+      console.error("Erreur de récupération Cloud :", e);
+    }
+  };
 
   const storageKey = useMemo(() => {
     const name = muralInfo["Nom de la commune"];
@@ -113,22 +149,31 @@ function App() {
 
   useEffect(() => {
     const name = muralInfo["Nom de la commune"];
+    
+    // 1. Sauvegarde locale (système actuel)
     localStorage.setItem("oddx_current_identite", JSON.stringify(muralInfo));
     localStorage.setItem(storageKey, JSON.stringify(answers));
     localStorage.setItem("oddx_ideas", JSON.stringify(citizenIdeas));
 
     if (name && name.trim() !== "") {
+      // Gestion de la liste des profils locale
       if (!profiles.includes(name)) {
         const newProfiles = [...profiles, name];
         setProfiles(newProfiles);
         localStorage.setItem("oddx_profiles_list", JSON.stringify(newProfiles));
       }
+      
+      // 2. Sauvegarde Cloud (nouveau système)
+      // On envoie les données à Firebase à chaque modification
+      syncWithCloud(name, answers, muralInfo, citizenIdeas);
+
+      // Mise à jour de l'historique complet en local (pour le mode hors-ligne)
       const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
       allIdentities[name] = muralInfo;
       localStorage.setItem("oddx_all_identities", JSON.stringify(allIdentities));
     }
   }, [answers, muralInfo, citizenIdeas, storageKey, profiles]);
-
+  
   const groupedQuestions = useMemo(() => [
     { id: 'env', title: "PARTIE 1 - ENVIRONNEMENT", questions: questions.filter(q => q.id >= 1 && q.id <= 17) },
     { id: 'soc', title: "PARTIE 2 - SOCIAL & GOUVERNANCE", questions: questions.filter(q => q.id >= 18 && q.id <= 33) },
@@ -150,12 +195,23 @@ function App() {
     return cleaned;
   };
 
-  const handleSwitchProfile = (profileName) => {
-    if (!profileName) { setMuralInfo({}); setAnswers({}); return; }
+// Modification du changement de profil pour inclure le Cloud
+  const handleSwitchProfile = async (profileName) => {
+    if (!profileName) { 
+      setMuralInfo({}); 
+      setAnswers({}); 
+      setCitizenIdeas([]);
+      return; 
+    }
+    
+    // 1. Chargement local immédiat
     const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
     if (allIdentities[profileName]) setMuralInfo(allIdentities[profileName]);
+    
+    // 2. Refresh via Cloud
+    await loadFromCloud(profileName);
   };
-
+  
   const handleNewProfile = () => { if (window.confirm("Créer un nouveau profil vierge ?")) { setMuralInfo({}); setAnswers({}); } };
 
   const handleDeleteCurrentProfile = () => {
