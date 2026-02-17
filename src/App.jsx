@@ -247,9 +247,8 @@ function App() {
               <img src={LOGO_URL} alt="Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
             </div>
             <span className="text-2xl font-black tracking-tighter text-blue-600">ODD-X</span>
-          </div>
-          
-          <div className="flex gap-4 md:gap-6 ... overflow-x-auto pb-2">
+          </div>          
+          <div className="flex gap-4 md:gap-6 text-[10px] md:text-xs font-bold uppercase tracking-widest overflow-x-auto whitespace-nowrap pb-2 no-scrollbar">
             {["Accueil", "À Propos", "Diagnostic", "Résultats", "Priorités", "Partenaires", "Citoyens", "Contact"].map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)} className={`${activeTab === tab ? "text-blue-600 border-b-2 border-blue-600" : "text-slate-500 hover:text-blue-500"} pb-1 transition-all`}>
                 {tab === "Partenaires" ? "Institutions" : tab}
@@ -459,7 +458,7 @@ function App() {
               <button onClick={() => window.print()} className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 print:hidden">Imprimer / Export PDF</button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-1 bg-blue-600 p-16 rounded-[50px] flex flex-col items-center justify-center border border-white/20 shadow-2xl text-center text-white relative overflow-hidden">
+              <div className="lg:col-span-1 bg-blue-600 p-8 md:p-16 rounded-[30px] md:rounded-[50px] ...">
                 <img src={LOGO_URL} alt="" className="absolute w-64 h-64 opacity-10 -bottom-10 -right-10 rotate-12 pointer-events-none grayscale invert" />
                 <div className="relative z-10">
                   <div className="text-9xl font-black leading-none">{globalScore}</div>
@@ -467,7 +466,11 @@ function App() {
                 </div>
               </div>
               <div className="lg:col-span-2 bg-white rounded-[50px] p-8 border border-slate-200 shadow-sm flex items-center justify-center">
-                <ReactECharts option={chartOption} style={{ height: "600px", width: "100%" }} />
+                <ReactECharts 
+                  option={chartOption} 
+                  style={{ height: window.innerWidth < 768 ? "350px" : "600px", width: "100%" }} 
+                />
+                
               </div>
             </div>
           </div>
