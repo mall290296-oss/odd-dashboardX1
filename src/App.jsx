@@ -94,8 +94,11 @@ function App() {
   const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
     if (!communeName || communeName.trim() === "") return;
 
-    const docId = communeName.replace(/\s+/g, '_').toLowerCase();
-
+    const docId = communeName
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '_');
+      
     try {
       await setDoc(
         doc(db, "diagnostics", docId),
@@ -136,11 +139,23 @@ function App() {
     } finally {
       setIsSaving(false);
     }
+
+    const cleanName = name.trim();
+
+    if (!profiles.some(p => p.toLowerCase() === cleanName.toLowerCase())) {
+      const newProfiles = [...profiles, cleanName];
+      setProfiles(newProfiles);
+      localStorage.setItem("oddx_profiles_list", JSON.stringify(newProfiles));
+    }
+
   };
 
   const loadFromCloud = async (communeName) => {
     if (!communeName) return;
-    const docId = communeName.replace(/\s+/g, '_').toLowerCase();
+    const docId = communeName
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '_');
     try {
       const docSnap = await getDoc(doc(db, "diagnostics", docId));
       if (docSnap.exists()) {
@@ -186,19 +201,7 @@ function App() {
     localStorage.setItem(storageKey, JSON.stringify(answers));
     localStorage.setItem("oddx_ideas", JSON.stringify(citizenIdeas));
 
-    if (name && name.trim() !== "") {
-      // Gestion de la liste des profils locale
-      if (!profiles.includes(name)) {
-        const newProfiles = [...profiles, name];
-        setProfiles(newProfiles);
-        localStorage.setItem("oddx_profiles_list", JSON.stringify(newProfiles));
-      }
 
-      // Mise à jour de l'historique complet en local (pour le mode hors-ligne)
-      const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
-      allIdentities[name] = muralInfo;
-      localStorage.setItem("oddx_all_identities", JSON.stringify(allIdentities));
-    }
   }, [answers, muralInfo, citizenIdeas, storageKey]);
   
   const groupedQuestions = useMemo(() => [
