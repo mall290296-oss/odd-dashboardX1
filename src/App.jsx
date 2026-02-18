@@ -3,7 +3,7 @@ import ReactECharts from "echarts-for-react";
 import { QRCodeCanvas } from "qrcode.react";
 import questions from "./formulaire.json";
 import { db } from "./firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, onSnapshot } from "firebase/firestore";
 
 // Configuration des couleurs style plateforme gouvernementale
 const SECTION_COLORS = {
@@ -174,6 +174,35 @@ function App() {
     }
   }, [answers, muralInfo, citizenIdeas, storageKey, profiles]);
   
+  // Écouteur temps réel : Synchronise instantanément tous les appareils connectés
+  useEffect(() => {
+    const name = muralInfo["Nom de la commune"];
+    if (!name || name.trim() === "") return;
+
+    const docId = name.replace(/\s+/g, '_').toLowerCase();
+    
+    // On crée un lien direct avec le document dans le Cloud
+    const unsubscribe = onSnapshot(doc(db, "diagnostics", docId), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        
+        // On compare avec les données locales pour éviter les boucles inutiles
+        if (JSON.stringify(data.reponses) !== JSON.stringify(answers)) {
+          setAnswers(data.reponses || {});
+        }
+        if (JSON.stringify(data.identite) !== JSON.stringify(muralInfo)) {
+          setMuralInfo(data.identite || {});
+        }
+        if (JSON.stringify(data.idees) !== JSON.stringify(citizenIdeas)) {
+          setCitizenIdeas(data.idees || []);
+        }
+      }
+    });
+
+    // Nettoyage de la connexion quand on change de mairie
+    return () => unsubscribe();
+  }, [muralInfo["Nom de la commune"]]);
+
   const groupedQuestions = useMemo(() => [
     { id: 'env', title: "PARTIE 1 - ENVIRONNEMENT", questions: questions.filter(q => q.id >= 1 && q.id <= 17) },
     { id: 'soc', title: "PARTIE 2 - SOCIAL & GOUVERNANCE", questions: questions.filter(q => q.id >= 18 && q.id <= 33) },
