@@ -90,20 +90,51 @@ function App() {
   const [citizenIdeas, setCitizenIdeas] = useState(() => JSON.parse(localStorage.getItem("oddx_ideas") || "[]"));
   const [selectedOddForm, setSelectedOddForm] = useState("");
   const [activeDiagnosticSection, setActiveDiagnosticSection] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
   const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
     if (!communeName || communeName.trim() === "") return;
-  
+
     const docId = communeName.replace(/\s+/g, '_').toLowerCase();
+
     try {
-      await setDoc(doc(db, "diagnostics", docId), {
-        identite: dataIdentity,
-        reponses: dataAnswers,
-        idees: dataIdeas,
-        derniereMiseAJour: new Date().toISOString()
-      }, { merge: true });
+      await setDoc(
+        doc(db, "diagnostics", docId),
+        {
+          identite: dataIdentity,
+          reponses: dataAnswers,
+          idees: dataIdeas,
+          derniereMiseAJour: new Date().toISOString()
+        },
+        { merge: true }
+      );
+
       console.log("Synchronisation Cloud réussie");
     } catch (e) {
       console.error("Erreur de synchronisation :", e);
+      throw e; // important so manual save detects failure
+    }
+  };
+
+
+  // ✅ Manual save button logic (SEPARATE FUNCTION)
+  const handleManualSave = async () => {
+    const name = muralInfo["Nom de la commune"];
+
+    if (!name || name.trim() === "") {
+      alert("Veuillez renseigner le nom de la commune avant de sauvegarder.");
+      return;
+    }
+
+    setIsSaving(true);
+
+    try {
+      await syncWithCloud(name, answers, muralInfo, citizenIdeas);
+      alert("✅ Sauvegarde Cloud réussie !");
+    } catch (e) {
+      console.error(e);
+      alert("❌ Erreur lors de la sauvegarde cloud.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -162,17 +193,13 @@ function App() {
         setProfiles(newProfiles);
         localStorage.setItem("oddx_profiles_list", JSON.stringify(newProfiles));
       }
-      
-      // 2. Sauvegarde Cloud (nouveau système)
-      // On envoie les données à Firebase à chaque modification
-      syncWithCloud(name, answers, muralInfo, citizenIdeas);
 
       // Mise à jour de l'historique complet en local (pour le mode hors-ligne)
       const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
       allIdentities[name] = muralInfo;
       localStorage.setItem("oddx_all_identities", JSON.stringify(allIdentities));
     }
-  }, [answers, muralInfo, citizenIdeas, storageKey, profiles]);
+  }, [answers, muralInfo, citizenIdeas, storageKey]);
   
   const groupedQuestions = useMemo(() => [
     { id: 'env', title: "PARTIE 1 - ENVIRONNEMENT", questions: questions.filter(q => q.id >= 1 && q.id <= 17) },
@@ -399,9 +426,25 @@ function App() {
                     Diagnostic : <span className="text-blue-600">{muralInfo["Nom de la commune"]}</span>
                   </p>
                 </div>
-                <button onClick={() => setActiveTab("Diagnostic")} className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600">Modifier Infos</button>
-              </div>
+                
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleManualSave}
+                    disabled={isSaving}
+                    className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-emerald-700 transition-all shadow-md disabled:opacity-50"
+                  >
+                    {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
+                  </button>
 
+                  <button
+                    onClick={() => setActiveTab("Diagnostic")}
+                    className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
+                  >
+                    Modifier Infos
+                  </button>
+                </div>
+           
+              </div>
               {!activeDiagnosticSection ? (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-10">
                   {groupedQuestions.map((group) => {
