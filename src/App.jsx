@@ -195,7 +195,6 @@ function App() {
     return cleaned;
   };
 
-// Modification du changement de profil pour inclure le Cloud
   const handleSwitchProfile = async (profileName) => {
     if (!profileName) { 
       setMuralInfo({}); 
@@ -204,11 +203,13 @@ function App() {
       return; 
     }
     
-    // 1. Chargement local immédiat
+    // 1. On charge le local pour l'immédiateté
     const allIdentities = JSON.parse(localStorage.getItem("oddx_all_identities") || "{}");
-    if (allIdentities[profileName]) setMuralInfo(allIdentities[profileName]);
-    
-    // 2. Refresh via Cloud
+    if (allIdentities[profileName]) {
+      setMuralInfo(allIdentities[profileName]);
+    }
+
+    // 2. FORCE la récupération Cloud
     await loadFromCloud(profileName);
   };
   
