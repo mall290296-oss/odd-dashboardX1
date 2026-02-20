@@ -4,7 +4,6 @@ import { QRCodeCanvas } from "qrcode.react";
 import questions from "./formulaire.json";
 import { db } from "./firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { collection, getDocs } from "firebase/firestore";
 
 // Configuration des couleurs style plateforme gouvernementale
 const SECTION_COLORS = {
@@ -140,37 +139,6 @@ function App() {
 
     alert("💾 Sauvegarde locale effectuée !");
   };
-
-  const fetchCloudCommunes = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "diagnostics"));
-
-      const communes = [];
-
-      querySnapshot.forEach((doc) => {
-        if (doc.data()?.identite?.["Nom de la commune"]) {
-          communes.push(doc.data().identite["Nom de la commune"]);
-        }
-      });
-
-      if (communes.length === 0) {
-        alert("Aucune commune trouvée dans le cloud.");
-        return;
-      }
-
-      setProfiles(communes);
-      localStorage.setItem(
-        "oddx_profiles_list",
-        JSON.stringify(communes)
-      );
-
-      alert(`✅ ${communes.length} communes chargées depuis Firebase`);
-    } catch (e) {
-      console.error(e);
-      alert("Erreur lors du chargement Firebase.");
-    }
-  };
-
 
   };
 
@@ -449,12 +417,6 @@ function App() {
                 {muralInfo["Nom de la commune"] && <button onClick={handleDeleteCurrentProfile} className="bg-red-50 text-red-600 border border-red-100 px-4 py-2 rounded-lg text-[10px] font-black uppercase hover:bg-red-600 hover:text-white transition-all">Supprimer</button>}
               </div>
               <button onClick={handleNewProfile} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">➕ Nouvelle Mairie</button>
-              <button
-                onClick={fetchCloudCommunes}
-                className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-emerald-700 transition-all shadow-lg"
-              >
-                ☁️ Charger depuis Cloud
-              </button>
             </div>
             {Object.entries(identityFields).map(([category, fields]) => (
               <div key={category} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
