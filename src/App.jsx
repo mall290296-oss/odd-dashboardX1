@@ -102,6 +102,14 @@ function App() {
       
     try {
       await setDoc(
+        doc(db, "communes_list", docId),
+        {
+          name: communeName,
+          updatedAt: new Date().toISOString()
+        },
+        { merge: true }
+      );
+      await setDoc(
         doc(db, "diagnostics", docId),
         {
           identite: dataIdentity,
@@ -293,20 +301,18 @@ function App() {
 
   const fetchCloudCommunes = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "diagnostics"));
+      const querySnapshot = await getDocs(
+        collection(db, "communes_list")
+      );
 
       const communes = [];
 
-      querySnapshot.forEach((doc) => {
-        if (doc.data()?.identite?.["Nom de la commune"]) {
-          communes.push(doc.data().identite["Nom de la commune"]);
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (data?.name) {
+          communes.push(data.name);
         }
       });
-
-      if (communes.length === 0) {
-        alert("Aucune commune trouvée dans le cloud.");
-        return;
-      }
 
       setProfiles(communes);
       localStorage.setItem(
