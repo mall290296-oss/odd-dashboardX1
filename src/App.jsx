@@ -153,22 +153,52 @@ function App() {
 
   const loadFromCloud = async (communeName) => {
     if (!communeName) return;
+
     const docId = communeName
       .trim()
       .toLowerCase()
-      .replace(/\s+/g, '_');
+      .replace(/\s+/g, "_");
+
     try {
-      const docSnap = await getDoc(doc(db, "diagnostics", docId));
+      const ref = doc(db, "diagnostics", docId);
+      const docSnap = await getDoc(ref);
+
       if (docSnap.exists()) {
         const data = docSnap.data();
-        // On met à jour les états avec les données du Cloud
-        if (data.reponses) setAnswers(data.reponses);
-        if (data.identite) setMuralInfo(data.identite);
-        if (data.idees) setCitizenIdeas(data.idees);
-        console.log("Données récupérées depuis le Cloud pour :", communeName);
+
+        console.log("DATA FIRESTORE:", data); // 👈 IMPORTANT DEBUG
+
+        // ✅ IDENTITÉ
+        if (data.identite) {
+          setMuralInfo(data.identite);
+          localStorage.setItem(
+            "oddx_current_identite",
+            JSON.stringify(data.identite)
+          );
+        }
+
+        // ✅ RÉPONSES (LE POINT CRITIQUE)
+        if (data.reponses) {
+          setAnswers(data.reponses);
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify(data.reponses)
+          );
+        }
+
+        // ✅ IDÉES
+        if (data.idees) {
+          setCitizenIdeas(data.idees);
+          localStorage.setItem(
+            "oddx_ideas",
+            JSON.stringify(data.idees)
+          );
+        }
+      } else {
+        alert("Aucun diagnostic trouvé.");
       }
     } catch (e) {
-      console.error("Erreur de récupération Cloud :", e);
+      console.error("Erreur chargement cloud:", e);
     }
   };
 
