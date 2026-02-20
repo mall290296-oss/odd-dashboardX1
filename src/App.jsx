@@ -4,6 +4,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import questions from "./formulaire.json";
 import { db } from "./firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 // Configuration des couleurs style plateforme gouvernementale
 const SECTION_COLORS = {
@@ -91,29 +92,6 @@ function App() {
   const [selectedOddForm, setSelectedOddForm] = useState("");
   const [activeDiagnosticSection, setActiveDiagnosticSection] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
-  
-  const handleLocalSave = () => {
-    const name = muralInfo["Nom de la commune"];
-
-    if (!name || name.trim() === "") {
-      alert("Veuillez renseigner le nom de la commune.");
-      return;
-    }
-
-    // sauvegarde identité
-    localStorage.setItem(
-      "oddx_current_identite",
-      JSON.stringify(muralInfo)
-    );
-
-    // sauvegarde réponses
-    localStorage.setItem(storageKey, JSON.stringify(answers));
-
-    // sauvegarde idées
-    localStorage.setItem("oddx_ideas", JSON.stringify(citizenIdeas));
-
-    alert("💾 Sauvegarde locale effectuée !");
-  };
   const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
     if (!communeName || communeName.trim() === "") return;
 
@@ -194,8 +172,6 @@ function App() {
     }
   };
 
-  
-  
   const storageKey = useMemo(() => {
     const name = muralInfo["Nom de la commune"];
     return name ? `oddx_answers_${name.replace(/\s+/g, '_').toLowerCase()}` : "oddx_answers_default";
@@ -282,6 +258,36 @@ function App() {
       localStorage.setItem("oddx_all_identities", JSON.stringify(allIdentities));
       localStorage.removeItem(storageKey);
       setMuralInfo({}); setAnswers({});
+    }
+  };
+
+  const fetchCloudCommunes = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "diagnostics"));
+
+      const communes = [];
+
+      querySnapshot.forEach((doc) => {
+        if (doc.data()?.identite?.["Nom de la commune"]) {
+          communes.push(doc.data().identite["Nom de la commune"]);
+        }
+      });
+
+      if (communes.length === 0) {
+        alert("Aucune commune trouvée dans le cloud.");
+        return;
+      }
+
+      setProfiles(communes);
+      localStorage.setItem(
+        "oddx_profiles_list",
+        JSON.stringify(communes)
+      );
+
+      alert(`✅ ${communes.length} communes chargées depuis Firebase`);
+    } catch (e) {
+      console.error(e);
+      alert("Erreur lors du chargement Firebase.");
     }
   };
 
@@ -418,6 +424,12 @@ function App() {
                 {muralInfo["Nom de la commune"] && <button onClick={handleDeleteCurrentProfile} className="bg-red-50 text-red-600 border border-red-100 px-4 py-2 rounded-lg text-[10px] font-black uppercase hover:bg-red-600 hover:text-white transition-all">Supprimer</button>}
               </div>
               <button onClick={handleNewProfile} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">➕ Nouvelle Mairie</button>
+              <button
+                onClick={fetchCloudCommunes}
+                className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-emerald-700 transition-all shadow-lg"
+              >
+                ☁️ Charger depuis Cloud
+              </button>
             </div>
             {Object.entries(identityFields).map(([category, fields]) => (
               <div key={category} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
@@ -427,14 +439,6 @@ function App() {
                     <div key={field} className="flex flex-col">
                       <label className="text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">{field}</label>
                       <input value={muralInfo[field] || ""} onChange={(e) => setMuralInfo({...muralInfo, [field]: e.target.value})} className={`bg-slate-50 border p-3 rounded-xl focus:border-blue-500 outline-none text-sm font-bold transition-all ${muralInfo[field] ? "border-green-200 bg-green-50/30 text-slate-800" : "border-slate-200 text-slate-600"}`} />
-                      {field === "Nom de la commune" && (
-                        <button
-                          onClick={handleLocalSave}
-                          className="mt-2 bg-slate-800 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase hover:bg-slate-900 transition-all"
-                        >
-                          💾 Sauvegarder localement
-                        </button>
-                      )}
                     </div>
                   ))}
                 </div>
