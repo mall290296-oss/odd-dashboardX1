@@ -91,7 +91,6 @@ function App() {
   const [selectedOddForm, setSelectedOddForm] = useState("");
   const [activeDiagnosticSection, setActiveDiagnosticSection] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [cloudVersion, setCloudVersion] = useState(null);
   const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
     if (!communeName || communeName.trim() === "") return;
 
@@ -117,29 +116,6 @@ function App() {
       console.error("Erreur de synchronisation :", e);
       throw e; // important so manual save detects failure
     }
-  const handleLocalSave = () => {
-    const name = muralInfo["Nom de la commune"];
-
-    if (!name || name.trim() === "") {
-      alert("Veuillez renseigner le nom de la commune.");
-      return;
-    }
-
-    // sauvegarde identité
-    localStorage.setItem(
-      "oddx_current_identite",
-      JSON.stringify(muralInfo)
-    );
-
-    // sauvegarde réponses
-    localStorage.setItem(storageKey, JSON.stringify(answers));
-
-    // sauvegarde idées
-    localStorage.setItem("oddx_ideas", JSON.stringify(citizenIdeas));
-
-    alert("💾 Sauvegarde locale effectuée !");
-  };
-
   };
 
 
@@ -426,14 +402,6 @@ function App() {
                     <div key={field} className="flex flex-col">
                       <label className="text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">{field}</label>
                       <input value={muralInfo[field] || ""} onChange={(e) => setMuralInfo({...muralInfo, [field]: e.target.value})} className={`bg-slate-50 border p-3 rounded-xl focus:border-blue-500 outline-none text-sm font-bold transition-all ${muralInfo[field] ? "border-green-200 bg-green-50/30 text-slate-800" : "border-slate-200 text-slate-600"}`} />
-                      {field === "Nom de la commune" && (
-                        <button
-                          onClick={handleLocalSave}
-                          className="mt-2 bg-slate-800 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase hover:bg-slate-900 transition-all"
-                        >
-                          💾 Sauvegarder localement
-                        </button>
-                      )}
                     </div>
                   ))}
                 </div>
