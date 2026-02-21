@@ -177,6 +177,7 @@ function App() {
 
     try {
       await syncWithCloud(name, answers, muralInfo, citizenIdeas);
+        if (Object.keys(cleanAnswers).length === 0) return;
       alert("✅ Sauvegarde Cloud réussie !");
     } catch (e) {
       console.error(e);
@@ -240,13 +241,17 @@ function App() {
             JSON.stringify(data.idees)
           );
         }
+
+        setActiveTab("Questionnaire");
+
       } else {
         alert("Aucun diagnostic trouvé.");
       }
     } catch (e) {
       console.error("Erreur chargement cloud:", e);
-      setTimeout(() => setIsLoadingCloud(false), 50);
     }
+    setTimeout(() => setIsLoadingCloud(false), 50);
+
   };
 
   const storageKey = useMemo(() => {
@@ -625,11 +630,11 @@ function App() {
                         <button 
                           onClick={() => {
                             const newNAState = !isNotApplicable;
-                            setAnswers({
-                              ...answers, 
+                            setAnswers(prev => ({
+                              ...prev,
                               [`${q.id}_na`]: newNAState,
-                              [q.id]: undefined // Reset la réponse précédente
-                            });
+                              [q.id]: undefined
+                            }));
                           }}
                           className={`text-[10px] font-black uppercase px-3 py-1 rounded-lg border transition-all ${
                             isNotApplicable 
