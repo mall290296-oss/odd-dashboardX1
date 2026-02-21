@@ -84,6 +84,53 @@ const getScoreVisuals = (score) => {
 
 const LOGO_URL = "https://programmes.polytechnique.edu/sites/default/files/2022-06/logo-polytechnique.svg";
 
+const identityFields = {
+  "Informations générales sur la commune": [
+    "Nom de la commune",
+    "Autres noms (ancien nom, nom en langue régionale, s'il y a lieu)",
+    "Code Postal",
+    "Code Insee",
+    "Département",
+    "Région administrative",
+    "Arrondissement (s'il existe)",
+    "Canton d'appartenance",
+    "Intercommunalité (EPCI)"
+  ],
+  "Démographie": [
+    "Population municipale (dernier recensement connu)",
+    "Population totale (avec doubles comptes si applicable)",
+    "Population de l'agglomération (si applicable)",
+    "Densité de population (hab./km²)",
+    "Tranche d'âge dominante",
+    "Évolution démographique récente (tendance ou chiffres si disponibles)"
+  ],
+  "Localisation géographique": [
+    "Coordonnées GPS (latitude / longitude)",
+    "Altitude minimale et maximale",
+    "Superficie totale (en km²)"
+  ],
+  "Autres données": [
+    "Nombre d'entreprises",
+    "Taux de chômage (%)",
+    "Nombre d'écoles"
+  ],
+  "Informations sur la mairie": [
+    "Nom du maire",
+    "Prénom du maire",
+    "Date de naissance du maire (facultatif)",
+    "Genre du maire (facultatif)",
+    "Début et fin du mandat actuel",
+    "Étiquette politique (facultatif)",
+    "Adresse complète de la mairie",
+    "Téléphone",
+    "Courriel officiel",
+    "Site internet de la mairie (s'il existe)",
+    "Horaires d'ouverture au public"
+  ]
+};
+
+const allRequiredFields = Object.values(identityFields).flat();
+
 function App() {
   const [activeTab, setActiveTab] = useState("Accueil");
   const [profiles, setProfiles] = useState(() => JSON.parse(localStorage.getItem("oddx_profiles_list") || "[]"));
@@ -205,16 +252,6 @@ function App() {
   }, [muralInfo]);
 
   const [answers, setAnswers] = useState(() => JSON.parse(localStorage.getItem(storageKey) || "{}"));
-
-  const identityFields = {
-    "Informations générales sur la commune": ["Nom de la commune", "Autres noms (ancien nom, nom en langue régionale, s'il y a lieu)", "Code Postal", "Code Insee", "Département", "Région administrative", "Arrondissement (s'il existe)", "Canton d'appartenance", "Intercommunalité (EPCI)" ],
-    "Démographie": ["Population municipale (dernier recensement connu)", "Population totale (avec doubles comptes si applicable)", "Population de l'agglomération (si applicable)","Densité de population (hab./km²)", "Tranche d'âge dominante", "Évolution démographique récente (tendance ou chiffres si disponibles)"],
-    "Localisation géographique": ["Coordonnées GPS (latitude / longitude)", "Altitude minimale et maximale", "Superficie totale (en km²)" ],
-    "Autres données": ["Nombre d'entreprises", "Taux de chômage (%)", "Nombre d'écoles"],
-    "Informations sur la mairie": ["Nom du maire", "Prénom du maire", "Date de naissance du maire (facultatif)", "Genre du maire (facultatif)", "Début et fin du mandat actuel", "Étiquette politique (facultatif)", "Adresse complète de la mairie", "Téléphone", "Courriel officiel", "Site internet de la mairie (s'il existe)", "Horaires d'ouverture au public"]
-  };
-
-  const allRequiredFields = Object.values(identityFields).flat();
 
   useEffect(() => {
     if (isLoadingCloud) return;
