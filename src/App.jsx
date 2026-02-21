@@ -198,6 +198,8 @@ function App() {
   const loadFromCloud = async (communeName) => {
     if (!communeName) return;
 
+    setIsLoadingCloud(true)
+    
     const docId = communeName
       .trim()
       .toLowerCase()
@@ -223,7 +225,7 @@ function App() {
 
         // ✅ RÉPONSES (LE POINT CRITIQUE)
         if (data.reponses) {
-          setAnswers(data.reponses);
+          setAnswers({ ...data.reponses });
           localStorage.setItem(
             storageKey,
             JSON.stringify(data.reponses)
@@ -243,6 +245,7 @@ function App() {
       }
     } catch (e) {
       console.error("Erreur chargement cloud:", e);
+      setTimeout(() => setIsLoadingCloud(false), 50);
     }
   };
 
@@ -357,7 +360,7 @@ function App() {
     }
   };
 
-  const isFullyIdentified = useMemo(() => allRequiredFields.every(field => muralInfo[field] && muralInfo[field].toString().trim() !== ""), [muralInfo, allRequiredFields]);
+  const isFullyIdentified = useMemo(() => allRequiredFields.every(field => muralInfo[field] && muralInfo[field].toString().trim() !== ""), [muralInfo]);
 
   const { oddAverages, globalScore, lowPerformingODDs } = useMemo(() => {
     const scores = {}; const counts = {};
