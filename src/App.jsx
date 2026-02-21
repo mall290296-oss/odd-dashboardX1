@@ -210,11 +210,10 @@ function App() {
   const [answers, setAnswers] = useState(() => JSON.parse(localStorage.getItem(storageKey) || "{}"));
 
   const identityFields = {
-    "Informations Générales": ["Nom de la commune", "Email officiel", "Code Insee", "Code Postal", "Département", "Région", "Maire actuel", "Nombre d'élus", "Nombre d'agents municipaux"],
-    "Démographie": ["Population totale", "Densité (hab/km²)", "Part des -25 ans (%)", "Part des +65 ans (%)", "Nombre de ménages"],
-    "Géographie & Urbanisme": ["Superficie totale (ha)", "Surface agricole utile (ha)", "Surface forestière (ha)", "Nombre de logements", "Part de logements sociaux (%)"],
-    "Économie & Services": ["Nombre d'entreprises", "Taux de chômage (%)", "Revenu fiscal médian", "Nombre d'écoles", "Équipements sportifs"],
-    "Environnement & Énergie": ["Consommation énergétique (MWh)", "Part ENR (%)", "Déchets (t/an)", "Taux de tri (%)", "Linéaire pistes cyclables (km)", "Espaces verts (m²)"]
+    "Informations générales sur la commune": ["Nom de la commune", "Autres noms (ancien nom, nom en langue régionale, s’il y a lieu)", "Code Postal", "Code Insee", "Département", "Région administrative", "Arrondissement (s’il existe)", "Canton d’appartenance", "Intercommunalité (EPCI)" ],
+    "Démographie": ["Population municipale (dernier recensement connu)", "Population totale (avec doubles comptes si applicable)", "Population de l’agglomération (si applicable)","Densité de population (hab./km²)", "Tranche d’âge dominante", "Évolution démographique récente (tendance ou chiffres si disponibles)"],
+    "Localisation géographique": ["Coordonnées GPS (latitude / longitude)", "Altitude minimale et maximale", "Superficie totale (en km²)" ],
+    "Économie & Services": ["Nombre d'entreprises", "Taux de chômage (%)", "Nombre d'écoles"],
   };
 
   const allRequiredFields = Object.values(identityFields).flat();
