@@ -671,13 +671,44 @@ function App() {
               <button onClick={() => window.print()} className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black uppercase hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 print:hidden">Imprimer / Export PDF</button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-1 bg-blue-600 p-8 md:p-16 rounded-[30px] md:rounded-[50px]">
+              
+              <div className="lg:col-span-1 bg-blue-600 p-8 md:p-12 rounded-[30px] md:rounded-[50px] text-white flex flex-col justify-center relative overflow-hidden">
+                {/* Image de fond décorative */}
                 <img src={LOGO_URL} alt="" className="absolute w-64 h-64 opacity-10 -bottom-10 -right-10 rotate-12 pointer-events-none grayscale invert" />
-                <div className="relative z-10">
-                  <div className="text-9xl font-black leading-none">{globalScore}</div>
-                  <span className="text-2xl font-bold uppercase mt-4 block">Score Global / 5.0</span>
+                
+                <div className="relative z-10 space-y-6">
+                  {/* Score principal */}
+                  <div>
+                    <div className="text-9xl font-black leading-none">{globalScore}</div>
+                    <span className="text-xl font-bold uppercase block">
+                      Score Global / 5.0
+                    </span>
+                  </div>
+
+                  <div className="space-y-4 pt-6 border-t border-white/20">
+                    {/* 1. Taux de complétion */}
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-1">
+                        Taux de complétion
+                      </div>
+                      <div className="text-3xl font-black italic">
+                        {Math.round((Object.keys(answers).filter(k => !k.endsWith('_na')).length / questions.length) * 100)}%
+                      </div>
+                    </div>
+
+                    {/* 2. Somme des questions "Aucune donnée disponible" */}
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-1">
+                        Données non disponibles
+                      </div>
+                      <div className="text-3xl font-black italic">
+                        {Object.values(answers).filter(v => v === 0).length} <span className="text-sm not-italic opacity-80">questions</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            
               <div className="lg:col-span-2 bg-white rounded-[50px] p-8 border border-slate-200 shadow-sm flex items-center justify-center">
                 <ReactECharts 
                   option={chartOption} 
@@ -687,6 +718,7 @@ function App() {
               </div>
             </div>
           </div>
+          
         )}
 
         {activeTab === "Priorités" && (
