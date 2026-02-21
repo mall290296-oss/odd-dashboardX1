@@ -177,7 +177,6 @@ function App() {
 
     try {
       await syncWithCloud(name, answers, muralInfo, citizenIdeas);
-        if (Object.keys(cleanAnswers).length === 0) return;
       alert("✅ Sauvegarde Cloud réussie !");
     } catch (e) {
       console.error(e);
