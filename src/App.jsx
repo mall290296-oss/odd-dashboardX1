@@ -94,28 +94,24 @@ function App() {
   const [isSaving, setIsSaving] = useState(false);
   const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
     if (!communeName || communeName.trim() === "") return;
+    const docId = communeName.trim().toLowerCase().replace(/\s+/g, '_');
+    
+    // NETTOYAGE : Supprimer les valeurs undefined pour éviter les erreurs Firebase
+    const cleanAnswers = Object.fromEntries(
+      Object.entries(dataAnswers).filter(([_, v]) => v !== undefined)
+    );
 
-    const docId = communeName
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, '_');
-      
     try {
-      await setDoc(
-        doc(db, "diagnostics", docId),
-        {
-          identite: dataIdentity,
-          reponses: dataAnswers,
-          idees: dataIdeas,
-          derniereMiseAJour: new Date().toISOString()
-        },
-        { merge: true }
-      );
-
+      await setDoc(doc(db, "diagnostics", docId), {
+        identite: dataIdentity,
+        reponses: cleanAnswers, // On utilise les réponses nettoyées
+        idees: dataIdeas,
+        derniereMiseAJour: new Date().toISOString()
+      }, { merge: true });
       console.log("Synchronisation Cloud réussie");
     } catch (e) {
       console.error("Erreur de synchronisation :", e);
-      throw e; // important so manual save detects failure
+      throw e;
     }
   };
 
@@ -625,11 +621,15 @@ function App() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {currentQuestion.options.map((opt, idx) => {
                         const pts = idx === 5 ? 0 : idx + 1; 
-                        const sel = answers[currentQuestion.id] === pts;
+                        
+                        // On utilise TOUJOURS l'ID de la question parente (q.id) pour stocker la réponse
+                        // ainsi, qu'on soit en question originale ou remplacement, le score va au même endroit
+                        const sel = answers[q.id] === pts; 
+                        
                         return (
                           <button 
                             key={idx} 
-                            onClick={() => setAnswers({...answers, [currentQuestion.id]: pts})} 
+                            onClick={() => setAnswers({...answers, [q.id]: pts})} 
                             className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
                               sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"
                             } ${colorMap[opt.color] || "bg-slate-50"}`}
