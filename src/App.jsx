@@ -92,6 +92,7 @@ function App() {
   const [selectedOddForm, setSelectedOddForm] = useState("");
   const [activeDiagnosticSection, setActiveDiagnosticSection] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoadingCloud, setIsLoadingCloud] = useState(false)
   const syncWithCloud = async (communeName, dataAnswers, dataIdentity, dataIdeas) => {
     if (!communeName || communeName.trim() === "") return;
     const docId = communeName.trim().toLowerCase().replace(/\s+/g, '_');
@@ -216,9 +217,11 @@ function App() {
   const allRequiredFields = Object.values(identityFields).flat();
 
   useEffect(() => {
+    if (isLoadingCloud) return;
+
     const savedAnswers = localStorage.getItem(storageKey);
     setAnswers(savedAnswers ? JSON.parse(savedAnswers) : {});
-  }, [storageKey]);
+  }, [storageKey, isLoadingCloud]);
 
   useEffect(() => {
     const name = muralInfo["Nom de la commune"];
@@ -629,7 +632,12 @@ function App() {
                         return (
                           <button 
                             key={idx} 
-                            onClick={() => setAnswers({...answers, [q.id]: pts})} 
+                            onClick={() =>
+                              setAnswers(prev => ({
+                                ...prev,
+                                [q.id]: pts
+                              }))
+                            } 
                             className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
                               sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"
                             } ${colorMap[opt.color] || "bg-slate-50"}`}
