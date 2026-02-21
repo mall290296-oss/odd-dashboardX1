@@ -577,8 +577,8 @@ function App() {
                         )}
                       </div>
 
-                      {/* BOUTON NA : Visible seulement pour 10, 22, 38 */}
-                      {[10, 22, 38].includes(q.id) && (
+                      {/* BOUTON NA : Visible seulement pour 10, 22*/}
+                      {[10, 22].includes(q.id) && (
                         <button 
                           onClick={() => {
                             const newNAState = !isNotApplicable;

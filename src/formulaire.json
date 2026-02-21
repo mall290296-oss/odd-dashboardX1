@@ -289,6 +289,20 @@
   {
     "id": 22,
     "question": "Q22 - Offre éducative et culturelle liée au développement durable (ODD 4). Pourcentage d’écoles ou de centres culturels proposant des programmes réguliers sur les ODD.",
+    "isOptional": true,
+    "replacementQuestion": {
+      "id": 10,
+          "question": "Communes sans école . Sur sensibilisation DD via événements culturels ou associatifs",
+          "options": [
+                  { "val": 0, "text": "0-10 %", "color": "rouge" },
+                  { "val": 1, "text": "11 - 30 %", "color": "orange" },
+                  { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+                  { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+                  { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+                  { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
+            ],
+          "odds": [4]
+      },
     "odds": [4],
     "options": [
       { "val": 0, "text": "0-10 %", "color": "rouge" },
@@ -497,6 +511,20 @@
   {
     "id": 38,
     "question": "Q38 - Développement du tourisme durable (ODD 8, 12, 15). Évalue les dispositifs municipaux de soutien au tourisme durable et à la préservation des sites naturels.",
+    "isOptional": true,
+    "replacementQuestion": {
+      "id": 10,
+          "question": "Communes sans école . Sur sensibilisation DD via événements culturels ou associatifs",
+          "options": [
+                  { "val": 0, "text": "0-10 %", "color": "rouge" },
+                  { "val": 1, "text": "11 - 30 %", "color": "orange" },
+                  { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+                  { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+                  { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+                  { "val": 0, "text": "Aucune donnée disponible, Passer si commune non touristique", "color": "blanc" }
+            ],
+          "odds": [4]
+      },
     "odds": [8, 12, 15],
     "options": [
       { "val": 0, "text": "Moins de 1 %", "color": "rouge" },
