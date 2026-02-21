@@ -119,6 +119,20 @@
   {
     "id": 10,
     "question": "Q10 - Restauration collective durable (ODD 12, 13, 15) - cantines scolaires, EHPAD - . Pourcentage de produits bio, locaux ou issus du commerce équitable dans les repas servis par la commune.",
+    "isOptional": true,
+    "replacementQuestion": {
+      "id": 101,
+          "question": "Communes sans cantine. Politique nutritionnelle pour écoles/événements",
+          "options": [
+                  { "val": 0, "text": "0-10 %", "color": "rouge" },
+                  { "val": 1, "text": "11 - 30 %", "color": "orange" },
+                  { "val": 2, "text": "31 - 50 %", "color": "jaune" },
+                  { "val": 3, "text": "51 - 75 %", "color": "vert clair" },
+                  { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
+                  { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
+            ],
+          "odds": [12, 13, 15]
+      },
     "odds": [12, 13, 15],
     "options": [
       { "val": 0, "text": "0-10 %", "color": "rouge" },

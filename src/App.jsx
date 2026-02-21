@@ -480,138 +480,181 @@ function App() {
           </div>
         )}
 
-        {activeTab === "Questionnaire" && (
-           <div className="space-y-12 animate-in fade-in">
-              <div className="bg-white border border-slate-200 p-6 rounded-3xl mb-8 flex justify-between items-center shadow-lg sticky top-24 z-40">
-                <div className="flex items-center gap-4">
-                  {activeDiagnosticSection && (
-                    <button 
-                      onClick={() => setActiveDiagnosticSection(null)}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-blue-700 transition-all shadow-md"
-                    >
-                      ← Menu des sections
-                    </button>
-                  )}
-                  <p className="text-sm font-black uppercase text-slate-800 italic">
-                    Diagnostic : <span className="text-blue-600">{muralInfo["Nom de la commune"]}</span>
-                  </p>
-                </div>
-                
-                <div className="flex gap-3">
-                  <button
-                    onClick={handleManualSave}
-                    disabled={isSaving}
-                    className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-emerald-700 transition-all shadow-md disabled:opacity-50"
-                  >
-                    {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("Diagnostic")}
-                    className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
-                  >
-                    Modifier Infos
-                  </button>
-                </div>
-           
-              </div>
-              {!activeDiagnosticSection ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-10">
-                  {groupedQuestions.map((group) => {
-                    const progress = getGroupProgress(group.questions);
-                    const theme = SECTION_COLORS[group.id];
-                    return (
-                      <button
-                        key={group.id}
-                        onClick={() => { setActiveDiagnosticSection(group.id); window.scrollTo(0,0); }}
-                        className={`relative aspect-[4/5] md:aspect-[3/4] ${theme.bg} rounded-[30px] shadow-2xl p-10 flex flex-col justify-center items-center text-center group hover:scale-[1.03] ${theme.hover} transition-all duration-300 overflow-hidden border-4 border-transparent hover:border-white/20`}
-                      >
-                        <div 
-                          className={`absolute bottom-0 left-0 w-full ${theme.progress} transition-all duration-1000`} 
-                          style={{ height: `${progress.percent}%` }}
-                        ></div>
-                        <h3 className="relative z-10 text-white text-2xl font-black uppercase tracking-tighter leading-tight mb-4">
-                          {group.title.split(' - ')[0]}<br/>
-                          <span className="text-white/40 text-lg italic">—</span><br/>
-                          {group.title.split(' - ')[1]}
-                        </h3>
-                        <div className="relative z-10 mt-6">
-                           <div className="text-4xl font-black text-white">{progress.percent}%</div>
-                           <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest mt-1">
-                             {progress.count} / {progress.total} RÉPONSES
-                           </div>
-                        </div>
-                        <div className="relative z-10 mt-10 bg-white text-slate-900 px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest group-hover:scale-110 transition-transform">
-                          {progress.percent === 100 ? "Modifier" : "Commencer"}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="space-y-8 animate-in slide-in-from-right-10">
-                  {groupedQuestions
-                    .filter(g => g.id === activeDiagnosticSection)
-                    .map((group) => (
-                      <div key={group.id} className="space-y-8">
-                        <div className="flex justify-between items-end border-b-4 border-blue-600 pb-4">
-                          <h3 className="text-4xl font-black text-slate-900 italic uppercase leading-none">
-                            {group.title}
-                          </h3>
-                          <span className="text-blue-600 font-black tracking-widest uppercase text-sm">
-                            {getGroupProgress(group.questions).percent}% Complété
-                          </span>
-                        </div>
-                        {group.questions.map((q) => (
-                          <div key={q.id} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
-                            <div className="flex gap-2 mb-4">
-                              {q.odds.map(o => <span key={o} className="text-[9px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-black">ODD {o}</span>)}
-                            </div>
-                            <p className="text-xl mb-6 text-slate-800">
-                                <span className="font-black">{q.id}. </span>
-                                {(() => {
-                                    const fullText = cleanQuestionText(q.question);
-                                    const dotIndex = fullText.indexOf('.');
-                                    if (dotIndex !== -1) {
-                                        const title = fullText.substring(0, dotIndex + 1);
-                                        const description = fullText.substring(dotIndex + 1);
-                                        return (
-                                            <>
-                                                <span className="font-black">{title}</span>
-                                                <span className="font-medium text-slate-600"> {description}</span>
-                                            </>
-                                        );
-                                    }
-                                    return <span className="font-black">{fullText}</span>;
-                                })()}
-                            </p>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                              {q.options.map((opt, idx) => {
-                                const pts = idx === 5 ? 0 : idx + 1; 
-                                const sel = answers[q.id] === pts;
-                                return (
-                                  <button key={idx} onClick={() => setAnswers({...answers, [q.id]: pts})} className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"} ${colorMap[opt.color] || "bg-slate-50"}`}>
-                                    <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
-                                      {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
-                                    </div>
-                                    {opt.text.replace(/^X\s/, "")}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                  <div className="flex flex-col md:flex-row gap-6 pt-10 pb-20">
-                    <button onClick={() => { setActiveDiagnosticSection(null); window.scrollTo(0,0); }} className="flex-1 bg-slate-800 text-white p-6 rounded-3xl font-black uppercase hover:bg-slate-900 transition-all shadow-xl">← Menu des sections</button>
-                    <button onClick={() => { window.scrollTo(0,0); setActiveTab("Résultats"); }} className="flex-1 bg-blue-600 text-white p-6 rounded-3xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all">Voir les résultats finaux</button>
-                  </div>
-                </div>
-              )}
-           </div>
+{activeTab === "Questionnaire" && (
+  <div className="space-y-12 animate-in fade-in">
+    <div className="bg-white border border-slate-200 p-6 rounded-3xl mb-8 flex justify-between items-center shadow-lg sticky top-24 z-40">
+      <div className="flex items-center gap-4">
+        {activeDiagnosticSection && (
+          <button 
+            onClick={() => setActiveDiagnosticSection(null)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-blue-700 transition-all shadow-md"
+          >
+            ← Menu des sections
+          </button>
         )}
+        <p className="text-sm font-black uppercase text-slate-800 italic">
+          Diagnostic : <span className="text-blue-600">{muralInfo["Nom de la commune"]}</span>
+        </p>
+      </div>
+      
+      <div className="flex gap-3">
+        <button
+          onClick={handleManualSave}
+          disabled={isSaving}
+          className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-emerald-700 transition-all shadow-md disabled:opacity-50"
+        >
+          {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
+        </button>
+
+        <button
+          onClick={() => setActiveTab("Diagnostic")}
+          className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
+        >
+          Modifier Infos
+        </button>
+      </div>
+    </div>
+
+    {!activeDiagnosticSection ? (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-10">
+        {groupedQuestions.map((group) => {
+          const progress = getGroupProgress(group.questions);
+          const theme = SECTION_COLORS[group.id];
+          return (
+            <button
+              key={group.id}
+              onClick={() => { setActiveDiagnosticSection(group.id); window.scrollTo(0,0); }}
+              className={`relative aspect-[4/5] md:aspect-[3/4] ${theme.bg} rounded-[30px] shadow-2xl p-10 flex flex-col justify-center items-center text-center group hover:scale-[1.03] ${theme.hover} transition-all duration-300 overflow-hidden border-4 border-transparent hover:border-white/20`}
+            >
+              <div 
+                className={`absolute bottom-0 left-0 w-full ${theme.progress} transition-all duration-1000`} 
+                style={{ height: `${progress.percent}%` }}
+              ></div>
+              <h3 className="relative z-10 text-white text-2xl font-black uppercase tracking-tighter leading-tight mb-4">
+                {group.title.split(' - ')[0]}<br/>
+                <span className="text-white/40 text-lg italic">—</span><br/>
+                {group.title.split(' - ')[1]}
+              </h3>
+              <div className="relative z-10 mt-6">
+                 <div className="text-4xl font-black text-white">{progress.percent}%</div>
+                 <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest mt-1">
+                   {progress.count} / {progress.total} RÉPONSES
+                 </div>
+              </div>
+              <div className="relative z-10 mt-10 bg-white text-slate-900 px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest group-hover:scale-110 transition-transform">
+                {progress.percent === 100 ? "Modifier" : "Commencer"}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    ) : (
+      <div className="space-y-8 animate-in slide-in-from-right-10">
+        {groupedQuestions
+          .filter(g => g.id === activeDiagnosticSection)
+          .map((group) => (
+            <div key={group.id} className="space-y-8">
+              <div className="flex justify-between items-end border-b-4 border-blue-600 pb-4">
+                <h3 className="text-4xl font-black text-slate-900 italic uppercase leading-none">
+                  {group.title}
+                </h3>
+                <span className="text-blue-600 font-black tracking-widest uppercase text-sm">
+                  {getGroupProgress(group.questions).percent}% Complété
+                </span>
+              </div>
+              
+              {group.questions.map((q) => {
+                // LOGIQUE NA : On vérifie si la question est marquée comme non applicable
+                const isNotApplicable = answers[`${q.id}_na`] === true;
+                // On choisit la question à afficher
+                const currentQuestion = (isNotApplicable && q.replacementQuestion) ? q.replacementQuestion : q;
+
+                return (
+                  <div key={q.id} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm relative">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex gap-2">
+                        {currentQuestion.odds.map(o => (
+                          <span key={o} className="text-[9px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-black">ODD {o}</span>
+                        ))}
+                        {isNotApplicable && (
+                          <span className="text-[9px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded font-black uppercase">Question Remplacée</span>
+                        )}
+                      </div>
+
+                      {/* BOUTON NA : Visible seulement pour 10, 22, 38 */}
+                      {[10, 22, 38].includes(q.id) && (
+                        <button 
+                          onClick={() => {
+                            const newNAState = !isNotApplicable;
+                            setAnswers({
+                              ...answers, 
+                              [`${q.id}_na`]: newNAState,
+                              [q.id]: undefined // Reset la réponse précédente
+                            });
+                          }}
+                          className={`text-[10px] font-black uppercase px-3 py-1 rounded-lg border transition-all ${
+                            isNotApplicable 
+                              ? 'bg-orange-600 text-white border-orange-600' 
+                              : 'bg-slate-50 text-slate-400 border-slate-200 hover:bg-slate-100'
+                          }`}
+                        >
+                          {isNotApplicable ? "✓ Pas applicable" : "Pas applicable ?"}
+                        </button>
+                      )}
+                    </div>
+
+                    <p className="text-xl mb-6 text-slate-800">
+                      <span className="font-black">{currentQuestion.id}. </span>
+                      {(() => {
+                        const fullText = cleanQuestionText(currentQuestion.question);
+                        const dotIndex = fullText.indexOf('.');
+                        if (dotIndex !== -1) {
+                          const title = fullText.substring(0, dotIndex + 1);
+                          const description = fullText.substring(dotIndex + 1);
+                          return (
+                            <>
+                              <span className="font-black">{title}</span>
+                              <span className="font-medium text-slate-600"> {description}</span>
+                            </>
+                          );
+                        }
+                        return <span className="font-black">{fullText}</span>;
+                      })()}
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {currentQuestion.options.map((opt, idx) => {
+                        const pts = idx === 5 ? 0 : idx + 1; 
+                        const sel = answers[currentQuestion.id] === pts;
+                        return (
+                          <button 
+                            key={idx} 
+                            onClick={() => setAnswers({...answers, [currentQuestion.id]: pts})} 
+                            className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
+                              sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"
+                            } ${colorMap[opt.color] || "bg-slate-50"}`}
+                          >
+                            <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
+                              {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
+                            </div>
+                            {opt.text.replace(/^X\s/, "")}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        <div className="flex flex-col md:flex-row gap-6 pt-10 pb-20">
+          <button onClick={() => { setActiveDiagnosticSection(null); window.scrollTo(0,0); }} className="flex-1 bg-slate-800 text-white p-6 rounded-3xl font-black uppercase hover:bg-slate-900 transition-all shadow-xl">← Menu des sections</button>
+          <button onClick={() => { window.scrollTo(0,0); setActiveTab("Résultats"); }} className="flex-1 bg-blue-600 text-white p-6 rounded-3xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all">Voir les résultats finaux</button>
+        </div>
+      </div>
+    )}
+  </div>
+)}
 
         {activeTab === "Résultats" && (
           <div className="space-y-12 animate-in slide-in-from-bottom-10">
