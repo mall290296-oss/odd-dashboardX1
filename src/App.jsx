@@ -686,12 +686,14 @@ function App() {
                                   : "opacity-90 hover:opacity-100 hover:scale-[1.01]"
                                 } 
                                 ${colorMap[opt.color] || "bg-slate-50 text-slate-600"}`}
-                          >
+                            >
+                              {/* Le petit rond de sélection interne */}
                             <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
                               {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
-                            </div>
-                            {opt.text.replace(/^X\s/, "")}
-                          </button>
+                              </div>
+                              
+                              <span className="leading-tight">{opt.text.replace(/^X\s/, "")}</span>
+                            </button>
                         );
                       })}
                     </div>
