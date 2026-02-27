@@ -453,7 +453,7 @@ function App() {
         {activeTab === "Accueil" && (
           <div className="text-center py-20 space-y-8 animate-in fade-in duration-1000">
             <div className="flex justify-center mb-4">
-              <div className="w-45 h-45 md:w-64 md:h-40 bg-white rounded-3xl shadow-xl flex items-center justify-center p-6 border border-slate-100">
+              <div className="w-48 h-32 md:w-60 md:h-60 bg-white rounded-3xl shadow-xl flex items-center justify-center p-6 border border-slate-100">
                 <img src="https://www.walhain.be/ma-commune/administration-communale/media/odd-roue-1.png/@@images/ba86ee5b-8379-4d97-bfbf-08acbae0a49a.png" alt="ODD Logo"/>
               </div>
             </div>
@@ -778,7 +778,7 @@ function App() {
             <div className="space-y-4">
               <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Priorités stratégiques</h2>
               <p className="text-slate-500 text-lg max-w-4xl leading-relaxed italic border-l-4 border-slate-200 pl-6">
-                "Nous ne vous proposons ici que des recommandations générales. Si vous avez besoin d'une approche spécifique, veuillez contacter un spécialiste ou consulter la liste des institutions publiques figurant sur ce site web."
+                Nous ne vous proposons ici que des recommandations générales. Si vous avez besoin d'une approche spécifique, veuillez contacter un spécialiste ou consulter la liste des institutions publiques figurant sur ce site web.
               </p>
             </div>
             <div className="grid gap-6">
