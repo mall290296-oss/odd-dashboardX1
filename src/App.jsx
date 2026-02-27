@@ -732,8 +732,6 @@ function App() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
               <div className="lg:col-span-1 bg-blue-600 p-8 md:p-12 rounded-[30px] md:rounded-[50px] text-white flex flex-col justify-center relative overflow-hidden">
-                {/* Image de fond décorative */}
-                <img src={LOGO_URL} alt="" className="absolute w-64 h-64 opacity-10 -bottom-10 -right-10 rotate-12 pointer-events-none grayscale invert" />
                 
                 <div className="relative z-10 space-y-6">
                   {/* Score principal */}
