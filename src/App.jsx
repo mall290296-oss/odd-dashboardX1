@@ -14,8 +14,8 @@ const SECTION_COLORS = {
     progress: "bg-white/20" 
   },
   soc: { 
-    bg: "bg-gradient-to-br from-blue-600 to-blue-800", 
-    hover: "hover:from-blue-700 hover:to-blue-900", 
+    bg: "bg-gradient-to-br from-pink-500 to-rose-600", 
+    hover: "hover:from-rose-700 hover:to-rose-800", 
     progress: "bg-white/20" 
   },
   eco: { 
@@ -31,7 +31,7 @@ const colorMap = {
   "jaune": "bg-yellow-600 text-white border-yellow-700 hover:bg-yellow-700",
   "vert clair": "bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700",
   "vert foncé": "bg-green-800 text-white border-green-900 hover:bg-green-900",
-  "blanc": "bg-slate-700 text-white border-slate-800 hover:bg-slate-800"
+  "blanc": "bg-white text-slate-600 border-slate-300 hover:bg-slate-50"
 };
 
 const oddIcons = {
@@ -687,9 +687,13 @@ function App() {
                             } 
                             className={`p-4 rounded-xl border text-left font-bold uppercase text-[11px]
                             flex items-center gap-3 transition-all duration-200
-                            ${sel
-                              ? "ring-4 ring-white/40 border-white scale-[1.02] shadow-lg"
-                              : "opacity-90 hover:opacity-100"}
+                            ${
+                              sel
+                                ? isNeutralOption
+                                  ? "ring-4 ring-blue-200 border-blue-400 scale-[1.02] shadow-md"
+                                  : "ring-4 ring-white/40 border-white scale-[1.02] shadow-lg"
+                                : "opacity-90 hover:opacity-100"
+                            }
                             ${colorMap[opt.color] || "bg-slate-700 text-white"}
                             `}
                           >
