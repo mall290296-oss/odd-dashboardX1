@@ -594,6 +594,17 @@ function App() {
             </button>
           );
         })}
+        <div className="col-span-1 md:col-span-3 flex justify-center pt-8">
+          <button
+            onClick={() => {
+              window.scrollTo(0,0);
+              setActiveTab("Résultats");
+            }}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-3xl font-black uppercase tracking-widest shadow-xl shadow-blue-200 transition-all hover:scale-105"
+          >
+            Voir les résultats finaux
+          </button>
+        </div>
       </div>
     ) : (
       <div className="space-y-8 animate-in slide-in-from-right-10">
@@ -726,7 +737,7 @@ function App() {
             .map(section => {
 
               const labels = {
-                env: "Aller à la partieEnvironnement",
+                env: "Aller à la partie Environnement",
                 soc: "Aller à la partie Social",
                 eco: "Aller à la partie Économie"
               };
@@ -754,6 +765,7 @@ function App() {
       </div>
     )}
   </div>
+  
 )}
 
         {activeTab === "Résultats" && (
