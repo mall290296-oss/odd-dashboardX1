@@ -26,12 +26,12 @@ const SECTION_COLORS = {
 };
 
 const colorMap = {
-  "rouge": "bg-red-100 text-red-700 border-red-400 hover:bg-red-200",
-  "orange": "bg-orange-100 text-orange-700 border-orange-400 hover:bg-orange-200",
-  "jaune": "bg-yellow-100 text-yellow-800 border-yellow-400 hover:bg-yellow-200",
-  "vert clair": "bg-green-100 text-green-700 border-green-400 hover:bg-green-200",
-  "vert foncé": "bg-green-200 text-green-800 border-green-500 hover:bg-green-300",
-  "blanc": "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+  "rouge": "bg-red-700 text-white border-red-800 hover:bg-red-800",
+  "orange": "bg-orange-600 text-white border-orange-700 hover:bg-orange-700",
+  "jaune": "bg-yellow-600 text-white border-yellow-700 hover:bg-yellow-700",
+  "vert clair": "bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700",
+  "vert foncé": "bg-green-800 text-white border-green-900 hover:bg-green-900",
+  "blanc": "bg-slate-700 text-white border-slate-800 hover:bg-slate-800"
 };
 
 const oddIcons = {
@@ -685,9 +685,13 @@ function App() {
                                 [q.id]: pts
                               }))
                             } 
-                            className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
-                              sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"
-                            } ${colorMap[opt.color] || "bg-slate-200 text-slate-600 border-slate-300 hover:bg-slate-300/80"}`}
+                            className={`p-4 rounded-xl border text-left font-bold uppercase text-[11px]
+                            flex items-center gap-3 transition-all duration-200
+                            ${sel
+                              ? "ring-4 ring-white/40 border-white scale-[1.02] shadow-lg"
+                              : "opacity-90 hover:opacity-100"}
+                            ${colorMap[opt.color] || "bg-slate-700 text-white"}
+                            `}
                           >
                             <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
                               {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
