@@ -28,7 +28,7 @@ const SECTION_COLORS = {
 const colorMap = {
   "rouge": "bg-red-600 text-white border-red-700 hover:bg-red-700 shadow-sm",
   "orange": "bg-orange-500 text-white border-orange-600 hover:bg-orange-600 shadow-sm",
-  "jaune": "bg-amber-400 text-slate-900 border-amber-500 hover:bg-amber-500 shadow-sm", // Le jaune garde un texte sombre pour rester lisible
+  "jaune": "bg-amber-400 text-slate-900 border-amber-500 hover:bg-amber-500 shadow-sm",
   "vert-clair": "bg-lime-500 text-white border-lime-600 hover:bg-lime-600 shadow-sm",
   "vert": "bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700 shadow-sm",
   "bleu": "bg-blue-600 text-white border-blue-700 hover:bg-blue-700 shadow-sm"
