@@ -824,7 +824,7 @@ function App() {
 
             {[
               {
-                title: "Pôle Environnement & Climat",
+                title: "Environnement & Climat",
                 color: "decoration-emerald-500",
                 badgeColor: "bg-emerald-600", // Vert pour l'environnement
                 institutions: [
@@ -837,7 +837,7 @@ function App() {
                 ]
               },
               {
-                title: "Pôle Social & Cohésion",
+                title: "Social & Cohésion",
                 color: "decoration-pink-500",
                 badgeColor: "bg-pink-600", // Rose pour le social
                 institutions: [
@@ -848,7 +848,7 @@ function App() {
                 ]
               },
               {
-                title: "Pôle Économie, Innovation & Recherche",
+                title: "Économie, Innovation & Recherche",
                 color: "decoration-orange-500",
                 badgeColor: "bg-orange-500", // Orange pour l'économie
                 institutions: [
