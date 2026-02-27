@@ -118,7 +118,7 @@
   },
   {
     "id": 10,
-    "question": "Q10 - Restauration collective durable (ODD 12, 13, 15) [cantines scolaires, EHPAD]. Pourcentage de produits bio, locaux ou issus du commerce équitable dans les repas servis par la commune.",
+    "question": "Q10 - Restauration collective durable (ODD 12, 13, 15) [cantines scolaires, EHPAD]. Pourcentage de produits bio, locaux ou issus du commerce équitable dans les repas servis par la commune [Cette question ne s'applique pas à vous ? Cochez la case orange].",
     "isOptional": true,
     "replacementQuestion": {
       "id": 10,
@@ -288,7 +288,7 @@
   },
   {
     "id": 22,
-    "question": "Q22 - Offre éducative et culturelle liée au développement durable (ODD 4). Pourcentage d'écoles ou de centres culturels proposant des programmes réguliers sur les ODD.",
+    "question": "Q22 - Offre éducative et culturelle liée au développement durable (ODD 4). Pourcentage d'écoles ou de centres culturels proposant des programmes réguliers sur les ODD [Cette question ne s'applique pas à vous ? Cochez la case orange].",
     "isOptional": true,
     "replacementQuestion": {
       "id": 22,
