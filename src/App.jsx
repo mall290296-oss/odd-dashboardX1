@@ -26,12 +26,12 @@ const SECTION_COLORS = {
 };
 
 const colorMap = {
-  "rouge": "bg-red-100 text-red-700 border-red-400 hover:bg-red-200",
-  "orange": "bg-orange-100 text-orange-700 border-orange-400 hover:bg-orange-200",
-  "jaune": "bg-yellow-100 text-yellow-800 border-yellow-400 hover:bg-yellow-200",
-  "vert clair": "bg-green-100 text-green-700 border-green-400 hover:bg-green-200",
-  "vert foncé": "bg-green-200 text-green-800 border-green-500 hover:bg-green-300",
-  "blanc": "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+  "rouge": "bg-red-600 text-white border-red-700 hover:bg-red-700 shadow-sm",
+  "orange": "bg-orange-500 text-white border-orange-600 hover:bg-orange-600 shadow-sm",
+  "jaune": "bg-amber-400 text-slate-900 border-amber-500 hover:bg-amber-500 shadow-sm", // Le jaune garde un texte sombre pour rester lisible
+  "vert-clair": "bg-lime-500 text-white border-lime-600 hover:bg-lime-600 shadow-sm",
+  "vert": "bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700 shadow-sm",
+  "bleu": "bg-blue-600 text-white border-blue-700 hover:bg-blue-700 shadow-sm"
 };
 
 const oddIcons = {
@@ -59,18 +59,18 @@ const oddDescriptions = {
   "ODD 2": "Éliminer la faim, assurer la sécurité alimentaire et promouvoir une agriculture durable.",
   "ODD 3": "Permettre à tous de vivre en bonne santé et promouvoir le bien‑être à tout âge.",
   "ODD 4": "Assurer à tous une éducation inclusive, équitable et de qualité.",
-  "ODD 5": "Parvenir à l’égalité des sexes et autonomiser toutes les femmes et les filles.",
-  "ODD 6": "Garantir l’accès de tous à l’eau et à l’assainissement.",
-  "ODD 7": "Garantir l’accès de tous à des services énergétiques fiables, durables et modernes.",
+  "ODD 5": "Parvenir à l'égalité des sexes et autonomiser toutes les femmes et les filles.",
+  "ODD 6": "Garantir l'accès de tous à l'eau et à l'assainissement.",
+  "ODD 7": "Garantir l'accès de tous à des services énergétiques fiables, durables et modernes.",
   "ODD 8": "Promouvoir une croissance économique durable et un travail décent pour tous.",
-  "ODD 9": "Bâtir une infrastructure résiliente et encourager l’innovation.",
-  "ODD 10": "Réduire les inégalités dans les pays et d’un pays à l’autre.",
+  "ODD 9": "Bâtir une infrastructure résiliente et encourager l'innovation.",
+  "ODD 10": "Réduire les inégalités dans les pays et d'un pays à l'autre.",
   "ODD 11": "Faire en sorte que les villes soient sûres, résilientes et durables.",
   "ODD 12": "Instaurer des modes de consommation et de production durables.",
-  "ODD 13": "Prendre d’urgence des mesures pour lutter contre les changements climatiques.",
+  "ODD 13": "Prendre d'urgence des mesures pour lutter contre les changements climatiques.",
   "ODD 14": "Conserver et exploiter de manière durable les ressources marines.",
   "ODD 15": "Préserver et restaurer les écosystèmes terrestres et la biodiversité.",
-  "ODD 16": "Promouvoir l’avènement de sociétés pacifiques et l’accès à la justice pour tous.",
+  "ODD 16": "Promouvoir l'avènement de sociétés pacifiques et l'accès à la justice pour tous.",
   "ODD 17": "Renforcer le Partenariat mondial pour le développement durable."
 };
 
@@ -98,8 +98,6 @@ const identityFields = {
   ],
   "Démographie": [
     "Population municipale (dernier recensement connu)",
-    "Population totale (avec doubles comptes si applicable)",
-    "Population de l'agglomération (si applicable)",
     "Densité de population (hab./km²)",
     "Tranche d'âge dominante",
     "Évolution démographique récente (tendance ou chiffres si disponibles)"
@@ -119,7 +117,7 @@ const identityFields = {
     "Prénom du maire",
     "Date de naissance du maire (facultatif)",
     "Genre du maire (facultatif)",
-    "Début et fin du mandat actuel",
+    "Année de début et de fin du mandat actuel",
     "Étiquette politique (facultatif)",
     "Adresse complète de la mairie",
     "Téléphone",
@@ -681,15 +679,13 @@ function App() {
                         return (
                           <button 
                             key={idx} 
-                            onClick={() =>
-                              setAnswers(prev => ({
-                                ...prev,
-                                [q.id]: pts
-                              }))
-                            } 
-                            className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
-                              sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"
-                            } ${colorMap[opt.color] || "bg-slate-50"}`}
+                              onClick={() => setAnswers({...answers, [q.id]: pts})} 
+                              className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 
+                                ${sel 
+                                  ? "ring-4 ring-blue-400 border-white scale-[1.02] z-10" // Plus d'emphase sur la sélection
+                                  : "opacity-90 hover:opacity-100 hover:scale-[1.01]"
+                                } 
+                                ${colorMap[opt.color] || "bg-slate-50 text-slate-600"}`}
                           >
                             <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
                               {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
