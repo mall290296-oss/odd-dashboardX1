@@ -26,12 +26,12 @@ const SECTION_COLORS = {
 };
 
 const colorMap = {
-  "rouge": "bg-red-600 text-white border-red-700 hover:bg-red-700 shadow-sm",
-  "orange": "bg-orange-500 text-white border-orange-600 hover:bg-orange-600 shadow-sm",
-  "jaune": "bg-amber-400 text-slate-900 border-amber-500 hover:bg-amber-500 shadow-sm",
-  "vert-clair": "bg-lime-500 text-white border-lime-600 hover:bg-lime-600 shadow-sm",
-  "vert": "bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700 shadow-sm",
-  "bleu": "bg-blue-600 text-white border-blue-700 hover:bg-blue-700 shadow-sm"
+  "rouge": "bg-red-100 text-red-700 border-red-400 hover:bg-red-200",
+  "orange": "bg-orange-100 text-orange-700 border-orange-400 hover:bg-orange-200",
+  "jaune": "bg-yellow-100 text-yellow-800 border-yellow-400 hover:bg-yellow-200",
+  "vert clair": "bg-green-100 text-green-700 border-green-400 hover:bg-green-200",
+  "vert foncé": "bg-green-200 text-green-800 border-green-500 hover:bg-green-300",
+  "blanc": "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
 };
 
 const oddIcons = {
@@ -688,8 +688,8 @@ function App() {
                                 ${colorMap[opt.color] || "bg-slate-50 text-slate-600"}`}
                             >
                               {/* Le petit rond de sélection interne */}
-                            <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
-                              {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
+                              <div className="w-4 h-4 rounded-full border border-white/50 shrink-0 flex items-center justify-center bg-black/10">
+                                {sel && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm" />}
                               </div>
                               
                               <span className="leading-tight">{opt.text.replace(/^X\s/, "")}</span>
