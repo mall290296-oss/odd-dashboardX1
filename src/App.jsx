@@ -838,8 +838,8 @@ function App() {
               },
               {
                 title: "Pôle Social & Cohésion",
-                color: "decoration-blue-500",
-                badgeColor: "bg-blue-600", // Bleu pour le social
+                color: "decoration-pink-500",
+                badgeColor: "bg-pink-600", // Rose pour le social
                 institutions: [
                   { name: "ANCT", full: "Agence nationale de la cohésion des territoires", desc: "Accompagnement des collectivités dans les projets de revitalisation, inclusion sociale et services publics de proximité.", link: "https://anct.gouv.fr/" },
                   { name: "DREES", full: "Direction de la recherche, des études et des statistiques", desc: "Données et analyses sur la pauvreté, la santé, la protection sociale et les inégalités territoriales.", link: "https://drees.solidarites-sante.gouv.fr/" },
