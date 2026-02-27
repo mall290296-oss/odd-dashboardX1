@@ -679,21 +679,21 @@ function App() {
                         return (
                           <button 
                             key={idx} 
-                              onClick={() => setAnswers({...answers, [q.id]: pts})} 
-                              className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 
-                                ${sel 
-                                  ? "ring-4 ring-blue-400 border-white scale-[1.02] z-10" // Plus d'emphase sur la sélection
-                                  : "opacity-90 hover:opacity-100 hover:scale-[1.01]"
-                                } 
-                                ${colorMap[opt.color] || "bg-slate-50 text-slate-600"}`}
-                            >
-                              {/* Le petit rond de sélection interne */}
-                              <div className="w-4 h-4 rounded-full border border-white/50 shrink-0 flex items-center justify-center bg-black/10">
-                                {sel && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm" />}
-                              </div>
-                              
-                              <span className="leading-tight">{opt.text.replace(/^X\s/, "")}</span>
-                            </button>
+                            onClick={() =>
+                              setAnswers(prev => ({
+                                ...prev,
+                                [q.id]: pts
+                              }))
+                            } 
+                            className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
+                              sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-10"
+                            } ${colorMap[opt.color] || "bg-slate-50"}`}
+                          >
+                            <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
+                              {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
+                            </div>
+                            {opt.text.replace(/^X\s/, "")}
+                          </button>
                         );
                       })}
                     </div>
