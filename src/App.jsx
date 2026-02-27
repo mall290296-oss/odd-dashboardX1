@@ -708,8 +708,48 @@ function App() {
             </div>
           ))}
         <div className="flex flex-col md:flex-row gap-6 pt-10 pb-20">
-          <button onClick={() => { setActiveDiagnosticSection(null); window.scrollTo(0,0); }} className="flex-1 bg-slate-800 text-white p-6 rounded-3xl font-black uppercase hover:bg-slate-900 transition-all shadow-xl">← Menu des sections</button>
-          <button onClick={() => { window.scrollTo(0,0); setActiveTab("Résultats"); }} className="flex-1 bg-blue-600 text-white p-6 rounded-3xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all">Voir les résultats finaux</button>
+
+          {/* Retour menu */}
+          <button
+            onClick={() => {
+              setActiveDiagnosticSection(null);
+              window.scrollTo(0,0);
+            }}
+            className="flex-1 bg-slate-800 text-white p-6 rounded-3xl font-black uppercase hover:bg-slate-900 transition-all shadow-xl"
+          >
+            ← Menu des sections
+          </button>
+
+          {/* Navigation dynamique entre parties */}
+          {["env","soc","eco"]
+            .filter(section => section !== activeDiagnosticSection)
+            .map(section => {
+
+              const labels = {
+                env: "Aller à la partieEnvironnement",
+                soc: "Aller à la partie Social",
+                eco: "Aller à la partie Économie"
+              };
+
+              const colors = {
+                env: "bg-emerald-600 hover:bg-emerald-700",
+                soc: "bg-pink-600 hover:bg-pink-700",
+                eco: "bg-orange-600 hover:bg-orange-700"
+              };
+
+              return (
+                <button
+                  key={section}
+                  onClick={() => {
+                    setActiveDiagnosticSection(section);
+                    window.scrollTo(0,0);
+                  }}
+                  className={`flex-1 text-white p-6 rounded-3xl font-black uppercase shadow-xl transition-all ${colors[section]}`}
+                >
+                  {labels[section]}
+                </button>
+              );
+            })}
         </div>
       </div>
     )}
