@@ -454,7 +454,6 @@ function App() {
           <div className="text-center py-20 space-y-8 animate-in fade-in duration-1000">
             <div className="flex justify-center mb-4">
               <div className="w-48 h-32 md:w-64 md:h-40 bg-white rounded-3xl shadow-xl flex items-center justify-center p-6 border border-slate-100">
-                <img src={LOGO_URL} alt="Polytechnique" className="w-full h-full object-contain" />
               </div>
             </div>
             
@@ -810,7 +809,7 @@ function App() {
               <p className="text-xl text-slate-600 leading-relaxed font-light">ODD-X transforme les données communales en leviers d'action. En alignant votre stratégie sur les Objectifs de Développement Durable, nous créons ensemble des territoires résilients.</p>
             </div>
             <div className="rounded-[40px] overflow-hidden border border-slate-200 shadow-2xl">
-              <img src="https://educatif.eedf.fr/wp-content/uploads/sites/157/2021/02/ODD.jpg" alt="ODD Logo" className="w-full grayscale hover:grayscale-0 transition-all duration-700" />
+              <img src="https://educatif.eedf.fr/wp-content/uploads/sites/157/2021/02/ODD.jpg" alt="ODD Logo"/>
             </div>
           </div>
         )}
