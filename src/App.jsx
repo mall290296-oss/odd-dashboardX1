@@ -640,8 +640,8 @@ function App() {
                           }}
                           className={`text-[10px] font-black uppercase px-3 py-1 rounded-lg border transition-all ${
                             isNotApplicable 
-                              ? 'bg-orange-600 text-white border-orange-600' 
-                              : 'bg-slate-50 text-slate-400 border-slate-200 hover:bg-slate-100'
+                              ? 'bg-slate-50 text-slate-400 border-slate-200 hover:bg-slate-100' 
+                              : 'bg-orange-600 text-white border-orange-600'
                           }`}
                         >
                           {isNotApplicable ? "✓ Pas applicable" : "Pas applicable ?"}
