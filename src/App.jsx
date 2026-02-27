@@ -463,11 +463,11 @@ function App() {
               </div>
             </div>
             
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-slate-900">ODD-X</h1>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-blue-600">ODD-X</h1>
             <p className="text-2xl text-slate-500 max-w-2xl mx-auto font-light italic">Le diagnostic de durabilité pour les collectivités territoriales.</p>
             
             <div className="flex flex-col items-center justify-center gap-4 pt-6">
-              <div className="bg-white p-6 rounded-[30px] shadow-2xl border border-slate-100 transition-transform hover:scale-105">
+              <div className="bg-white p-6 rounded-[45px] shadow-2xl border border-slate-100 transition-transform hover:scale-105">
                 <QRCodeCanvas
                   value={window.location.href}
                   size={160}
