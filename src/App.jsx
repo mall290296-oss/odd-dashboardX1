@@ -488,7 +488,7 @@ function App() {
 
         {activeTab === "Diagnostic" && (
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in">
-                        <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ces organismes publics et réseaux d'experts accompagnent les collectivités dans leurs stratégies de transition durable et de résilience.</p>
+                        <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Instructif.</p>
              <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
               <div className="flex flex-col sm:flex-row items-end gap-4">
                 <div>
@@ -783,7 +783,7 @@ function App() {
           <div className="space-y-8 animate-in fade-in">
             <div className="space-y-4">
               <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Priorités stratégiques</h2>
-              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ici nous vous présentons les priorités stratégiques identifiées à partir des résultats du questionnaire, elles sont organisées en fonction des ODD les plus faiblement performants. Pour améliorer votre score global, il est recommandé de cibler ces priorités dans vos actions de planification et d'investissement, ainsi comme de consulter la séction "Institutions" dans le menu de navigation.
+              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ici nous vous présentons les priorités stratégiques identifiées à partir des résultats du questionnaire, elles sont organisées en fonction des ODD les plus faiblement performants.
               </p>
             </div>
             <div className="grid gap-6">
