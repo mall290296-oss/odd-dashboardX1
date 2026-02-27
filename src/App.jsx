@@ -777,7 +777,7 @@ function App() {
           <div className="space-y-8 animate-in fade-in">
             <div className="space-y-4">
               <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Priorités stratégiques</h2>
-              <p className="text-slate-500 text-lg max-w-4xl leading-relaxed italic border-l-4 border-slate-200 pl-6">
+              <p className="text-slate-400 text-lg max-w-4xl leading-relaxed italic border-l-4 border-slate-200 pl-6">
                 "Nous ne vous proposons ici que des recommandations générales. Si vous avez besoin d'une approche spécifique, veuillez contacter un spécialiste ou consulter la liste des institutions publiques figurant sur ce site web."
               </p>
             </div>
@@ -816,26 +816,75 @@ function App() {
         )}
 
         {activeTab === "Partenaires" && (
-          <div className="space-y-12 animate-in fade-in">
+          <div className="space-y-16 animate-in fade-in pb-20">
             <div className="space-y-4">
               <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Institutions spécialisées</h2>
-              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ces organismes publics et réseaux d'experts pourraient vous accompagner dans votre transition durable.</p>
+              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ces organismes publics et réseaux d'experts accompagnent les collectivités dans leurs stratégies de transition durable et de résilience.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                { name: "ADEME", full: "Agence de la transition écologique", desc: "Expertise technique et financements pour les projets de transition énergétique.", link: "https://www.territoiresentransitions.fr/programme" },
-                { name: "FVD", full: "France Villes et Territoires Durables", desc: "Accélérer le déployement des ODD à l'échelle locale.", link: "https://francevilledurable.fr/" },
-                { name: "Club DD", full: "Le club développement durable", desc: "Réseau d'échange pour les établissements et entreprises publics.", link: "https://www.ecologie.gouv.fr/politiques-publiques/club-developpement-durable-etablissements-entreprises-publics" },
-                { name: "ANCT", full: "Agence Nationale de la Cohésion des Territoires", desc: "Support aux mairies dans leurs projets de revitalisation.", link: "https://agence-cohesion-territoires.gouv.fr" }
-              ].map((inst, i) => (
-                <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm hover:shadow-xl transition-all">
-                  <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase mb-4 inline-block">{inst.name}</span>
-                  <h3 className="text-xl font-black text-slate-900 uppercase mb-2">{inst.full}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-6">{inst.desc}</p>
-                  <a href={inst.link} target="_blank" rel="noreferrer" className="text-blue-600 font-black text-xs uppercase tracking-widest border-b-2 border-blue-100 hover:border-blue-600 transition-all">Consulter les ressources</a>
+
+            {[
+              {
+                title: "Pôle Environnement & Climat",
+                color: "decoration-emerald-500",
+                institutions: [
+                  { name: "ADEME", full: "Agence de la transition écologique", desc: "Expertise technique et financements pour la transition énergétique, le climat, l'économie circulaire et la planification territoriale.", link: "https://www.ademe.fr/" },
+                  { name: "Cerema", full: "Centre d’expertise sur les risques, l’environnement et la mobilité", desc: "Appui en ingénierie territoriale, adaptation au changement climatique, prévention des risques et aménagement résilient.", link: "https://www.cerema.fr/" },
+                  { name: "OFB", full: "Office français de la biodiversité", desc: "Soutien technique et financier pour la protection des milieux naturels, la gestion de l’eau et la biodiversité locale.", link: "https://ofb.gouv.fr/" },
+                  { name: "BRGM", full: "Bureau de recherches géologiques et minières", desc: "Expertise sur les sols, les risques naturels, la gestion des ressources en eau et l’adaptation au changement climatique.", link: "https://www.brgm.fr/" },
+                  { name: "INRAE", full: "Recherche pour l’agriculture, l’alimentation et l’environnement", desc: "Expertise sur l'agriculture durable, les systèmes alimentaires territoriaux et la gestion des ressources naturelles.", link: "https://www.inrae.fr/" },
+                  { name: "Club DD", full: "Le club développement durable", desc: "Réseau d'échange pour les établissements et entreprises publics sur les enjeux de responsabilité sociétale et durable.", link: "https://www.ecologie.gouv.fr/politiques-publiques/club-developpement-durable-etablissements-entreprises-publics" }
+                ]
+              },
+              {
+                title: "Pôle Social & Cohésion",
+                color: "decoration-blue-500",
+                institutions: [
+                  { name: "ANCT", full: "Agence nationale de la cohésion des territoires", desc: "Accompagnement des collectivités dans les projets de revitalisation, inclusion sociale et services publics de proximité.", link: "https://anct.gouv.fr/" },
+                  { name: "DREES", full: "Direction de la recherche, des études et des statistiques", desc: "Données et analyses sur la pauvreté, la santé, la protection sociale et les inégalités territoriales.", link: "https://drees.solidarites-sante.gouv.fr/" },
+                  { name: "INSEE", full: "Institut national de la statistique et des études économiques", desc: "Indicateurs territoriaux (emploi, revenus, démographie) pour le diagnostic social et le suivi des ODD à l’échelle locale.", link: "https://www.insee.fr/" },
+                  { name: "FVD", full: "France Villes et Territoires Durables", desc: "Association regroupant l'État, les collectivités et les experts pour accélérer le déploiement des ODD à l'échelle locale.", link: "https://francevilledurable.fr/" }
+                ]
+              },
+              {
+                title: "Pôle Économie, Innovation & Recherche",
+                color: "decoration-orange-500",
+                institutions: [
+                  { name: "Banque des Territoires", full: "Groupe Caisse des Dépôts", desc: "Financement et ingénierie de projets locaux : infrastructures, transition énergétique et revitalisation urbaine.", link: "https://www.banquedesterritoires.fr/" },
+                  { name: "CEA", full: "Commissariat à l’énergie atomique et aux énergies alternatives", desc: "Recherche et innovation sur l’efficacité énergétique, l’hydrogène et les technologies bas carbone.", link: "https://www.cea.fr/" },
+                  { name: "ANR", full: "Agence nationale de la recherche", desc: "Financement de projets de recherche et d’innovation associant collectivités et chercheurs sur les transitions durables.", link: "https://anr.fr/" },
+                  { name: "CNRS", full: "Centre national de la recherche scientifique", desc: "Recherche pluridisciplinaire mobilisable pour accompagner les stratégies territoriales complexes et durables.", link: "https://www.cnrs.fr/fr" }
+                ]
+              }
+            ].map((section, sIdx) => (
+              <div key={sIdx} className="space-y-8">
+                <h3 className={`text-2xl font-black uppercase italic underline decoration-4 underline-offset-8 ${section.color} text-slate-800`}>
+                  {section.title}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {section.institutions.map((inst, i) => (
+                    <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col h-full">
+                      <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase mb-4 self-start">
+                        {inst.name}
+                      </span>
+                      <h4 className="text-lg font-black text-slate-900 uppercase mb-3 leading-tight">
+                        {inst.full}
+                      </h4>
+                      <p className="text-slate-500 text-xs leading-relaxed mb-6 flex-grow">
+                        {inst.desc}
+                      </p>
+                      <a 
+                        href={inst.link} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="text-blue-600 font-black text-[10px] uppercase tracking-widest border-b-2 border-blue-100 hover:border-blue-600 transition-all inline-block w-fit"
+                      >
+                        Consulter les ressources
+                      </a>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         )}
 
