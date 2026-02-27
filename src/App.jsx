@@ -15,7 +15,7 @@ const SECTION_COLORS = {
   },
   soc: { 
     bg: "bg-gradient-to-br from-pink-500 to-rose-600", 
-    hover: "hover:from-rose-700 hover:to-rose-800", 
+    hover: "hover:from-pink-600 hover:to-rose-700", 
     progress: "bg-white/20" 
   },
   eco: { 
@@ -687,13 +687,9 @@ function App() {
                             } 
                             className={`p-4 rounded-xl border text-left font-bold uppercase text-[11px]
                             flex items-center gap-3 transition-all duration-200
-                            ${
-                              sel
-                                ? isNeutralOption
-                                  ? "ring-4 ring-blue-200 border-blue-400 scale-[1.02] shadow-md"
-                                  : "ring-4 ring-white/40 border-white scale-[1.02] shadow-lg"
-                                : "opacity-90 hover:opacity-100"
-                            }
+                            ${sel
+                              ? "ring-4 ring-white/40 border-white scale-[1.02] shadow-lg"
+                              : "opacity-90 hover:opacity-100"}
                             ${colorMap[opt.color] || "bg-slate-700 text-white"}
                             `}
                           >
