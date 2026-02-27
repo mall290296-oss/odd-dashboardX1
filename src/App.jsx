@@ -478,7 +478,7 @@ function App() {
                 />
               </div>
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Scannez pour accéder au diagnostic
+                Scannez pour accéder au diagnostic depuis un autre appareil.
               </p>
             </div>
 
