@@ -803,18 +803,6 @@ function App() {
 
         {/* ... Autres onglets (À Propos, Partenaires, Citoyens, Contact) identiques à la version précédente ... */}
         
-        {activeTab === "À Propos" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center py-12 animate-in">
-            <div className="space-y-8">
-              <h2 className="text-6xl font-black italic underline decoration-blue-500 decoration-8 underline-offset-8 uppercase leading-tight text-slate-900">Notre Engagement</h2>
-              <p className="text-xl text-slate-600 leading-relaxed font-light">ODD-X transforme les données communales en leviers d'action. En alignant votre stratégie sur les Objectifs de Développement Durable, nous créons ensemble des territoires résilients.</p>
-            </div>
-            <div className="rounded-[40px] overflow-hidden border border-slate-200 shadow-2xl">
-              <img src="https://educatif.eedf.fr/wp-content/uploads/sites/157/2021/02/ODD.jpg" alt="ODD Logo" className="w-full grayscale hover:grayscale-0 transition-all duration-700" />
-            </div>
-          </div>
-        )}
-
         {activeTab === "Partenaires" && (
           <div className="space-y-16 animate-in fade-in pb-20">
             <div className="space-y-4">
@@ -826,6 +814,7 @@ function App() {
               {
                 title: "Pôle Environnement & Climat",
                 color: "decoration-emerald-500",
+                badgeColor: "bg-emerald-600", // Vert pour l'environnement
                 institutions: [
                   { name: "ADEME", full: "Agence de la transition écologique", desc: "Expertise technique et financements pour la transition énergétique, le climat, l'économie circulaire et la planification territoriale.", link: "https://www.ademe.fr/" },
                   { name: "Cerema", full: "Centre d’expertise sur les risques, l’environnement et la mobilité", desc: "Appui en ingénierie territoriale, adaptation au changement climatique, prévention des risques et aménagement résilient.", link: "https://www.cerema.fr/" },
@@ -838,6 +827,7 @@ function App() {
               {
                 title: "Pôle Social & Cohésion",
                 color: "decoration-blue-500",
+                badgeColor: "bg-blue-600", // Bleu pour le social
                 institutions: [
                   { name: "ANCT", full: "Agence nationale de la cohésion des territoires", desc: "Accompagnement des collectivités dans les projets de revitalisation, inclusion sociale et services publics de proximité.", link: "https://anct.gouv.fr/" },
                   { name: "DREES", full: "Direction de la recherche, des études et des statistiques", desc: "Données et analyses sur la pauvreté, la santé, la protection sociale et les inégalités territoriales.", link: "https://drees.solidarites-sante.gouv.fr/" },
@@ -848,6 +838,7 @@ function App() {
               {
                 title: "Pôle Économie, Innovation & Recherche",
                 color: "decoration-orange-500",
+                badgeColor: "bg-orange-500", // Orange pour l'économie
                 institutions: [
                   { name: "Banque des Territoires", full: "Groupe Caisse des Dépôts", desc: "Financement et ingénierie de projets locaux : infrastructures, transition énergétique et revitalisation urbaine.", link: "https://www.banquedesterritoires.fr/" },
                   { name: "CEA", full: "Commissariat à l’énergie atomique et aux énergies alternatives", desc: "Recherche et innovation sur l’efficacité énergétique, l’hydrogène et les technologies bas carbone.", link: "https://www.cea.fr/" },
@@ -863,7 +854,8 @@ function App() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {section.institutions.map((inst, i) => (
                     <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col h-full">
-                      <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase mb-4 self-start">
+                      {/* Le badge utilise maintenant section.badgeColor */}
+                      <span className={`${section.badgeColor} text-white px-4 py-1 rounded-full text-[10px] font-black uppercase mb-4 self-start`}>
                         {inst.name}
                       </span>
                       <h4 className="text-lg font-black text-slate-900 uppercase mb-3 leading-tight">
