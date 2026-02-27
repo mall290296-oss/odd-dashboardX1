@@ -686,8 +686,8 @@ function App() {
                               }))
                             } 
                             className={`p-4 rounded-xl border text-left transition-all font-bold uppercase text-[11px] flex items-center gap-3 ${
-                              sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-500"
-                            } ${colorMap[opt.color] || "bg-slate-50"}`}
+                              sel ? "ring-4 ring-blue-100 border-blue-400 scale-[1.01]" : "opacity-90"
+                            } ${colorMap[opt.color] || "bg-slate-200 text-slate-600"}`}
                           >
                             <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 flex items-center justify-center bg-white">
                               {sel && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
