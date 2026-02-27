@@ -490,6 +490,7 @@ function App() {
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in">
              <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
               <div className="flex flex-col sm:flex-row items-end gap-4">
+              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Instructif.</p>
                 <div>
                   <h3 className="text-blue-600 font-black uppercase text-[10px] tracking-widest">Sélectionner une Mairie</h3>
                   <select onChange={(e) => handleSwitchProfile(e.target.value)} value={muralInfo["Nom de la commune"] || ""} className="bg-slate-50 border border-slate-200 p-2 mt-2 rounded-lg text-sm font-bold w-64 outline-none focus:border-blue-500 text-slate-700">
