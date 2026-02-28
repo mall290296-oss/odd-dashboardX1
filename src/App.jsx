@@ -855,25 +855,52 @@ function App() {
         )}
 
         {activeTab === "Priorités" && (
-          <div className="space-y-8 animate-in fade-in">
+          <div className="space-y-8 animate-in fade-in pb-20">
             <div className="space-y-4">
               <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Priorités stratégiques</h2>
-              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Ici nous vous présentons les priorités stratégiques identifiées à partir des résultats du questionnaire, elles sont organisées en fonction des ODD les plus faiblement performants.
+              <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">
+                Ici nous vous présentons les priorités stratégiques identifiées à partir des résultats du questionnaire, elles sont organisées en fonction des ODD les plus faiblement performants.
               </p>
             </div>
+            
             <div className="grid gap-6">
               {lowPerformingODDs.map(item => {
                 const visuals = getScoreVisuals(item.value);
+                
+                // Logique de message ajustée selon vos nouveaux seuils
+                let genericMessage = "";
+                if (item.value < 2) {
+                  // Rouge
+                  genericMessage = "Cet indicateur nécessite des mesures urgentes.";
+                } else if (item.value < 3) {
+                  // Orange
+                  genericMessage = "Cet indicateur nécessite un plan d'action à moyen terme.";
+                } else if (item.value < 4) {
+                  // Jaune
+                  genericMessage = "Cet indicateur peut être amélioré à long terme.";
+                } else {
+                  // Vert (pour les scores >= 4 si affichés)
+                  genericMessage = "Cet indicateur présente une performance satisfaisante.";
+                }
+
                 return (
-                  <div key={item.odd} className={`bg-white p-8 rounded-[30px] border-l-[20px] ${visuals.twBorder} flex justify-between items-center shadow-md border border-slate-200`}>
+                  <div key={item.odd} className={`bg-white p-8 rounded-[30px] border-l-[20px] ${visuals.twBorder} flex justify-between items-center shadow-md border border-slate-200 hover:translate-x-2 transition-transform`}>
                     <div className="flex items-center gap-8">
-                      <img src={oddIcons[item.odd]} alt={item.odd} className="w-20 h-20 rounded-xl" />
+                      <img src={oddIcons[item.odd]} alt={item.odd} className="w-20 h-20 rounded-xl shadow-sm" />
                       <div>
-                        <div className={`text-5xl font-black ${visuals.twText} italic uppercase leading-none mb-2`}>{item.odd}</div>
-                        <p className="text-lg font-bold text-slate-700">{oddDescriptions[item.odd]}</p>
+                        <div className={`text-5xl font-black ${visuals.twText} italic uppercase leading-none mb-2`}>
+                          {item.odd}
+                        </div>
+                        <p className="text-lg font-bold text-slate-700 italic">
+                          {genericMessage}
+                        </p>
                       </div>
                     </div>
-                    <div className="text-right"><p className="text-5xl font-black text-slate-900">{item.value} <span className="text-sm text-slate-400">/ 5</span></p></div>
+                    <div className="text-right">
+                      <p className="text-5xl font-black text-slate-900">
+                        {item.value} <span className="text-sm text-slate-400">/ 5</span>
+                      </p>
+                    </div>
                   </div>
                 );
               })}
