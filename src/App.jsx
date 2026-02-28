@@ -488,9 +488,9 @@ function App() {
 
         {activeTab === "Diagnostic" && (
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in">
+          <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Bienvenu/e!</h2>
           <p className="text-slate-500 text-lg max-w-7xl leading-relaxed whitespace-pre-line">
-            {`Bonjour !
-              Dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune.
+            {`Bonjour, dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune.
               Si vous ne disposez pas de toutes les données pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour. Ensuite, vous pouvez cocher la case « Passer au questionnaire ».`}
           </p>
              <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
@@ -549,21 +549,15 @@ function App() {
       </div>
       
       <div className="flex gap-3">
+        <p className="text-blue-600 font-black uppercase text-xs tracking-widest underline decoration-2 underline-offset-4">
+        {`N'oubliez pas d'enregistrer vos progrès dès le début et régulièrement !`}
+        </p>
         <button
           onClick={handleManualSave}
           disabled={isSaving}
           className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase hover:bg-emerald-700 transition-all shadow-md disabled:opacity-50"
         >
           {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
-        </button>
-        <p className="text-blue-600 font-black uppercase text-xs tracking-widest underline decoration-2 underline-offset-4">
-        {`N'oubliez pas d'enregistrer vos progrès dès le début et régulièrement !`}
-        </p>
-        <button
-          onClick={() => setActiveTab("Diagnostic")}
-          className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
-        >
-          Modifier les infos
         </button>
       </div>
     </div>
