@@ -833,6 +833,29 @@ function App() {
                 
               </div>
             </div>
+            <div className="flex flex-col md:flex-row gap-6 mt-12 pt-10 border-t border-slate-200">
+            <button 
+              onClick={() => {
+                window.scrollTo(0, 0);
+                setActiveTab("Questionnaire");
+              }} 
+              className="flex-1 bg-white text-slate-900 border-2 border-slate-200 p-6 rounded-3xl font-black uppercase hover:bg-slate-50 transition-all shadow-lg flex items-center justify-center gap-3"
+            >
+              <span className="text-2xl">←</span> 
+              Modifier les réponses
+            </button>
+
+            <button 
+              onClick={() => {
+                window.scrollTo(0, 0);
+                setActiveTab("Priorités"); 
+              }} 
+              className="flex-1 bg-blue-600 text-white p-6 rounded-3xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3"
+            >
+              Définir les priorités
+              <span className="text-2xl">→</span>
+            </button>
+</div>
           </div>
           
         )}
