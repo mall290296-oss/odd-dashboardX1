@@ -491,7 +491,7 @@ function App() {
           <p className="text-slate-500 text-lg max-w-7xl leading-relaxed whitespace-pre-line">
             {`Bonjour !
               Dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune.
-              Si vous ne disposez pas de toutes les informations pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour.`}
+              Si vous ne disposez pas de toutes les données pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour. Ensuite, vous pouvez cocher la case « Passer au questionnaire ».`}
           </p>
              <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
               <div className="flex flex-col sm:flex-row items-end gap-4">
@@ -556,7 +556,9 @@ function App() {
         >
           {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
         </button>
-
+        <p className="text-slate-500 text-lg max-w-7xl leading-relaxed whitespace-pre-line">
+        {`N'oubliez pas d'enregistrer vos progrès dès le début et régulièrement !`}
+        </p>
         <button
           onClick={() => setActiveTab("Diagnostic")}
           className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
