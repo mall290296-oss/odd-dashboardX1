@@ -488,7 +488,7 @@ function App() {
 
         {activeTab === "Diagnostic" && (
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in">
-          <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Bienvenu/e!</h2>
+          <h2 className="text-5xl font-black italic uppercase underline decoration-blue-500 text-slate-900">Bienvenu(e)</h2>
           <p className="text-slate-500 text-lg max-w-7xl leading-relaxed whitespace-pre-line">
             {`Bonjour, dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune.
               Si vous ne disposez pas de toutes les données pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour. Ensuite, vous pouvez cocher la case « Passer au questionnaire ».`}
