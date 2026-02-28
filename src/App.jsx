@@ -556,12 +556,14 @@ function App() {
         >
           {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
         </button>
-        <p className="text-blue-600 font-black uppercase text-xs tracking-widest underline decoration-2 underline-offset-4"></p>
+        <p className="text-blue-600 font-black uppercase text-xs tracking-widest underline decoration-2 underline-offset-4">
+        {`N'oubliez pas d'enregistrer vos progrès dès le début et régulièrement !`}
+        </p>
         <button
           onClick={() => setActiveTab("Diagnostic")}
           className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
         >
-          Modifier Infos
+          Modifier les infos
         </button>
       </div>
     </div>
