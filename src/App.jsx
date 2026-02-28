@@ -487,10 +487,10 @@ function App() {
         )}
 
         {activeTab === "Diagnostic" && (
-          <div className="max-w-8xl mx-auto space-y-8 animate-in fade-in">
+          <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in">
           <p className="text-slate-500 text-lg max-w-3xl leading-relaxed whitespace-pre-line">
             {`Bonjour !
-
+            
             Dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune.
             
             Si vous ne disposez pas de toutes les informations pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour.`}
