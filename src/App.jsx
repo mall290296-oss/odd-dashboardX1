@@ -556,9 +556,7 @@ function App() {
         >
           {isSaving ? "Sauvegarde..." : "💾 Sauvegarder Cloud"}
         </button>
-        <p className="text-slate-500 text-lg max-w-7xl leading-relaxed whitespace-pre-line">
-        {`N'oubliez pas d'enregistrer vos progrès dès le début et régulièrement !`}
-        </p>
+        <p className="text-blue-600 font-black uppercase text-xs tracking-widest underline decoration-2 underline-offset-4"></p>
         <button
           onClick={() => setActiveTab("Diagnostic")}
           className="bg-slate-100 hover:bg-slate-200 px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-slate-600"
@@ -852,7 +850,7 @@ function App() {
               }} 
               className="flex-1 bg-blue-600 text-white p-6 rounded-3xl font-black uppercase shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3"
             >
-              Définir les priorités
+              Identifier les priorités
               <span className="text-2xl">→</span>
             </button>
 </div>
