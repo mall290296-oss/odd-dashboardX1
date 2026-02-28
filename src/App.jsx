@@ -488,7 +488,7 @@ function App() {
 
         {activeTab === "Diagnostic" && (
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in">
-            <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Bonjour! Dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune. Si vous ne disposez pas de toutes les informations pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour.</p>
+            <p className="text-slate-500 text-lg max-w-3xl leading-relaxed">Bonjour! \n Dans cette section, vous devez remplir tous les champs avec les informations relatives à votre commune. Si vous ne disposez pas de toutes les informations pour le moment, vous pouvez également écrire « NA » et revenir plus tard pour les mettre à jour.</p>
              <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
               <div className="flex flex-col sm:flex-row items-end gap-4">
                 <div>
