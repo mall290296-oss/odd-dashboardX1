@@ -6,22 +6,22 @@ import { db } from "./firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 
-// Configuration des couleurs style plateforme gouvernementale
+// Configuration des couleurs des blocs du diagnostique
 const SECTION_COLORS = {
   env: { 
-    bg: "bg-gradient-to-br from-emerald-500 to-emerald-700", 
-    hover: "hover:from-emerald-600 hover:to-emerald-800", 
-    progress: "bg-white/20" 
+    bg: "bg-gradient-to-br from-emerald-700 to-emerald-900", 
+    hover: "hover:from-emerald-800 hover:to-emerald-950", 
+    progress: "bg-black/20" 
   },
   soc: { 
-    bg: "bg-gradient-to-br from-pink-500 to-rose-600", 
-    hover: "hover:from-pink-600 hover:to-rose-700", 
-    progress: "bg-white/20" 
+    bg: "bg-gradient-to-br from-fuchsia-700 to-rose-900", 
+    hover: "hover:from-fuchsia-800 hover:to-rose-950", 
+    progress: "bg-black/20" 
   },
   eco: { 
-    bg: "bg-gradient-to-br from-orange-500 to-orange-700", 
-    hover: "hover:from-orange-600 hover:to-orange-800", 
-    progress: "bg-white/20" 
+    bg: "bg-gradient-to-br from-orange-700 to-amber-900", 
+    hover: "hover:from-orange-800 hover:to-amber-950", 
+    progress: "bg-black/20" 
   }
 };
 
