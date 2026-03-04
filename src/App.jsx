@@ -11,17 +11,17 @@ const SECTION_COLORS = {
   env: { 
     bg: "bg-gradient-to-br from-emerald-700 to-emerald-900", 
     hover: "hover:from-emerald-800 hover:to-emerald-950", 
-    progress: "bg-black/20" 
+    progress: "bg-white/10" 
   },
   soc: { 
-    bg: "bg-gradient-to-br from-fuchsia-700 to-rose-900", 
-    hover: "hover:from-fuchsia-800 hover:to-rose-950", 
-    progress: "bg-black/20" 
+    bg: "bg-gradient-to-br from-pink-700 to-pink-900", 
+    hover: "hover:from-pink-800 hover:to-pink-950", 
+    progress: "bg-white/10" 
   },
   eco: { 
-    bg: "bg-gradient-to-br from-orange-700 to-amber-900", 
-    hover: "hover:from-orange-800 hover:to-amber-950", 
-    progress: "bg-black/20" 
+    bg: "bg-gradient-to-br from-orange-700 to-orange-900", 
+    hover: "hover:from-orange-800 hover:to-orange-950", 
+    progress: "bg-white/10" 
   }
 };
 
