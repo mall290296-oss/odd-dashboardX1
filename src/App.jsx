@@ -822,6 +822,37 @@ function App() {
                   className="print:h-[500px]"
                 />
               </div>
+
+              <div className="mt-16 bg-white rounded-3xl border border-slate-200 p-8 break-inside-avoid">
+                <h3 className="text-2xl font-black uppercase mb-6">
+                  Tableau des résultats par ODD
+                </h3>
+
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-slate-100 text-slate-700 uppercase text-xs">
+                      <th className="p-3 text-left">ODD</th>
+                      <th className="p-3 text-left">Score</th>
+                      <th className="p-3 text-left">Niveau</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {oddScores.map((odd, index) => (
+                      <tr key={index} className="border-b">
+                        <td className="p-3 font-bold">{odd.label}</td>
+                        <td className="p-3">{odd.score.toFixed(2)}</td>
+                        <td className="p-3">
+                          {odd.score >= 4 && "Très avancé"}
+                          {odd.score >= 3 && odd.score < 4 && "Avancé"}
+                          {odd.score >= 2 && odd.score < 3 && "Intermédiaire"}
+                          {odd.score < 2 && "À renforcer"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
             </div>
             <div className="flex flex-col md:flex-row gap-6 mt-12 pt-10 border-t border-slate-200 print:hidden">
             <button 
