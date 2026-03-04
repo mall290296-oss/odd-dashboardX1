@@ -9,18 +9,15 @@ import { collection, getDocs } from "firebase/firestore";
 // Configuration des couleurs des blocs du diagnostique
 const SECTION_COLORS = {
   env: { 
-    bg: "bg-gradient-to-br from-emerald-600 to-emerald-800", 
-    hover: "hover:from-emerald-600 hover:to-emerald-750", 
+    bg: "bg-gradient-to-br from-emerald-600 to-emerald-800",  
     progress: "bg-black/20" 
   },
   soc: { 
     bg: "bg-gradient-to-br from-pink-500 to-pink-700", 
-    hover: "hover:from-pink-500 hover:to-pink-650", 
     progress: "bg-black/20" 
   },
   eco: { 
     bg: "bg-gradient-to-br from-orange-500 to-orange-700", 
-    hover: "hover:from-orange-500 hover:to-orange-650", 
     progress: "bg-black/20" 
   }
 };
