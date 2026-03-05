@@ -454,7 +454,23 @@ function App() {
       ];
     });
 
-    autoTable(pdf, {
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: "a4"
+    });
+
+    const imgWidth = 297;
+    const pageHeight = 210;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+    pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
+
+        autoTable(pdf, {
       startY: 160,
       head: [["ODD", "Score", "Niveau"]],
       body: tableData,
@@ -478,23 +494,6 @@ function App() {
         2: { halign: "center" }
       }
     });
-
-
-    const imgData = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF({
-      orientation: "landscape",
-      unit: "mm",
-      format: "a4"
-    });
-
-    const imgWidth = 297;
-    const pageHeight = 210;
-    const imgHeight = canvas.height * imgWidth / canvas.width;
-
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-
-    pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
   };
 
   return (
