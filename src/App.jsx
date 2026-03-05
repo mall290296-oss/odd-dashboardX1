@@ -6,6 +6,7 @@ import { db } from "./firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 // Configuration des couleurs des blocs du diagnostique
 const SECTION_COLORS = {
@@ -430,49 +431,31 @@ function App() {
     }
   };
 
-  const generatePDF = () => {
+  const generatePDF = async () => {
 
-    const doc = new jsPDF("landscape");
+    const input = document.getElementById("pdf-report");
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(28);
-    doc.text("RAPPORT DE DIAGNOSTIC", 20, 20);
-
-    doc.setFontSize(14);
-    doc.text(muralInfo["Nom de la commune"] || "Collectivité", 20, 30);
-
-    doc.setFontSize(60);
-    doc.text(globalScore.toString(), 20, 70);
-
-    doc.setFontSize(12);
-    doc.text("Score global / 5.0", 20, 80);
-
-    const leftColumn = oddScores.slice(0, 8);
-    const rightColumn = oddScores.slice(8, 17);
-
-    let y = 110;
-
-    leftColumn.forEach((odd) => {
-
-      doc.text(odd.label, 20, y);
-      doc.text(odd.score.toFixed(2), 60, y);
-
-      y += 10;
+    const canvas = await html2canvas(input, {
+      scale: 2,
+      useCORS: true
     });
 
-    y = 110;
+    const imgData = canvas.toDataURL("image/png");
 
-    rightColumn.forEach((odd) => {
-
-      doc.text(odd.label, 120, y);
-      doc.text(odd.score.toFixed(2), 160, y);
-
-      y += 10;
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: "a4"
     });
 
-    doc.save("diagnostic_ODD.pdf");
+    const imgWidth = 297;
+    const pageHeight = 210;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+    pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
   };
-
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200">
@@ -816,7 +799,7 @@ function App() {
 )}
 
         {activeTab === "Résultats" && (
-          <div className="space-y-12 animate-in slide-in-from-bottom-10">
+          <div id="pdf-report" className="space-y-12 animate-in slide-in-from-bottom-10">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end border-b-4 border-blue-600 pb-8 gap-6">
               <div className="flex items-center gap-6">
                 <div className="w-32 h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-2 shrink-0">
