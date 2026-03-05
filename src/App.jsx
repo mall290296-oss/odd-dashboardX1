@@ -441,7 +441,28 @@ function App() {
       useCORS: true
     });
 
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: "a4"
+    });
+
+    const imgWidth = 297;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    // PAGE 1 : Dashboard
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+    // PAGE 2 : Tableau
+    pdf.addPage();
+
+    pdf.setFontSize(20);
+    pdf.text("TABLEAU DES RÉSULTATS PAR ODD", 148, 20, { align: "center" });
+
     const tableData = oddScores.map(item => {
+
       let niveau = "Intermédiaire";
 
       if (item.score >= 4.2) niveau = "Très avancé";
@@ -454,24 +475,8 @@ function App() {
       ];
     });
 
-    const imgData = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF({
-      orientation: "landscape",
-      unit: "mm",
-      format: "a4"
-    });
-
-    const imgWidth = 297;
-    const pageHeight = 210;
-    const imgHeight = canvas.height * imgWidth / canvas.width;
-
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-
-    pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
-
-        autoTable(pdf, {
-      startY: 160,
+    autoTable(pdf, {
+      startY: 40,
       head: [["ODD", "Score", "Niveau"]],
       body: tableData,
 
@@ -479,7 +484,7 @@ function App() {
 
       styles: {
         fontSize: 10,
-        cellPadding: 4,
+        cellPadding: 4
       },
 
       headStyles: {
@@ -494,6 +499,8 @@ function App() {
         2: { halign: "center" }
       }
     });
+
+    pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
   };
 
   return (
