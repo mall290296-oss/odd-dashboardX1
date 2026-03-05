@@ -5,6 +5,7 @@ import questions from "./formulaire.json";
 import { db } from "./firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
+import jsPDF from "jspdf";
 
 // Configuration des couleurs des blocs du diagnostique
 const SECTION_COLORS = {
@@ -427,50 +428,51 @@ function App() {
       const updatedIdeas = citizenIdeas.filter((_, i) => i !== index);
       setCitizenIdeas(updatedIdeas);
     }
-
-    const generatePDF = () => {
-
-      const doc = new jsPDF("landscape");
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(28);
-      doc.text("RAPPORT DE DIAGNOSTIC", 20, 20);
-
-      doc.setFontSize(14);
-      doc.text(muralInfo["Nom de la commune"] || "Collectivité", 20, 30);
-
-      doc.setFontSize(60);
-      doc.text(globalScore.toString(), 20, 70);
-
-      doc.setFontSize(12);
-      doc.text("Score global / 5.0", 20, 80);
-
-      const leftColumn = oddScores.slice(0, 8);
-      const rightColumn = oddScores.slice(8, 17);
-
-      let y = 110;
-
-      leftColumn.forEach((odd) => {
-
-        doc.text(odd.label, 20, y);
-        doc.text(odd.score.toFixed(2), 60, y);
-
-        y += 10;
-      });
-
-      y = 110;
-
-      rightColumn.forEach((odd) => {
-
-        doc.text(odd.label, 120, y);
-        doc.text(odd.score.toFixed(2), 160, y);
-
-        y += 10;
-      });
-
-      doc.save("diagnostic_ODD.pdf");
-    };
   };
+
+  const generatePDF = () => {
+
+    const doc = new jsPDF("landscape");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.text("RAPPORT DE DIAGNOSTIC", 20, 20);
+
+    doc.setFontSize(14);
+    doc.text(muralInfo["Nom de la commune"] || "Collectivité", 20, 30);
+
+    doc.setFontSize(60);
+    doc.text(globalScore.toString(), 20, 70);
+
+    doc.setFontSize(12);
+    doc.text("Score global / 5.0", 20, 80);
+
+    const leftColumn = oddScores.slice(0, 8);
+    const rightColumn = oddScores.slice(8, 17);
+
+    let y = 110;
+
+    leftColumn.forEach((odd) => {
+
+      doc.text(odd.label, 20, y);
+      doc.text(odd.score.toFixed(2), 60, y);
+
+      y += 10;
+    });
+
+    y = 110;
+
+    rightColumn.forEach((odd) => {
+
+      doc.text(odd.label, 120, y);
+      doc.text(odd.score.toFixed(2), 160, y);
+
+      y += 10;
+    });
+
+    doc.save("diagnostic_ODD.pdf");
+  };
+
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200">
