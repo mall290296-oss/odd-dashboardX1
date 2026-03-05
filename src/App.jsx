@@ -433,6 +433,8 @@ function App() {
 
   const generatePDF = async () => {
 
+    <div id="pdf-report" className="bg-white p-12 print:p-0"></div>
+
     const input = document.getElementById("pdf-report");
 
     const canvas = await html2canvas(input, {
