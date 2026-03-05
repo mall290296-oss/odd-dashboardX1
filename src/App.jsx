@@ -7,6 +7,7 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import autoTable from "jspdf-autotable";
 
 // Configuration des couleurs des blocs du diagnostique
 const SECTION_COLORS = {
@@ -433,14 +434,51 @@ function App() {
 
   const generatePDF = async () => {
 
-    <div id="pdf-report" className="bg-white p-12 print:p-0"></div>
-
     const input = document.getElementById("pdf-report");
 
     const canvas = await html2canvas(input, {
       scale: 2,
       useCORS: true
     });
+
+    const tableData = oddScores.map(item => {
+      let niveau = "Intermédiaire";
+
+      if (item.score >= 4.2) niveau = "Très avancé";
+      else if (item.score >= 3.4) niveau = "Avancé";
+
+      return [
+        item.label,
+        item.score.toFixed(2),
+        niveau
+      ];
+    });
+
+    autoTable(pdf, {
+      startY: 160,
+      head: [["ODD", "Score", "Niveau"]],
+      body: tableData,
+
+      theme: "grid",
+
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+      },
+
+      headStyles: {
+        fillColor: [37, 99, 235],
+        textColor: 255,
+        fontStyle: "bold"
+      },
+
+      columnStyles: {
+        0: { halign: "center" },
+        1: { halign: "center" },
+        2: { halign: "center" }
+      }
+    });
+
 
     const imgData = canvas.toDataURL("image/png");
 
