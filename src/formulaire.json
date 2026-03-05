@@ -79,8 +79,8 @@
   },
   {
     "id": 7,
-    "question": "Q7 - État de la biodiversité et mesures de protection (ODD 15). Évalue l'existence d'inventaires de la biodiversité locale et la mise en œuvre de mesures de protection « trames vertes/bleues, refuges LPO ».",
-    "odds": [15],
+    "question": "Q7 - État de la biodiversité et mesures de protection (ODD 14, 15). Évalue l'existence d'inventaires de la biodiversité locale et la mise en œuvre de mesures de protection « trames vertes/bleues, refuges LPO ».",
+    "odds": [14, 15],
     "options": [
       { "val": 0, "text": "Aucune mesure de protection", "color": "rouge" },
       { "val": 1, "text": "Mesures ponctuelles sans inventaire ni suivi", "color": "orange" },
@@ -118,11 +118,11 @@
   },
   {
     "id": 10,
-    "question": "Q10 - Restauration collective durable (ODD 12, 13, 15) [cantines scolaires, EHPAD]. Pourcentage de produits bio, locaux ou issus du commerce équitable dans les repas servis par la commune « Cette question ne s'applique pas à vous ? Cochez la case orange ».",
+    "question": "Q10 - Restauration collective durable (ODD 2, 12, 13, 15) [cantines scolaires, EHPAD]. Pourcentage de produits bio, locaux ou issus du commerce équitable dans les repas servis par la commune « Cette question ne s'applique pas à vous ? Cochez la case orange ».",
     "isOptional": true,
     "replacementQuestion": {
       "id": 10,
-          "question": "Communes sans cantine. Politique nutritionnelle pour écoles/événements, proportion des établissements concernés.",
+          "question": "Communes sans cantine (ODD 2, 12, 13, 15). Politique nutritionnelle pour écoles/événements, proportion des établissements concernés.",
           "options": [
                   { "val": 0, "text": "0-10 %", "color": "rouge" },
                   { "val": 1, "text": "11 - 30 %", "color": "orange" },
@@ -131,9 +131,9 @@
                   { "val": 4, "text": "76 - 100 %", "color": "vert foncé" },
                   { "val": 0, "text": "Aucune donnée disponible", "color": "blanc" }
             ],
-          "odds": [12, 13, 15]
+          "odds": [2, 12, 13, 15]
       },
-    "odds": [12, 13, 15],
+    "odds": [2, 12, 13, 15],
     "options": [
       { "val": 0, "text": "0-10 %", "color": "rouge" },
       { "val": 1, "text": "11 - 30 %", "color": "orange" },
@@ -223,8 +223,8 @@
   },
   {
     "id": 17,
-    "question": "Q17 - Budgets alloués à la transition écologique (ODD 11, 13, 15). Pourcentage du budget municipal d'investissement dédié spécifiquement à des projets de transition écologique.",
-    "odds": [11, 13, 15],
+    "question": "Q17 - Budgets alloués à la transition écologique (ODD 11, 13, 14, 15). Pourcentage du budget municipal d'investissement dédié spécifiquement à des projets de transition écologique.",
+    "odds": [11, 13, 14, 15],
     "options": [
       { "val": 0, "text": "0 - 1 %", "color": "rouge" },
       { "val": 1, "text": "2 - 5 %", "color": "orange" },
@@ -315,8 +315,8 @@
   },
   {
     "id": 23,
-    "question": "Q23 - Santé et bien-être de la population (ODD 3). Pourcentage de la population ayant accès à des services municipaux de prévention, de sport ou de soutien psychologique.",
-    "odds": [3],
+    "question": "Q23 - Santé et bien-être de la population (ODD 2, 3). Pourcentage de la population ayant accès à des services municipaux de prévention, de sport ou de soutien psychologique.",
+    "odds": [2, 3],
     "options": [
       { "val": 0, "text": "0-10 %", "color": "rouge" },
       { "val": 1, "text": "11 - 30 %", "color": "orange" },
@@ -328,8 +328,8 @@
   },
   {
     "id": 24,
-    "question": "Q24 - Lutte contre la précarité et inclusion sociale (ODD 1, 10). Évalue l'efficacité des dispositifs d'aide sociale municipaux « CCAS » par rapport aux besoins identifiés.",
-    "odds": [1, 10],
+    "question": "Q24 - Lutte contre la précarité et inclusion sociale (ODD 1, 2, 10). Évalue l'efficacité des dispositifs d'aide sociale municipaux « CCAS » par rapport aux besoins identifiés.",
+    "odds": [1, 2, 10],
     "options": [
       { "val": 0, "text": "0-10 %", "color": "rouge" },
       { "val": 1, "text": "11 - 30 %", "color": "orange" },
@@ -510,11 +510,11 @@
   },
   {
     "id": 38,
-    "question": "Q38 - Développement du tourisme durable (ODD 8, 12, 15). Évalue les dispositifs municipaux de soutien au tourisme durable et à la préservation des sites naturels.",
+    "question": "Q38 - Développement du tourisme durable (ODD 8, 12, 14, 15). Évalue les dispositifs municipaux de soutien au tourisme durable et à la préservation des sites naturels.",
     "isOptional": true,
     "replacementQuestion": {
       "id": 10,
-          "question": "Communes sans école . Sur sensibilisation DD via événements culturels ou associatifs",
+          "question": "Communes sans turisme (ODD 4). Sur sensibilisation ODD via événements culturels ou associatifs",
           "options": [
                   { "val": 0, "text": "0-10 %", "color": "rouge" },
                   { "val": 1, "text": "11 - 30 %", "color": "orange" },
@@ -525,7 +525,7 @@
             ],
           "odds": [4]
       },
-    "odds": [8, 12, 15],
+    "odds": [8, 12, 14, 15],
     "options": [
       { "val": 0, "text": "Moins de 1 %", "color": "rouge" },
       { "val": 1, "text": "1 - 3 %", "color": "orange" },
