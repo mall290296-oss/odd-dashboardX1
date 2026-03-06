@@ -433,20 +433,12 @@ function App() {
   };
 
   const generatePDF = async () => {
+
     const input = document.getElementById("pdf-report");
 
-    // Correction : On ajoute des options pour mieux gérer le rendu des polices et le scroll
     const canvas = await html2canvas(input, {
       scale: 2,
-      useCORS: true,
-      logging: false,
-      letterRendering: true, // Aide à éviter la superposition des lettres
-      scrollY: -window.scrollY, // Évite les décalages si l'utilisateur a scrollé
-      onclone: (clonedDoc) => {
-        // Optionnel : on peut forcer un espacement ici uniquement pour le PDF
-        const scoreGlobal = clonedDoc.querySelector('.text-5xl.md\\:text-8xl'); 
-        if (scoreGlobal) scoreGlobal.style.marginBottom = "20px";
-      }
+      useCORS: true
     });
 
     const imgData = canvas.toDataURL("image/png");
@@ -458,52 +450,79 @@ function App() {
     });
 
     const imgWidth = 297;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
 
     // PAGE 1 : Dashboard
-    // On centre l'image verticalement si elle est moins haute que la page A4
-    const yOffset = imgHeight < 210 ? (210 - imgHeight) / 2 : 0;
-    pdf.addImage(imgData, "PNG", 0, yOffset, imgWidth, imgHeight);
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
 
     // PAGE 2 : Tableau
     pdf.addPage();
+
     pdf.setFontSize(22);
-    pdf.setTextColor(15, 23, 42); // Slate-900 pour plus de propreté
     pdf.text("TABLEAU DES RÉSULTATS PAR ODD", 148, 20, { align: "center" });
 
     const tableData = oddScores.map(item => {
+
       let niveau = "Intermédiaire";
+
       if (item.score >= 4.2) niveau = "Très avancé";
       else if (item.score >= 3.4) niveau = "Avancé";
 
-      return [item.label, item.score.toFixed(2), niveau];
+      return [
+        item.label,
+        item.score.toFixed(2),
+        niveau
+      ];
     });
 
-    const leftTable = tableData.slice(0, 9); // Ajusté à 9 pour équilibrer les 17 ODD
-    const rightTable = tableData.slice(9);
+    // Séparer les données
+    const leftTable = tableData.slice(0, 8);
+    const rightTable = tableData.slice(8);
 
-    const commonTableStyles = {
-      theme: "grid",
-      styles: { fontSize: 10, cellPadding: 4, halign: "center" },
-      headStyles: { fillColor: [37, 99, 235], textColor: 255, fontStyle: "bold" }
-    };
-
+    // TABLE GAUCHE
     autoTable(pdf, {
-      ...commonTableStyles,
       startY: 40,
       margin: { left: 20 },
       tableWidth: 120,
       head: [["ODD", "Score", "Niveau"]],
       body: leftTable,
+
+      theme: "grid",
+
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+        halign: "center"
+      },
+
+      headStyles: {
+        fillColor: [37, 99, 235],
+        textColor: 255,
+        fontStyle: "bold"
+      }
     });
 
+    // TABLE DROITE
     autoTable(pdf, {
-      ...commonTableStyles,
       startY: 40,
       margin: { left: 157 },
       tableWidth: 120,
       head: [["ODD", "Score", "Niveau"]],
       body: rightTable,
+
+      theme: "grid",
+
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+        halign: "center"
+      },
+
+      headStyles: {
+        fillColor: [37, 99, 235],
+        textColor: 255,
+        fontStyle: "bold"
+      }
     });
 
     pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
@@ -912,7 +931,7 @@ function App() {
 
               <table className="w-full text-sm border-collapse">
                 <thead>
-                  <tr className="bg-blue-600 text-slate-700 uppercase text-xs">
+                  <tr className="bg-blue-600 text-xl font-bold uppercase text-xs">
                     <th className="p-3 text-left">ODD</th>
                     <th className="p-3 text-left">Score</th>
                     <th className="p-3 text-left">Niveau</th>
