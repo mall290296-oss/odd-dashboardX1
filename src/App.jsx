@@ -438,7 +438,9 @@ function App() {
 
     const canvas = await html2canvas(input, {
       scale: 2,
-      useCORS: true
+      useCORS: true,
+      width: input.scrollWidth,
+      height: input.scrollHeight
     });
 
     const imgData = canvas.toDataURL("image/png");
@@ -451,18 +453,19 @@ function App() {
 
     const imgWidth = 297;
     const pageHeight = 210;
+
     let imgHeight = canvas.height * imgWidth / canvas.width;
 
-    if (imgHeight > pageHeight) {
-      imgHeight = pageHeight - 10;
+    if (imgHeight > pageHeight - 20) {
+      imgHeight = pageHeight - 20;
     }
 
     pdf.addImage(imgData, "PNG", 0, 10, imgWidth, imgHeight);
 
-    // PAGE 2 : Tableau
+    // PAGE 2
     pdf.addPage();
 
-    pdf.setFontSize(20);
+    pdf.setFontSize(22);
     pdf.text("TABLEAU DES RÉSULTATS PAR ODD", 148, 20, { align: "center" });
 
     const tableData = oddScores.map(item => {
@@ -479,28 +482,53 @@ function App() {
       ];
     });
 
+    // Séparer les données
+    const leftTable = tableData.slice(0, 8);
+    const rightTable = tableData.slice(8);
+
+    // TABLE GAUCHE
     autoTable(pdf, {
       startY: 40,
+      margin: { left: 20 },
+      tableWidth: 120,
       head: [["ODD", "Score", "Niveau"]],
-      body: tableData,
+      body: leftTable,
 
       theme: "grid",
 
       styles: {
         fontSize: 10,
-        cellPadding: 4
+        cellPadding: 4,
+        halign: "center"
       },
 
       headStyles: {
         fillColor: [37, 99, 235],
         textColor: 255,
         fontStyle: "bold"
+      }
+    });
+
+    // TABLE DROITE
+    autoTable(pdf, {
+      startY: 40,
+      margin: { left: 157 },
+      tableWidth: 120,
+      head: [["ODD", "Score", "Niveau"]],
+      body: rightTable,
+
+      theme: "grid",
+
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+        halign: "center"
       },
 
-      columnStyles: {
-        0: { halign: "center" },
-        1: { halign: "center" },
-        2: { halign: "center" }
+      headStyles: {
+        fillColor: [37, 99, 235],
+        textColor: 255,
+        fontStyle: "bold"
       }
     });
 
