@@ -458,7 +458,7 @@ function App() {
     // PAGE 2 : Tableau
     pdf.addPage();
 
-    pdf.setFontSize(20);
+    pdf.setFontSize(22);
     pdf.text("TABLEAU DES RÉSULTATS PAR ODD", 148, 20, { align: "center" });
 
     const tableData = oddScores.map(item => {
@@ -475,28 +475,53 @@ function App() {
       ];
     });
 
+    // Séparer les données
+    const leftTable = tableData.slice(0, 8);
+    const rightTable = tableData.slice(8);
+
+    // TABLE GAUCHE
     autoTable(pdf, {
       startY: 40,
+      margin: { left: 20 },
+      tableWidth: 120,
       head: [["ODD", "Score", "Niveau"]],
-      body: tableData,
+      body: leftTable,
 
       theme: "grid",
 
       styles: {
         fontSize: 10,
-        cellPadding: 4
+        cellPadding: 4,
+        halign: "center"
       },
 
       headStyles: {
         fillColor: [37, 99, 235],
         textColor: 255,
         fontStyle: "bold"
+      }
+    });
+
+    // TABLE DROITE
+    autoTable(pdf, {
+      startY: 40,
+      margin: { left: 157 },
+      tableWidth: 120,
+      head: [["ODD", "Score", "Niveau"]],
+      body: rightTable,
+
+      theme: "grid",
+
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+        halign: "center"
       },
 
-      columnStyles: {
-        0: { halign: "center" },
-        1: { halign: "center" },
-        2: { halign: "center" }
+      headStyles: {
+        fillColor: [37, 99, 235],
+        textColor: 255,
+        fontStyle: "bold"
       }
     });
 
@@ -848,9 +873,6 @@ function App() {
           <div id="pdf-report" className="space-y-12 animate-in slide-in-from-bottom-10">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end border-b-4 border-blue-600 pb-8 gap-6">
               <div className="flex items-center gap-6">
-                <div className="w-32 h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-2 shrink-0">
-                  <img src={LOGO_URL} alt="Polytechnique" className="w-full h-full object-contain" />
-                </div>
                 <div>
                   <h2 className="text-5xl font-black italic uppercase leading-tight text-slate-900">Rapport de Diagnostic</h2>
                   <p className="text-blue-600 font-black text-xl uppercase tracking-widest">{muralInfo["Nom de la commune"] || "Collectivité"}</p>
