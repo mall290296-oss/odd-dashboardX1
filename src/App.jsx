@@ -433,101 +433,80 @@ function App() {
   };
 
   const generatePDF = async () => {
-
     const input = document.getElementById("pdf-report");
 
+    // On capture le canvas avec une échelle élevée pour la netteté
     const canvas = await html2canvas(input, {
-      scale: 2,
-      useCORS: true
+      scale: 3, // Augmenté pour plus de précision
+      useCORS: true,
+      logging: false,
+      backgroundColor: "#ffffff"
     });
 
     const imgData = canvas.toDataURL("image/png");
-
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: "a4"
     });
 
+    // --- PAGE 1 : DASHBOARD ---
     const imgWidth = 297;
-    const imgHeight = canvas.height * imgWidth / canvas.width;
-
-    // PAGE 1 : Dashboard
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    
+    // On place l'image du dashboard
     pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
 
-    // PAGE 2 : Tableau
-    pdf.addPage();
+    /**
+     * ASTUCE ANTI-SUPERPOSITION : 
+     * On dessine un rectangle blanc par-dessus la zone de texte qui bugge 
+     * et on réécrit le texte proprement avec jsPDF
+     */
+    // 1. On couvre la zone du score qui se superpose (ajustez les coordonnées si besoin)
+    pdf.setFillColor(37, 99, 235); // Le bleu de votre carte (ajustez au bleu exact)
+    pdf.rect(15, 110, 80, 40, 'F'); 
 
+    // 2. On réécrit le score proprement
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(60);
+    // On récupère la valeur dynamiquement
+    const scoreValue = document.querySelector('.text-5xl.md\\:text-8xl')?.innerText || "0.00";
+    pdf.text(scoreValue, 50, 135, { align: "center" });
+
+    pdf.setFontSize(14);
+    pdf.text("SCORE GLOBAL / 5.0", 50, 145, { align: "center" });
+
+    // --- PAGE 2 : TABLEAU ---
+    pdf.addPage();
     pdf.setFontSize(22);
+    pdf.setTextColor(15, 23, 42);
     pdf.text("TABLEAU DES RÉSULTATS PAR ODD", 148, 20, { align: "center" });
 
     const tableData = oddScores.map(item => {
-
       let niveau = "Intermédiaire";
-
       if (item.score >= 4.2) niveau = "Très avancé";
       else if (item.score >= 3.4) niveau = "Avancé";
-
-      return [
-        item.label,
-        item.score.toFixed(2),
-        niveau
-      ];
+      return [item.label, item.score.toFixed(2), niveau];
     });
 
-    // Séparer les données
-    const leftTable = tableData.slice(0, 8);
-    const rightTable = tableData.slice(8);
+    // 9 lignes à gauche, le reste à droite
+    const leftTable = tableData.slice(0, 9);
+    const rightTable = tableData.slice(9);
 
-    // TABLE GAUCHE
-    autoTable(pdf, {
-      startY: 40,
-      margin: { left: 20 },
-      tableWidth: 120,
-      head: [["ODD", "Score", "Niveau"]],
-      body: leftTable,
-
+    const tableConfig = {
       theme: "grid",
+      styles: { fontSize: 10, cellPadding: 4, halign: "center" },
+      headStyles: { fillColor: [37, 99, 235], textColor: 255, fontStyle: "bold" },
+      startY: 40
+    };
 
-      styles: {
-        fontSize: 10,
-        cellPadding: 4,
-        halign: "center"
-      },
-
-      headStyles: {
-        fillColor: [37, 99, 235],
-        textColor: 255,
-        fontStyle: "bold"
-      }
-    });
-
-    // TABLE DROITE
-    autoTable(pdf, {
-      startY: 40,
-      margin: { left: 157 },
-      tableWidth: 120,
-      head: [["ODD", "Score", "Niveau"]],
-      body: rightTable,
-
-      theme: "grid",
-
-      styles: {
-        fontSize: 10,
-        cellPadding: 4,
-        halign: "center"
-      },
-
-      headStyles: {
-        fillColor: [37, 99, 235],
-        textColor: 255,
-        fontStyle: "bold"
-      }
-    });
+    autoTable(pdf, { ...tableConfig, body: leftTable, margin: { left: 20 }, tableWidth: 120, head: [["ODD", "Score", "Niveau"]] });
+    autoTable(pdf, { ...tableConfig, body: rightTable, margin: { left: 157 }, tableWidth: 120, head: [["ODD", "Score", "Niveau"]] });
 
     pdf.save(`Diagnostic_${muralInfo["Nom de la commune"] || "Collectivite"}.pdf`);
   };
-
+  
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200">
       <nav className="border-b border-slate-200 px-8 py-4 sticky top-0 bg-white/90 backdrop-blur-md z-50 shadow-sm print:hidden">
@@ -931,7 +910,7 @@ function App() {
 
               <table className="w-full text-sm border-collapse">
                 <thead>
-                  <tr className="bg-blue-600 text-xl font-bold uppercase text-xs">
+                  <tr className="bg-blue-600 text-white font-bold uppercase text-xs">
                     <th className="p-3 text-left">ODD</th>
                     <th className="p-3 text-left">Score</th>
                     <th className="p-3 text-left">Niveau</th>
