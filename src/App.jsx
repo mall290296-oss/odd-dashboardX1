@@ -438,7 +438,9 @@ function App() {
 
     const canvas = await html2canvas(input, {
       scale: 2,
-      useCORS: true
+      useCORS: true,
+      width: input.scrollWidth,
+      height: input.scrollHeight
     });
 
     const imgData = canvas.toDataURL("image/png");
