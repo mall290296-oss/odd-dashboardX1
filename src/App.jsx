@@ -450,10 +450,14 @@ function App() {
     });
 
     const imgWidth = 297;
-    const imgHeight = canvas.height * imgWidth / canvas.width;
+    const pageHeight = 210;
+    let imgHeight = canvas.height * imgWidth / canvas.width;
 
-    // PAGE 1 : Dashboard
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    if (imgHeight > pageHeight) {
+      imgHeight = pageHeight - 10;
+    }
+
+    pdf.addImage(imgData, "PNG", 0, 10, imgWidth, imgHeight);
 
     // PAGE 2 : Tableau
     pdf.addPage();
