@@ -533,14 +533,6 @@ function App() {
         {activeTab === "Accueil" && (
           <div className="text-center py-20 space-y-8 animate-in fade-in duration-1000">
             <div className="flex justify-center mb-4">
-              {/* Modification ici : suppression du fond blanc, de l'ombre et agrandissement de la taille */}
-              <div className="w-64 h-64 md:w-80 md:h-80 flex items-center justify-center p-2">
-                <img 
-                  src="https://www.walhain.be/ma-commune/administration-communale/media/odd-roue-1.png/@@images/ba86ee5b-8379-4d97-bfbf-08acbae0a49a.png" 
-                  alt="ODD Logo"
-                  className="w-full h-full object-contain" // Assure que l'image occupe tout l'espace proprement
-                />
-              </div>
             </div>
             
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-blue-600">ODD-X</h1>
